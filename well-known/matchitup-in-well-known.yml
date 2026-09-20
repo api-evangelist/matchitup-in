@@ -1,0 +1,116 @@
+generated: '2026-09-19'
+method: probed
+source: live probes of /.well-known/ on every Match It Up host (apex, www, and the API/MCP/A2A/docs host — all the same origin)
+summary: >-
+  Four real documents are served, all on the apex host: the A2A agent card (agent-card.json), an MCP discovery
+  manifest (mcp.json), a W3C DID document (did.json) and a registration manifest (agent-registration.json).
+  That is a genuine WellKnown hit and the pointer is earned. Nothing RFC 9116 / OAuth / OIDC is served: no
+  security.txt (so NO SecurityTxt pointer), no openid-configuration, no oauth-authorization-server, no
+  oauth-protected-resource, no api-catalog, no ai-plugin.json, and no legacy agent.json. The MCP server lives
+  on the same host (https://matchitup.in/api/mcp), so the RFC 9728 protected-resource probe was made on the
+  host that would carry it and it is absent — the MCP server authenticates with a static API key, not OAuth.
+pointer_basis: >-
+  WellKnown pointer emitted on the strength of the four 200s on matchitup.in. SecurityTxt pointer NOT emitted
+  (404). No OAuth/OIDC discovery exists, so protected_resource_metadata / dynamic_client_registration /
+  delegated_identity are honestly absent for this provider.
+false_positive_watch: >-
+  The React SPA at the site root answers 200 with the app shell for every non-API path
+  (/nonexistent-ae-control-7f3a -> 200, 9,215 bytes), but the /.well-known/ namespace is routed to the API,
+  which returns a real JSON 404 envelope for unknown paths — confirmed with a negative control. Every 200
+  below was checked to be a parsed JSON document, not the shell.
+hosts:
+- host: https://matchitup.in
+  role: registrable domain; also the OpenAPI servers[] host, the MCP host (/api/mcp), the A2A JSON-RPC host (/api/a2a-rpc) and the docs host
+  documents:
+  - path: /.well-known/agent-card.json
+    status: 200
+    content_type: application/json; charset=utf-8
+    bytes: 7380
+    file: matchitup-in-agent-card.json
+    note: A2A agent card; graded in a2a/matchitup-in-a2a.yml.
+  - path: /.well-known/mcp.json
+    status: 200
+    content_type: application/json; charset=utf-8
+    bytes: 4607
+    file: matchitup-in-mcp.json
+    note: MCP discovery manifest — mcp_endpoint https://matchitup.in/api/mcp, transport streamable_http, bearer API-key auth, registration URL, tool categories.
+  - path: /.well-known/did.json
+    status: 200
+    content_type: application/json; charset=utf-8
+    bytes: 1406
+    file: matchitup-in-did.json
+    note: W3C DID document for did:web:matchitup.in; service[] lists NetworkBotProtocol, A2AMessaging (two endpoints), JsonWebKeySet2020, ModelContextProtocol, AgentCard, AgentRegistry. verificationMethod is an empty array.
+  - path: /.well-known/agent-registration.json
+    status: 200
+    content_type: application/json; charset=utf-8
+    bytes: 9423
+    file: matchitup-in-agent-registration.json
+    note: Provider-specific registration manifest (endpoint, required fields, example payload, auth scheme, claim flow). Not a standard well-known name.
+  - path: /.well-known/jwks.json
+    status: 301
+    note: Redirects; the docs say the JWKS is served at /api/agent/jwks.json (200, Ed25519 OKP keys, kid = agent_id).
+  - path: /.well-known/agent.json
+    status: 404
+    body: '{"error":{"code":"NOT_FOUND","message":"Not Found","type":"not_found",...}}'
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/apis.json
+    status: 404
+  - path: /.well-known/nonexistent-ae-control-7f3a.json
+    status: 404
+    note: Negative control.
+- host: https://www.matchitup.in
+  role: www alias — serves the same content as the apex without redirecting
+  documents:
+  - path: /.well-known/agent-card.json
+    status: 200
+    content_type: application/json; charset=utf-8
+    bytes: 7380
+    file: matchitup-in-agent-card.json
+    note: Byte-identical to the apex copy.
+  - path: /.well-known/mcp.json
+    status: 200
+    content_type: application/json; charset=utf-8
+    bytes: 4607
+    file: matchitup-in-mcp.json
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+unresolved_hosts:
+- host: api.matchitup.in
+  result: NXDOMAIN
+- host: mcp.matchitup.in
+  result: NXDOMAIN
+- host: docs.matchitup.in
+  result: NXDOMAIN
+other_discovery_documents:
+- url: https://matchitup.in/networkbot-agentfacts.json
+  status: 200
+  note: AgentFacts document referenced from the agent card's additionalInterfaces (version 3.4.0 — one release behind the card).
+- url: https://matchitup.in/robots.txt
+  status: 200
+  note: Names the MCP server, agent-instructions.md, llms.txt, /api/docs/content and /api/docs/version as machine-readable entry points and explicitly allows GPTBot, ClaudeBot, Claude-Web, anthropic-ai, PerplexityBot, CCBot, Google-Extended and Applebot-Extended.
+- url: https://matchitup.in/llms.txt
+  status: 200
+  note: Saved verbatim to llms/matchitup-in-llms.txt.

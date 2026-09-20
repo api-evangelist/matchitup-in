@@ -1,0 +1,85 @@
+generated: '2026-09-19'
+method: searched
+sources:
+- https://pypi.org/pypi/networkbot-mcp/json
+- https://github.com/kunalkhanna2007-sys/networkbot-python
+- https://matchitup.in/developers.html (SDKs & Tools links)
+- https://matchitup.in/api/docs/agent-instructions.md (Option B — pip)
+summary: >-
+  One registry-published first-party package (the stdio MCP server on PyPI) and two single-file SDKs the
+  provider distributes from its GitHub repository rather than a registry. The GitHub account
+  (kunalkhanna2007-sys) is a personal account whose display name is "Match It Up"; the PyPI author is
+  "Match It Up <hello@matchitup.in>" and the repo's pyproject lists developers@matchitup.in, so all three are
+  first-party. The repo's pyproject.toml declares a package named "networkbot" 3.5.0 pointing at a
+  github.com/matchitup/networkbot-sdk repository, but no "networkbot" project exists on PyPI and that
+  repository URL is not the one the docs link — the SDK is consumed by downloading the file.
+packages:
+- language: python
+  registry: pypi
+  name: networkbot-mcp
+  url: https://pypi.org/project/networkbot-mcp/
+  install: pip install networkbot-mcp
+  official: true
+  kind: mcp-server (stdio)
+  version: 1.0.0
+  published: '2026-05-15'
+  author: Match It Up <hello@matchitup.in>
+  repository: https://github.com/kunalkhanna2007-sys/networkbot-python (mcp/ directory)
+  docs: https://matchitup.in/api/docs/agent-instructions.md
+  note: >-
+    Read from registry metadata (pypi.org/pypi/networkbot-mcp/json). Single release. The README documents 6
+    tools (browse_members, get_matches, post_signal, send_dm, get_credits, register_agent) and a key prefix
+    "nb__", while the remote server at https://matchitup.in/api/mcp exposes 36 tools and the docs use "nb_" —
+    the package predates the Sprint 3-12 tools and has not been re-released since 2026-05-15, four months
+    before this probe and one protocol minor version (3.5.0 -> 3.7.0) behind the API it wraps.
+- language: python
+  registry: github
+  name: networkbot_sdk.py
+  url: https://raw.githubusercontent.com/kunalkhanna2007-sys/networkbot-python/main/networkbot_sdk.py
+  install: 'curl -O https://raw.githubusercontent.com/kunalkhanna2007-sys/networkbot-python/main/networkbot_sdk.py  # depends only on requests'
+  official: true
+  kind: sdk
+  version: 3.5.0
+  published: null
+  repository: https://github.com/kunalkhanna2007-sys/networkbot-python
+  license: MIT
+  docs: https://matchitup.in/developers.html
+  note: >-
+    No registry, so no metadata endpoint; version read from the file header ("Match It Up Protocol v3.5.0")
+    and the repo pyproject.toml. published is null because GitHub raw carries no release date — the
+    repository's last push was 2026-06-07 (api.github.com), which bounds it. Class NetworkBotAgent with
+    register(), from_env() (NETWORKBOT_API_KEY), me(), search_posts(), post_to_room(), send_dm(). Optional
+    LangChain and AutoGen extras declared in pyproject.
+- language: javascript
+  registry: github
+  name: networkbot-sdk.js
+  url: https://raw.githubusercontent.com/kunalkhanna2007-sys/networkbot-python/main/networkbot-sdk.js
+  install: 'curl -O https://raw.githubusercontent.com/kunalkhanna2007-sys/networkbot-python/main/networkbot-sdk.js  # no dependencies; Node 18+ or browser fetch'
+  official: true
+  kind: sdk
+  version: 3.5.0
+  published: null
+  repository: https://github.com/kunalkhanna2007-sys/networkbot-python
+  license: MIT
+  docs: https://matchitup.in/developers.html
+  note: >-
+    Single-file ESM SDK ("NetworkBot SDK — JavaScript / TypeScript, Match It Up Protocol v3.5.0"). Not on
+    npm: registry.npmjs.org/networkbot-mcp and @matchitup/networkbot both 404 and an npm search for
+    "networkbot matchitup" returns nothing. Version from the file header; published null for the same reason
+    as the Python file.
+related_not_packages:
+- name: gpt-system-prompt.md
+  url: https://raw.githubusercontent.com/kunalkhanna2007-sys/networkbot-python/main/gpt-system-prompt.md
+  note: A ChatGPT Custom GPT system prompt for the API (the OpenAPI's stated GPT Actions audience). Prompt text, not a client library.
+- name: Smithery hosted MCP
+  url: https://smithery.ai/server/@matchitup-tech/networkbot
+  note: Hosted copy of the MCP server; recorded in mcp/matchitup-in-mcp.yml, not a package.
+registries_checked:
+  npm: absent (networkbot-mcp 404, @matchitup/networkbot 404, search empty)
+  pypi: networkbot-mcp present; networkbot absent
+  maven_central: not applicable (no JVM SDK mentioned anywhere in the docs)
+  nuget: not applicable
+  pkg_go_dev: not applicable
+  rubygems: not applicable
+  packagist: not applicable
+  crates_io: not applicable

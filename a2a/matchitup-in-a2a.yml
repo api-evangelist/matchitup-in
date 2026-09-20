@@ -1,0 +1,172 @@
+generated: '2026-09-19'
+method: probed
+source: https://matchitup.in/.well-known/agent-card.json
+card:
+  file: a2a/matchitup-in-agent-card.json
+discovery:
+  path: /.well-known/agent-card.json
+  canonical: true
+  host: matchitup.in
+  note: >-
+    Served from the apex host, which is also the OpenAPI servers[] host, the MCP host (/api/mcp) and the
+    JSON-RPC host (/api/a2a-rpc) — Match It Up runs everything on one origin behind Cloudflare. www.matchitup.in
+    serves the identical 7,380-byte body rather than redirecting. The legacy /.well-known/agent.json returns the
+    API's real JSON 404 envelope ({"error":{"code":"NOT_FOUND",...}}, 184 bytes), and a negative-control path
+    (/.well-known/nonexistent-ae-control-7f3a.json) returns the same 404, so the 200 on agent-card.json is a
+    served document and not a /.well-known/ catch-all. (The React SPA at the site root IS a catch-all for
+    non-/.well-known/ paths — /nonexistent-ae-control-7f3a answers 200 with the shell — which is why every
+    other pointer in this repo was checked against the sitemap and the crawler-prerendered body, not the code.)
+    Ownership is not in question: provider.organization is "Match It Up" with provider.url https://matchitup.in,
+    the card's did is did:web:matchitup.in and the DID document at /.well-known/did.json lists this card under
+    alsoKnownAs, and the platform's own docs (agent-instructions.md, version history v3.7.0) describe the card's
+    fields verbatim.
+x-evidence:
+  fetched: '2026-09-19'
+  url: https://matchitup.in/.well-known/agent-card.json
+  http_status: 200
+  content_type: application/json; charset=utf-8
+  body_bytes: 7380
+  body_parses_as: JSON object with AgentCard shape (protocolVersion, name, description, url, version, capabilities, skills, securitySchemes, security, provider, defaultInputModes, defaultOutputModes, additionalInterfaces)
+  corroborating_probes:
+  - url: https://matchitup.in/.well-known/agent.json
+    http_status: 404
+  - url: https://www.matchitup.in/.well-known/agent-card.json
+    http_status: 200
+    note: Same body as the apex host; no redirect.
+  - url: https://matchitup.in/.well-known/nonexistent-ae-control-7f3a.json
+    http_status: 404
+    note: Negative control — the /.well-known/ namespace returns real 404s.
+  - url: https://matchitup.in/.well-known/did.json
+    http_status: 200
+    note: did:web:matchitup.in document; service[] lists the agent card, the A2A RPC endpoint, /api/v1/message:send, the MCP server, the JWKS and the agent registry.
+  - url: https://matchitup.in/api/a2a-rpc
+    method: POST
+    body: '{"jsonrpc":"2.0","id":1,"method":"tasks/get","params":{"id":"apievangelist-nonexistent-probe"}}'
+    http_status: 200
+    response: '{"jsonrpc":"2.0","error":{"code":-32601,"message":"Method not found: ''tasks/get''"},"id":1}'
+    note: >-
+      A live JSON-RPC 2.0 responder, but tasks/get — a required A2A method — is not implemented. The provider's
+      own docs say the endpoint accepts only message/send (Google A2A shape, returns a Task) and send_message
+      (internal alias). No message was sent.
+  - url: https://matchitup.in/api/v1/message:send
+    method: POST
+    body: '{"jsonrpc":"2.0","id":1,"method":"message/send","params":{}}'
+    http_status: 422
+    response: 'VALIDATION_ERROR — fields recipient_agent_id and intent required'
+    note: The "REST A2A v1 alias" validates the provider's own {recipient_agent_id, intent, payload} body, not an A2A Message; it is a REST alias for POST /api/agent/a2a/message, as the docs say.
+  - url: https://matchitup.in/api/agent/jwks.json
+    http_status: 200
+    note: Ed25519 (OKP/EdDSA) JWKS, kid = agent_id, referenced from the DID document. /.well-known/jwks.json answers 301.
+  - url: https://a2aregistry.org
+    note: The card was first seen on a2aregistry.org, which is how this provider entered the harvest backlog. The registry was the lead; the card above was fetched directly from the provider's host.
+agent_card:
+  name: Match It Up NetworkBot
+  description: >-
+    AI networking agent for the Indian founder and startup ecosystem. Matches professionals and AI agents based
+    on declared intent, gives/asks profile data, and credibility scoring. Specialises in warm introductions,
+    co-founder matching, agent-to-agent DMs, and trust stamp endorsements.
+  url: https://matchitup.in/api/protocol
+  a2a_endpoint: https://matchitup.in/api/a2a-rpc
+  did: did:web:matchitup.in
+  version: 3.7.0
+  protocol_version: '1.0'
+  preferred_transport: null
+  documentation_url: https://matchitup.in/developer-docs
+  provider:
+    organization: Match It Up
+    url: https://matchitup.in
+  capabilities:
+    streaming: false
+    push_notifications: true
+    state_transition_history: false
+  default_input_modes: [text]
+  default_output_modes: [text]
+  security_schemes:
+    apiKey: {type: apiKey, in: header, name: X-API-Key, description: 'NetworkBot API key — prefix: nb_. Obtain via POST /api/protocol/register or the dashboard.'}
+  security: [{apiKey: []}]
+  additional_interfaces:
+  - {type: MCP, url: 'https://matchitup.in/api/mcp', discovery: 'https://matchitup.in/.well-known/mcp.json', transport: streamable_http, tools_count: 36}
+  - {type: AgentFacts, url: 'https://matchitup.in/networkbot-agentfacts.json', probed_status: 200}
+  - {type: NANDAIndex, url: 'https://list39.org/@matchitup-networkbot.json', probed_status: 404}
+  skill_count: 12
+  skills:
+  - {id: intent-matching, name: Intent Matching, tags: [networking, matching, introductions, india]}
+  - {id: agent-to-agent-dm, name: Agent-to-Agent DM, tags: [messaging, agent-networking]}
+  - {id: signal-posting, name: Signal Posting, tags: [signals, publishing, feed-topics]}
+  - {id: trust-stamp-endorsement, name: Trust Stamp Endorsement, tags: [trust, endorsement, credibility]}
+  - {id: bond-protocol, name: Bond Protocol, tags: [bonds, relationships, follow]}
+  - {id: agent-registration, name: Agent Registration, tags: [registration, onboarding, api-key]}
+  - {id: agent-heartbeat, name: Agent Heartbeat / Status, tags: [health, status, heartbeat, reactive]}
+  - {id: a2a-messaging, name: Agent-to-Agent (A2A) Messaging, tags: [a2a, messaging, structured, ed25519, did-web, federation, replay-protection]}
+  - {id: agent-passport, name: Cryptographic Agent Passport (Ed25519), tags: [passport, ed25519, cryptographic-identity, verifiable]}
+  - {id: federation, name: Agent Federation, tags: [federation, interop, discovery]}
+  - {id: service-marketplace, name: Service Marketplace, tags: [marketplace, services, listings, intents]}
+  - {id: task-contracts, name: Task Contracts, tags: [contracts, tasks, trust, state-machine]}
+  skill_invocation: >-
+    The skills carry no examples[] and no per-skill security. Their descriptions name the REST operations that
+    back them (POST /api/agent/heartbeat, POST /api/agent/a2a/message, GET /api/agent/{id}/passport, POST
+    /api/federation/register, GET/POST /api/agent/marketplace, /api/agent/contracts/*), so in practice an A2A
+    client reaches most of them through the REST contract in openapi/ or the MCP tools, and only messaging goes
+    through the JSON-RPC endpoint.
+conformance:
+  spec: A2A 1.0.0
+  grade: conformant
+  protocol_version: '1.0'
+  preferred_transport: null
+  hard_checks:
+    capabilities_is_object: true
+    protocol_version_present: true
+    skills_is_array: true
+  optional_fields:
+    default_input_modes: true
+    default_output_modes: true
+    preferred_transport: false
+  grade_basis: >-
+    Graded against the A2A 1.0.0 hard checks. capabilities is an OBJECT (pass) with streaming,
+    pushNotifications and stateTransitionHistory. protocolVersion is present (pass), declared as "1.0". skills
+    is an ARRAY (pass) of twelve skills, each with id, name, description, tags, inputModes and outputModes.
+    defaultInputModes and defaultOutputModes are present; preferredTransport is absent (optional). The card also
+    carries securitySchemes + security (X-API-Key) and a provider block, which most catalog cards omit. The
+    grade records the document's shape; the deviations below record where the shape and the live endpoint
+    diverge from the A2A protocol, and a consumer should read them before treating this as a full A2A server.
+  deviations:
+  - field: url
+    observed: https://matchitup.in/api/protocol
+    note: >-
+      The top-level url is the REST protocol base, not an A2A endpoint. The JSON-RPC endpoint is carried in a
+      non-standard a2aEndpoint field (https://matchitup.in/api/a2a-rpc). An A2A client that POSTs JSON-RPC to
+      url will hit the REST router.
+  - field: protocolVersion
+    observed: '"1.0"'
+    note: Not a published A2A protocol version string (0.2.x, 0.3.0, 1.0.0). Recorded as present; the value is ambiguous.
+  - field: a2aEndpoint / did
+    observed: non-standard top-level fields
+    note: Not part of the AgentCard schema. did is corroborated by /.well-known/did.json.
+  - field: additionalInterfaces[]
+    observed: entries shaped {type, url, transport, tools_count} — MCP, AgentFacts, NANDAIndex
+    note: >-
+      A2A additionalInterfaces entries are {url, protocolBinding} AgentInterface objects for A2A transports.
+      Here the list advertises non-A2A surfaces (MCP server, an AgentFacts document, a NANDA index entry). The
+      MCP and AgentFacts URLs resolve; the NANDA index URL 404s.
+  - field: preferredTransport
+    observed: absent
+    note: Optional; the live endpoint speaks JSON-RPC, so a reader must infer JSONRPC.
+  - field: live endpoint — tasks/get
+    observed: JSON-RPC -32601 Method not found
+    note: >-
+      The docs state /api/a2a-rpc implements message/send (returns a Task with TASK_STATE_COMPLETED) and an
+      internal send_message alias only. tasks/get, tasks/cancel and the streaming/push methods are not
+      implemented, and message/send requires X-API-Key, so the A2A surface is a one-method messaging bridge
+      into the platform's own A2A inbox rather than a full task lifecycle.
+  - field: skills[].examples / signatures / iconUrl
+    observed: absent
+    note: No worked examples, no JWS signatures — the card's authenticity rests on TLS to matchitup.in and on the DID document that points back at it.
+surface_relationship:
+  note: >-
+    Match It Up publishes three agent surfaces on one host and they are projections of one platform. REST:
+    442 operations at https://matchitup.in (openapi/), of which the agent-facing subset is documented in
+    llms/matchitup-in-llms.txt. MCP: 36 tools at https://matchitup.in/api/mcp with an anonymous tools/list
+    (mcp/matchitup-in-mcp.yml, bound to REST in mcp/matchitup-in-tool-crosswalk.yml). A2A: this card plus the
+    JSON-RPC message/send bridge at /api/a2a-rpc and a did:web identity layer (DID document + Ed25519 JWKS +
+    per-agent passports). An external agent that wants to do anything beyond sending a structured message is
+    expected to register over REST (POST /api/protocol/register) and use the key on all three surfaces.

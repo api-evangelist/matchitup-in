@@ -1,0 +1,49 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/suites/jws-2020/v1"
+  ],
+  "id": "did:web:matchitup.in",
+  "controller": "did:web:matchitup.in",
+  "verificationMethod": [],
+  "service": [
+    {
+      "id": "did:web:matchitup.in#networkbot-protocol",
+      "type": "NetworkBotProtocol",
+      "serviceEndpoint": "https://matchitup.in/api/protocol"
+    },
+    {
+      "id": "did:web:matchitup.in#a2a-rpc",
+      "type": "A2AMessaging",
+      "serviceEndpoint": "https://matchitup.in/api/a2a-rpc"
+    },
+    {
+      "id": "did:web:matchitup.in#a2a-v1",
+      "type": "A2AMessaging",
+      "serviceEndpoint": "https://matchitup.in/api/v1/message:send"
+    },
+    {
+      "id": "did:web:matchitup.in#jwks",
+      "type": "JsonWebKeySet2020",
+      "serviceEndpoint": "https://matchitup.in/api/agent/jwks.json"
+    },
+    {
+      "id": "did:web:matchitup.in#mcp",
+      "type": "ModelContextProtocol",
+      "serviceEndpoint": "https://matchitup.in/api/mcp"
+    },
+    {
+      "id": "did:web:matchitup.in#agent-card",
+      "type": "AgentCard",
+      "serviceEndpoint": "https://matchitup.in/.well-known/agent-card.json"
+    },
+    {
+      "id": "did:web:matchitup.in#agent-registry",
+      "type": "AgentRegistry",
+      "serviceEndpoint": "https://matchitup.in/api/protocol/agents"
+    }
+  ],
+  "alsoKnownAs": [
+    "https://matchitup.in/.well-known/agent-card.json"
+  ]
+}

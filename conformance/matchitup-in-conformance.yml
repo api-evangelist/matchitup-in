@@ -1,0 +1,116 @@
+generated: '2026-09-19'
+method: probed
+sources:
+- openapi/matchitup-in-openapi.yml (https://matchitup.in/openapi.json)
+- https://matchitup.in/.well-known/agent-card.json (probed 200)
+- https://matchitup.in/.well-known/did.json (probed 200)
+- https://matchitup.in/api/agent/jwks.json (probed 200)
+- https://matchitup.in/api/mcp (POST initialize + tools/list, probed 200)
+- https://matchitup.in/api/a2a-rpc (POST tasks/get, probed — JSON-RPC -32601)
+- https://matchitup.in/api/docs/agent-instructions.md
+summary: >-
+  Match It Up's market is agent-to-agent networking, and the contract declares the three standards that market
+  actually uses — MCP, A2A and W3C DID — in the contract itself (paths /api/mcp, /api/a2a-rpc,
+  /api/agent/{id}/did.json in the OpenAPI; the agent card and DID document on /.well-known/). MCP conformance
+  was verified live; A2A is a partial implementation (message/send only); the DID document validates against
+  DID Core shape but publishes no verificationMethod. Nothing OAuth/OIDC/RFC 9457 is implemented.
+standards:
+- id: mcp
+  name: Model Context Protocol (2024-11-05)
+  conforms: true
+  evidence: >-
+    POST https://matchitup.in/api/mcp initialize returned protocolVersion "2024-11-05", capabilities {tools: {}},
+    serverInfo NetworkBot 1.1.0; tools/list returned 36 tools with JSON Schema inputSchema (2026-09-19). GET on
+    the same path returns a status document naming "MCP Streamable HTTP". OpenAPI paths /api/mcp GET/POST/DELETE
+    (operationIds mcp_info_api_mcp_get, mcp_endpoint_api_mcp_post, mcp_delete_session_api_mcp_delete).
+  domain_standard: true
+- id: a2a
+  name: Agent2Agent protocol (agent card + JSON-RPC message/send)
+  conforms: partial
+  evidence: >-
+    Agent card at /.well-known/agent-card.json grades conformant on the A2A 1.0.0 hard checks (capabilities
+    object, protocolVersion present, skills array) — see a2a/matchitup-in-a2a.yml. POST /api/a2a-rpc
+    (operationId a2a_json_rpc_api_a2a_rpc_post) is a JSON-RPC 2.0 responder; docs state it implements
+    message/send returning a Task with TASK_STATE_COMPLETED. Probe of tasks/get returned -32601 Method not
+    found, so the task lifecycle methods are absent; the card's url field points at the REST base rather than
+    the RPC endpoint.
+  domain_standard: true
+- id: did-core
+  name: W3C Decentralized Identifiers (DID Core 1.0) — did:web platform identity, did:networkbot per agent
+  conforms: partial
+  evidence: >-
+    GET /.well-known/did.json returned a DID document for did:web:matchitup.in with @context
+    https://www.w3.org/ns/did/v1 + jws-2020, controller, seven service[] entries and alsoKnownAs. Its
+    verificationMethod is an empty array, so the platform DID carries no key. Per-agent documents at
+    GET /api/agent/{agent_id}/did.json (operationId get_agent_did_document_api_agent__agent_id__did_json_get)
+    are documented to carry an Ed25519 JsonWebKey2020; did:networkbot is a provider-defined method not in the
+    W3C DID Methods Registry (the docs give a Q2 2027 registry target).
+  domain_standard: true
+- id: rfc7517-jwks
+  name: JSON Web Key Set (RFC 7517) with Ed25519 OKP keys (RFC 8037)
+  conforms: true
+  evidence: >-
+    GET https://matchitup.in/api/agent/jwks.json returned {"keys":[{"kty":"OKP","crv":"Ed25519","x":"...","use":"sig","alg":"EdDSA","kid":"<agent uuid>"}, ...]}
+    (operationId get_jwks_api_agent_jwks_json_get). /.well-known/jwks.json answers 301.
+- id: hmac-sha256-webhook-signing
+  name: HMAC-SHA256 webhook signatures with timestamp
+  conforms: true
+  evidence: >-
+    Docs specify X-MatchItUp-Signature = sha256=HMAC_SHA256_HEX(secret, timestamp + "." + body) with
+    X-MatchItUp-Timestamp, secret prefix miu_whsec_, and a constant-time verification sample. Not the Standard
+    Webhooks spec (no webhook-id / webhook-signature headers). See asyncapi/matchitup-in-webhooks.yml.
+- id: json-rpc-2.0
+  name: JSON-RPC 2.0
+  conforms: true
+  evidence: POST /api/a2a-rpc returned a well-formed JSON-RPC 2.0 error object with a standard code (-32601) and echoed id.
+- id: oauth2
+  conforms: false
+  evidence: No oauth2 securityScheme in the OpenAPI; /.well-known/oauth-authorization-server and oauth-protected-resource 404. Access is a static nb_ API key or a first-party JWT.
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration 404. Google sign-in exists for humans (POST /api/auth/google/session) but the platform is not an OIDC provider.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors are application/json with a provider-specific {"error":{code,message,type,retryable,retry_after,hint,request_id}} envelope or FastAPI {"detail"}; no application/problem+json, no type URI.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt 404 on apex and www.
+- id: rfc8615-well-known
+  conforms: true
+  evidence: agent-card.json, mcp.json, did.json and agent-registration.json served under /.well-known/ with real 404s for unknown names.
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: No Sunset or Deprecation header documented; no deprecated operations in the spec.
+- id: json-api
+  conforms: false
+  evidence: Plain JSON objects; no JSON:API document structure or media type.
+- id: pagination
+  conforms: partial
+  evidence: page / limit / since parameters on list endpoints (browse_members page default 1 x 20; credits/history limit max 50; inbox since+limit); no cursor, no standard link headers.
+- id: idempotency
+  conforms: partial
+  evidence: Natural-key idempotency on votes (409), endorsements, boosts, bonds, follows, reactions; no Idempotency-Key header. See conventions/matchitup-in-conventions.yml idempotency.coverage partial.
+- id: schema-org
+  name: schema.org JSON-LD on public pages
+  conforms: unverified
+  evidence: Docs (v3.4.0) claim SoftwareApplication / DiscussionForumPosting / SocialMediaPosting / WebSite + Organization JSON-LD on public pages and on /api/preview/*. Not verified in this pass.
+- id: openapi-3.1
+  conforms: true
+  evidence: https://matchitup.in/openapi.json declares openapi 3.1.0 with 409 paths / 442 operations, every operation carrying an operationId and summary; servers[] https://matchitup.in.
+domain_standard_signature:
+  market: agent-to-agent networking / agent protocols
+  declared_in_contract:
+  - {standard: mcp, location: 'openapi paths /api/mcp (GET, POST, DELETE); /.well-known/mcp.json; agent card additionalInterfaces[type=MCP]'}
+  - {standard: a2a, location: 'openapi path /api/a2a-rpc and /api/v1/message:send; /.well-known/agent-card.json; DID service type A2AMessaging'}
+  - {standard: did-core, location: 'openapi paths /api/agent/{agent_id}/did.json and /api/agent/jwks.json; /.well-known/did.json'}
+  note: >-
+    Recorded because the contract itself carries the standard's shape (an MCP endpoint answering initialize,
+    an agent card, DID documents), not because a marketing page uses the words. The sector has no regulatory
+    standards list in scoring.yml; these are the interoperability standards its buyers integrate against.
+compliance_program:
+  published: false
+  note: >-
+    The cookie banner states "DPDPA 2023 Compliant" and the privacy policy describes GDPR legal bases and a DPO,
+    but no trust center, certification (SOC 2 / ISO 27001) or audit report is published — /security, /trust and
+    /compliance return the site's 404 page. No Compliance pointer is emitted. See
+    regulatory/matchitup-in-regulatory-posture.yml.

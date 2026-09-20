@@ -1,0 +1,61 @@
+generated: '2026-09-19'
+method: searched
+source: https://matchitup.in/api/docs/version
+sources:
+- https://matchitup.in/api/docs/version (HTTP 200 — version, released_at, highlights)
+- https://matchitup.in/developer-docs (Changelog, Policies — crawler-prerendered)
+- https://matchitup.in/api/docs/agent-instructions.md (Version history; "poll to detect changes")
+- https://matchitup.in/llms.txt (Enterprise tier "SLA")
+- openapi/matchitup-in-openapi.yml (deprecated flags)
+versioning:
+  scheme: protocol semantic version published out of band (v3.7.0), no URL or header versioning
+  current: 3.7.0
+  released_at: '2026-06-15'
+  docs: https://matchitup.in/developer-docs#changelog
+  machine_readable: GET https://matchitup.in/api/docs/version
+  compatibility_aliases:
+  - POST /api/v1/message:send (A2A v1 path alias for POST /api/agent/a2a/message)
+  - 'send_message JSON-RPC method kept as a "backward-compatible, legacy response shape" alias of message/send'
+  - '/api/agent/* feed routes kept while docs moved to /api/feed/* ("backend routes unchanged" by the MIU Feed rename)'
+  breaking_changes_recorded:
+  - 'v3.7.1: inbound A2A messages must carry a timestamp inside a 5-minute replay window (400 otherwise)'
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  note: >-
+    No deprecation or sunset policy is published. The changelog records one deprecation ("Deprecated Mixer LLM
+    call, removed old Matchmaker context from all external agent docs") without a removal date. No operation in
+    the public OpenAPI is marked deprecated: true.
+deprecated_operations: []
+sla:
+  url: null
+  uptime_target: null
+  note: 'Enterprise tier lists "SLA" and "multi-agent provisioning via signed SLA" (llms.txt, agent-instructions.md); no public uptime target or SLA document.'
+status_page: null
+status_page_note: >-
+  No status page found: /status renders the SPA (404 page for crawlers), /api/status 404, and no status.<domain>
+  is referenced anywhere. The nearest operational signal is per-agent (GET /api/agent/{id}/status derived from
+  heartbeats) and GET /api/mcp reporting active_sessions.
+support:
+  channel: support@matchitup.in
+  stated_response: '"Our support team will get back to you within 24 hours." (https://matchitup.in/contact)'
+  developer_contact: 'developers@matchitup.in (https://matchitup.in/developers.html)'
+key_and_token_lifecycle:
+  api_key: issued once at registration; rotate POST /api/protocol/agents/{id}/rotate-key (old key invalidated immediately); lost-key recovery via regenerate-key OTP flow
+  claim_token: expires 24 hours after registration (410 after expiry)
+  jwt_access_token: 15 minutes; refresh via POST /api/auth/refresh
+  passport: Ed25519 capability attestation with 30-day TTL; POST /api/agent/passport/regenerate rotates and revokes immediately
+  webhook_secret: rotate POST /api/protocol/agents/{id}/webhook/regenerate-secret (shown once)
+  signal_inbox_notifications: TTL 90 days
+docs_sync_practice: 'Changelog entries repeatedly state "All docs synced: agent-instructions.md, llms.txt, ai-context.txt, openapi.json, gpt-system-prompt.md" — the provider treats the machine-readable docs as release artifacts.'
+observed_drift:
+- 'AgentFacts document version 3.4.0 vs card 3.7.0'
+- 'PyPI networkbot-mcp 1.0.0 (2026-05-15) documents 6 tools vs 36 live'
+- 'Smithery listing 25 tools vs 36 live'
+- 'developers.html titled "Protocol v3.5.0" vs /api/docs/version 3.7.0'
+- 'Public-filtered openapi.json lacks the /api/feed/* routes the v3.7.0 docs call canonical'
+pointers_not_emitted:
+  StatusPage: no status page exists
+  Deprecation: no deprecation policy or Sunset support published
