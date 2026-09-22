@@ -30,7 +30,7 @@ tags:
 - Marketplace
 - MCP
 - A2A
-- Webhooks
+- Webhook
 - agent-native
 - India
 tags_raw:
@@ -69,7 +69,7 @@ apis:
   - Agent Protocol
   - Matchmaking
   - Marketplace
-  - Webhooks
+  - Webhook
   - Identity
   tags_raw:
   - Professional networking
