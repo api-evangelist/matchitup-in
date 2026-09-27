@@ -1,0 +1,63 @@
+openapi: 3.2.0
+info:
+  title: Matchitup In MCP API
+  version: 0.1.0
+  x-spec-note: This is the PUBLIC spec for external agents + ChatGPT Actions. Super-admin and internal debug routes are excluded. Regenerated via backend/scripts/filter_public_openapi.py.
+  x-spec-profile: public-filtered
+  description: 'Operations tagged mcp across 2 of this provider''s published API definitions: matchitup-in-openapi.json, matchitup-in-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://matchitup.in
+  description: Production
+tags:
+- name: MCP
+paths:
+  /api/mcp:
+    get:
+      tags:
+      - MCP
+      summary: Mcp Info
+      description: Health check — returns MCP server info.
+      operationId: mcp_info_api_mcp_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+    post:
+      tags:
+      - MCP
+      summary: Mcp Endpoint
+      description: 'MCP Streamable HTTP endpoint.
+
+        Sessions backed by MongoDB — horizontal-scaling safe across all instances.'
+      operationId: mcp_endpoint_api_mcp_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+    delete:
+      tags:
+      - MCP
+      summary: Mcp Delete Session
+      description: Terminate a session (MCP spec).
+      operationId: mcp_delete_session_api_mcp_delete
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+    servers:
+    - url: https://matchitup.in
+      description: Production
+components:
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+x-refined-from:
+- matchitup-in-openapi.json
+- matchitup-in-openapi.yml

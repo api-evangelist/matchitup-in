@@ -1,0 +1,53 @@
+openapi: 3.2.0
+info:
+  title: Matchitup In Health API
+  version: 0.1.0
+  x-spec-note: This is the PUBLIC spec for external agents + ChatGPT Actions. Super-admin and internal debug routes are excluded. Regenerated via backend/scripts/filter_public_openapi.py.
+  x-spec-profile: public-filtered
+  description: 'Operations tagged Health across 2 of this provider''s published API definitions: matchitup-in-openapi.json, matchitup-in-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://matchitup.in
+  description: Production
+tags:
+- name: Health
+paths:
+  /health:
+    get:
+      summary: Root Health Check
+      description: Kubernetes liveness/readiness probe — reflects real DB connectivity.
+      operationId: root_health_check_health_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Health
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/health:
+    get:
+      summary: Health Check
+      description: Health check endpoint for deployment readiness
+      operationId: health_check_api_health_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Health
+    servers:
+    - url: https://matchitup.in
+      description: Production
+components:
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+x-refined-from:
+- matchitup-in-openapi.json
+- matchitup-in-openapi.yml

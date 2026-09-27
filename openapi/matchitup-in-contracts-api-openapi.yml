@@ -1,0 +1,445 @@
+openapi: 3.2.0
+info:
+  title: Matchitup In Contracts API
+  version: 0.1.0
+  x-spec-note: This is the PUBLIC spec for external agents + ChatGPT Actions. Super-admin and internal debug routes are excluded. Regenerated via backend/scripts/filter_public_openapi.py.
+  x-spec-profile: public-filtered
+  description: 'Operations tagged contracts across 2 of this provider''s published API definitions: matchitup-in-openapi.json, matchitup-in-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://matchitup.in
+  description: Production
+tags:
+- name: Contracts
+paths:
+  /api/contracts:
+    post:
+      tags:
+      - Contracts
+      summary: Create Contract
+      operationId: create_contract_api_contracts_post
+      security:
+      - HTTPBearer: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateContractBody'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Contracts
+      summary: List Contracts
+      description: List contracts where the current user is buyer or seller.
+      operationId: list_contracts_api_contracts_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: role
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Role
+      - name: status
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 20
+          title: Limit
+      - name: skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Skip
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/contracts/{contract_id}:
+    get:
+      tags:
+      - Contracts
+      summary: Get Contract
+      operationId: get_contract_api_contracts__contract_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: contract_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Contract Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/contracts/{contract_id}/accept:
+    post:
+      tags:
+      - Contracts
+      summary: Accept Contract
+      description: Seller accepts the contract. open → accepted.
+      operationId: accept_contract_api_contracts__contract_id__accept_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: contract_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Contract Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransitionBody'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/contracts/{contract_id}/start:
+    post:
+      tags:
+      - Contracts
+      summary: Start Contract
+      description: Seller starts work. accepted → in_progress.
+      operationId: start_contract_api_contracts__contract_id__start_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: contract_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Contract Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransitionBody'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/contracts/{contract_id}/deliver:
+    post:
+      tags:
+      - Contracts
+      summary: Deliver Contract
+      description: Seller marks work as delivered. in_progress → delivered.
+      operationId: deliver_contract_api_contracts__contract_id__deliver_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: contract_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Contract Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransitionBody'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/contracts/{contract_id}/complete:
+    post:
+      tags:
+      - Contracts
+      summary: Complete Contract
+      description: Buyer confirms completion. delivered → completed.
+      operationId: complete_contract_api_contracts__contract_id__complete_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: contract_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Contract Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransitionBody'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/contracts/{contract_id}/dispute:
+    post:
+      tags:
+      - Contracts
+      summary: Dispute Contract
+      description: Buyer raises a dispute. delivered → disputed. Auto-creates a disputes record.
+      operationId: dispute_contract_api_contracts__contract_id__dispute_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: contract_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Contract Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransitionBody'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/contracts/{contract_id}/rate:
+    post:
+      tags:
+      - Contracts
+      summary: Rate Contract
+      description: Buyer rates seller after completion (1-5 stars).
+      operationId: rate_contract_api_contracts__contract_id__rate_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: contract_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Contract Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RateBody'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    TransitionBody:
+      properties:
+        note:
+          anyOf:
+          - type: string
+            maxLength: 500
+          - type: 'null'
+          title: Note
+      type: object
+      title: TransitionBody
+    RateBody:
+      properties:
+        rating:
+          type: integer
+          maximum: 5.0
+          minimum: 1.0
+          title: Rating
+        review_text:
+          anyOf:
+          - type: string
+            maxLength: 800
+          - type: 'null'
+          title: Review Text
+      type: object
+      required:
+      - rating
+      title: RateBody
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    CreateContractBody:
+      properties:
+        intent_id:
+          type: string
+          title: Intent Id
+        seller_user_id:
+          type: string
+          title: Seller User Id
+        agreed_price:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Agreed Price
+        agreed_pricing_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Agreed Pricing Type
+        delivery_window:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Delivery Window
+        note:
+          anyOf:
+          - type: string
+            maxLength: 500
+          - type: 'null'
+          title: Note
+      type: object
+      required:
+      - intent_id
+      - seller_user_id
+      title: CreateContractBody
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+x-refined-from:
+- matchitup-in-openapi.json
+- matchitup-in-openapi.yml

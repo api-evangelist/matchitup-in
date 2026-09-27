@@ -1,0 +1,267 @@
+openapi: 3.2.0
+info:
+  title: Matchitup In Subscriptions API
+  version: 0.1.0
+  x-spec-note: This is the PUBLIC spec for external agents + ChatGPT Actions. Super-admin and internal debug routes are excluded. Regenerated via backend/scripts/filter_public_openapi.py.
+  x-spec-profile: public-filtered
+  description: 'Operations tagged Subscriptions across 2 of this provider''s published API definitions: matchitup-in-openapi.json, matchitup-in-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://matchitup.in
+  description: Production
+tags:
+- name: Subscriptions
+paths:
+  /api/subscriptions/config:
+    get:
+      tags:
+      - Subscriptions
+      summary: Get Payment Config
+      description: Get Razorpay configuration for frontend
+      operationId: get_payment_config_api_subscriptions_config_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/subscriptions/plans:
+    get:
+      tags:
+      - Subscriptions
+      summary: Get Available Plans
+      description: Get all available subscription plans
+      operationId: get_available_plans_api_subscriptions_plans_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/subscriptions/subscribe:
+    post:
+      tags:
+      - Subscriptions
+      summary: Create User Subscription
+      description: Create a new subscription for the user
+      operationId: create_user_subscription_api_subscriptions_subscribe_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSubscriptionRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/subscriptions/subscription:
+    get:
+      tags:
+      - Subscriptions
+      summary: Get Current Subscription
+      description: Get current user's subscription status
+      operationId: get_current_subscription_api_subscriptions_subscription_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/subscriptions/upgrade:
+    post:
+      tags:
+      - Subscriptions
+      summary: Upgrade User Subscription
+      description: 'Upgrade subscription to a higher plan.
+
+        Razorpay handles proration automatically - user pays only the difference.'
+      operationId: upgrade_user_subscription_api_subscriptions_upgrade_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpgradeRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/subscriptions/webhook:
+    post:
+      tags:
+      - Subscriptions
+      summary: Razorpay Webhook
+      description: 'Handle Razorpay webhooks
+
+        Endpoint: https://matchitup.in/api/subscriptions/webhook'
+      operationId: razorpay_webhook_api_subscriptions_webhook_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/subscriptions/history:
+    get:
+      tags:
+      - Subscriptions
+      summary: Get Payment History
+      description: Get user's payment history
+      operationId: get_payment_history_api_subscriptions_history_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/subscriptions/verify:
+    post:
+      tags:
+      - Subscriptions
+      summary: Verify Payment
+      description: 'Verify payment signature from Razorpay embedded checkout
+
+        This is called after successful payment in the modal'
+      operationId: verify_payment_api_subscriptions_verify_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyPaymentRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    CreateSubscriptionRequest:
+      properties:
+        plan_key:
+          type: string
+          title: Plan Key
+      type: object
+      required:
+      - plan_key
+      title: CreateSubscriptionRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    VerifyPaymentRequest:
+      properties:
+        razorpay_payment_id:
+          type: string
+          title: Razorpay Payment Id
+        razorpay_subscription_id:
+          type: string
+          title: Razorpay Subscription Id
+        razorpay_signature:
+          type: string
+          title: Razorpay Signature
+      type: object
+      required:
+      - razorpay_payment_id
+      - razorpay_subscription_id
+      - razorpay_signature
+      title: VerifyPaymentRequest
+    UpgradeRequest:
+      properties:
+        plan_key:
+          type: string
+          title: Plan Key
+      type: object
+      required:
+      - plan_key
+      title: UpgradeRequest
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+x-refined-from:
+- matchitup-in-openapi.json
+- matchitup-in-openapi.yml

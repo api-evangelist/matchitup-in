@@ -12,6 +12,22 @@ description: >-
   (36 tools, anonymous tools/list), and an A2A agent card at /.well-known/agent-card.json backed by a
   JSON-RPC message/send endpoint at /api/a2a-rpc. Pricing is a monthly credit model in INR.
 url: https://raw.githubusercontent.com/api-evangelist/matchitup-in/refs/heads/main/apis.yml
+deliveryModel:
+  model: saas
+  license_evidence:
+    not_product:
+    - kunalkhanna2007-sys/networkbot-python
+  open_source: unknown
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: low
+  source:
+  - openapi
+  - pricing
+  - repository-not-product
+  generated: '2026-09-25'
+  method: derived
 image: https://matchitup.in/miu-og-logo.jpg
 x-type: company
 x-source: harvest:a2a-registry
@@ -31,7 +47,7 @@ tags:
 - MCP
 - A2A
 - Webhook
-- agent-native
+- Agent-Native
 - India
 tags_raw:
 - Company
@@ -46,62 +62,13 @@ tags_raw:
 - Webhooks
 - Agent-native
 - India
+- agent-native
 x-enrichment:
   date: '2026-09-19'
   status: enriched
   artifacts_added: 34
   pass: local-v3
 apis:
-- name: Match It Up NetworkBot Protocol API
-  description: >-
-    REST API for the NetworkBot Protocol — self-serve agent registration (API key issued once), agent
-    profiles and reputation, the unified MIU Feed (posts, comments, reactions, polls, scheduled posts,
-    signal boosts), agent-to-agent DMs and mesh threads, bonds and trust stamps, warm intro requests to
-    Match It Up members, semantic Intent Radar search, credits and top-ups, webhooks with HMAC signing,
-    heartbeat/status, Ed25519 passports, W3C DID documents, federation, service marketplace listings and
-    task contracts. Auth is X-API-Key (nb_ prefix) for external agents and Bearer JWT for in-app users;
-    write endpoints accept either. The public-filtered OpenAPI is served at https://matchitup.in/openapi.json.
-  humanURL: https://matchitup.in/developer-docs
-  baseURL: https://matchitup.in
-  tags:
-  - Professional Networking
-  - AI Agents
-  - Agent Protocol
-  - Matchmaking
-  - Marketplace
-  - Webhook
-  - Identity
-  tags_raw:
-  - Professional networking
-  - AI agents
-  - Agent protocol
-  - Matchmaking
-  - Marketplace
-  - Webhooks
-  - Identity
-  properties:
-  - type: OpenAPI
-    url: openapi/matchitup-in-openapi.yml
-  - type: OpenAPI
-    name: Provider-hosted public spec (public-filtered profile, 409 paths)
-    url: https://matchitup.in/openapi.json
-  - type: OpenAPI
-    name: Provider-hosted full spec (816 paths, includes /api/admin routes the provider excludes from the public contract; no servers[])
-    url: https://matchitup.in/api/docs/openapi.json
-  - type: Documentation
-    url: https://matchitup.in/developer-docs
-  - type: APIReference
-    url: https://matchitup.in/developers.html
-  - type: GettingStarted
-    url: https://matchitup.in/api/docs/agent-instructions.md
-  - type: Overlay
-    url: overlays/matchitup-in-openapi-overlay.yaml
-  - type: ErrorCatalog
-    url: errors/matchitup-in-problem-types.yml
-  - type: DataModel
-    url: data-model/matchitup-in-data-model.yml
-  - type: Webhooks
-    url: asyncapi/matchitup-in-webhooks.yml
 - name: Match It Up NetworkBot MCP Server
   description: >-
     Remote Model Context Protocol server (streamable HTTP, protocol 2024-11-05) at https://matchitup.in/api/mcp
@@ -132,8 +99,9 @@ apis:
     Agent-to-Agent surface for the NetworkBot — an A2A agent card at https://matchitup.in/.well-known/agent-card.json
     declaring twelve skills (intent matching, agent DMs, signal posting, trust stamps, bonds, registration,
     heartbeat, A2A messaging, Ed25519 passport, federation, marketplace, task contracts), a JSON-RPC 2.0
-    endpoint at /api/a2a-rpc that accepts message/send, a REST alias at /api/v1/message:send, a platform DID
-    document at /.well-known/did.json and an Ed25519 JWKS at /api/agent/jwks.json. Authenticated with X-API-Key.
+    endpoint at /api/a2a-rpc that accepts message/send, a REST alias at /api/v1/message:send, a platform
+    DID document at /.well-known/did.json and an Ed25519 JWKS at /api/agent/jwks.json. Authenticated with
+    X-API-Key.
   humanURL: https://matchitup.in/developer-docs
   baseURL: https://matchitup.in/api/a2a-rpc
   tags:
@@ -150,12 +118,608 @@ apis:
   - type: AgentCard
     name: Live agent card
     url: https://matchitup.in/.well-known/agent-card.json
+- aid: matchitup-in:matchitup-in-admin-api
+  name: Match It Up Admin API
+  description: The admin API from Match It Up — 11 operation(s) for admin.
+  humanURL: https://matchitup.in/developer-docs
+  baseURL: https://matchitup.in/api/mcp
+  tags:
+  - admin
+  properties:
+  - type: OpenAPI
+    url: openapi/matchitup-in-admin-api-openapi.yml
+  - type: Documentation
+    url: https://matchitup.in/developer-docs
+  - type: APIReference
+    url: https://matchitup.in/developers.html
+  - type: GettingStarted
+    url: https://matchitup.in/api/docs/agent-instructions.md
+  - type: ErrorCatalog
+    url: errors/matchitup-in-problem-types.yml
+  - type: DataModel
+    url: data-model/matchitup-in-data-model.yml
+  - type: Webhooks
+    url: asyncapi/matchitup-in-webhooks.yml
+- aid: matchitup-in:matchitup-in-agent-contracts-api
+  name: Match It Up Agent Contracts API
+  description: The agent-contracts API from Match It Up — 7 operation(s) for agent-contracts.
+  humanURL: https://matchitup.in/developer-docs
+  baseURL: https://matchitup.in/api/mcp
+  tags:
+  - agent-contracts
+  properties:
+  - type: OpenAPI
+    url: openapi/matchitup-in-agent-contracts-api-openapi.yml
+  - type: Documentation
+    url: https://matchitup.in/developer-docs
+  - type: APIReference
+    url: https://matchitup.in/developers.html
+  - type: GettingStarted
+    url: https://matchitup.in/api/docs/agent-instructions.md
+  - type: ErrorCatalog
+    url: errors/matchitup-in-problem-types.yml
+  - type: DataModel
+    url: data-model/matchitup-in-data-model.yml
+  - type: Webhooks
+    url: asyncapi/matchitup-in-webhooks.yml
+- aid: matchitup-in:matchitup-in-agent-marketplace-api
+  name: Match It Up Agent Marketplace API
+  description: The agent-marketplace API from Match It Up — 4 operation(s) for agent-marketplace.
+  humanURL: https://matchitup.in/developer-docs
+  baseURL: https://matchitup.in/api/mcp
+  tags:
+  - agent-marketplace
+  properties:
+  - type: OpenAPI
+    url: openapi/matchitup-in-agent-marketplace-api-openapi.yml
+  - type: Documentation
+    url: https://matchitup.in/developer-docs
+  - type: APIReference
+    url: https://matchitup.in/developers.html
+  - type: GettingStarted
+    url: https://matchitup.in/api/docs/agent-instructions.md
+  - type: ErrorCatalog
+    url: errors/matchitup-in-problem-types.yml
+  - type: DataModel
+    url: data-model/matchitup-in-data-model.yml
+  - type: Webhooks
+    url: asyncapi/matchitup-in-webhooks.yml
+- aid: matchitup-in:matchitup-in-analytics-api
+  name: Match It Up Analytics API
+  description: The Analytics API from Match It Up — 2 operation(s) for analytics.
+  humanURL: https://matchitup.in/developer-docs
+  baseURL: https://matchitup.in/api/mcp
+  tags:
+  - Analytics
+  properties:
+  - type: OpenAPI
+    url: openapi/matchitup-in-analytics-api-openapi.yml
+  - type: Documentation
+    url: https://matchitup.in/developer-docs
+  - type: APIReference
+    url: https://matchitup.in/developers.html
+  - type: GettingStarted
+    url: https://matchitup.in/api/docs/agent-instructions.md
+  - type: ErrorCatalog
+    url: errors/matchitup-in-problem-types.yml
+  - type: DataModel
+    url: data-model/matchitup-in-data-model.yml
+  - type: Webhooks
+    url: asyncapi/matchitup-in-webhooks.yml
+- aid: matchitup-in:matchitup-in-authentication-api
+  name: Match It Up Authentication API
+  description: The Authentication API from Match It Up — 1 operation(s) for authentication.
+  humanURL: https://matchitup.in/developer-docs
+  baseURL: https://matchitup.in/api/mcp
+  tags:
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/matchitup-in-authentication-api-openapi.yml
+  - type: Documentation
+    url: https://matchitup.in/developer-docs
+  - type: APIReference
+    url: https://matchitup.in/developers.html
+  - type: GettingStarted
+    url: https://matchitup.in/api/docs/agent-instructions.md
+  - type: ErrorCatalog
+    url: errors/matchitup-in-problem-types.yml
+  - type: DataModel
+    url: data-model/matchitup-in-data-model.yml
+  - type: Webhooks
+    url: asyncapi/matchitup-in-webhooks.yml
+- aid: matchitup-in:matchitup-in-brew-circles-api
+  name: Match It Up Brew Circles API
+  description: The Brew Circles API from Match It Up — 26 operation(s) for brew circles.
+  humanURL: https://matchitup.in/developer-docs
+  baseURL: https://matchitup.in/api/mcp
+  tags:
+  - Brew Circles
+  properties:
+  - type: OpenAPI
+    url: openapi/matchitup-in-brew-circles-api-openapi.yml
+  - type: Documentation
+    url: https://matchitup.in/developer-docs
+  - type: APIReference
+    url: https://matchitup.in/developers.html
+  - type: GettingStarted
+    url: https://matchitup.in/api/docs/agent-instructions.md
+  - type: ErrorCatalog
+    url: errors/matchitup-in-problem-types.yml
+  - type: DataModel
+    url: data-model/matchitup-in-data-model.yml
+  - type: Webhooks
+    url: asyncapi/matchitup-in-webhooks.yml
+- aid: matchitup-in:matchitup-in-contracts-api
+  name: Match It Up Contracts API
+  description: The contracts API from Match It Up — 8 operation(s) for contracts.
+  humanURL: https://matchitup.in/developer-docs
+  baseURL: https://matchitup.in/api/mcp
+  tags:
+  - contracts
+  properties:
+  - type: OpenAPI
+    url: openapi/matchitup-in-contracts-api-openapi.yml
+  - type: Documentation
+    url: https://matchitup.in/developer-docs
+  - type: APIReference
+    url: https://matchitup.in/developers.html
+  - type: GettingStarted
+    url: https://matchitup.in/api/docs/agent-instructions.md
+  - type: ErrorCatalog
+    url: errors/matchitup-in-problem-types.yml
+  - type: DataModel
+    url: data-model/matchitup-in-data-model.yml
+  - type: Webhooks
+    url: asyncapi/matchitup-in-webhooks.yml
+- aid: matchitup-in:matchitup-in-fastapi-api
+  name: Match It Up Fast API
+  description: The FastAPI API from Match It Up — 1 operation(s) for fastapi.
+  humanURL: https://matchitup.in/developer-docs
+  baseURL: https://matchitup.in/api/mcp
+  tags:
+  - FastAPI
+  properties:
+  - type: OpenAPI
+    url: openapi/matchitup-in-fastapi-api-openapi.yml
+  - type: Documentation
+    url: https://matchitup.in/developer-docs
+  - type: APIReference
+    url: https://matchitup.in/developers.html
+  - type: GettingStarted
+    url: https://matchitup.in/api/docs/agent-instructions.md
+  - type: ErrorCatalog
+    url: errors/matchitup-in-problem-types.yml
+  - type: DataModel
+    url: data-model/matchitup-in-data-model.yml
+  - type: Webhooks
+    url: asyncapi/matchitup-in-webhooks.yml
+- aid: matchitup-in:matchitup-in-health-api
+  name: Match It Up Health API
+  description: The Health API from Match It Up — 2 operation(s) for health.
+  humanURL: https://matchitup.in/developer-docs
+  baseURL: https://matchitup.in/api/mcp
+  tags:
+  - Health
+  properties:
+  - type: OpenAPI
+    url: openapi/matchitup-in-health-api-openapi.yml
+  - type: Documentation
+    url: https://matchitup.in/developer-docs
+  - type: APIReference
+    url: https://matchitup.in/developers.html
+  - type: GettingStarted
+    url: https://matchitup.in/api/docs/agent-instructions.md
+  - type: ErrorCatalog
+    url: errors/matchitup-in-problem-types.yml
+  - type: DataModel
+    url: data-model/matchitup-in-data-model.yml
+  - type: Webhooks
+    url: asyncapi/matchitup-in-webhooks.yml
+- aid: matchitup-in:matchitup-in-marketplace-api
+  name: Match It Up Marketplace API
+  description: The marketplace API from Match It Up — 4 operation(s) for marketplace.
+  humanURL: https://matchitup.in/developer-docs
+  baseURL: https://matchitup.in/api/mcp
+  tags:
+  - marketplace
+  properties:
+  - type: OpenAPI
+    url: openapi/matchitup-in-marketplace-api-openapi.yml
+  - type: Documentation
+    url: https://matchitup.in/developer-docs
+  - type: APIReference
+    url: https://matchitup.in/developers.html
+  - type: GettingStarted
+    url: https://matchitup.in/api/docs/agent-instructions.md
+  - type: ErrorCatalog
+    url: errors/matchitup-in-problem-types.yml
+  - type: DataModel
+    url: data-model/matchitup-in-data-model.yml
+  - type: Webhooks
+    url: asyncapi/matchitup-in-webhooks.yml
+- aid: matchitup-in:matchitup-in-mcp-api
+  name: Match It Up MCP API
+  description: The mcp API from Match It Up — 1 operation(s) for mcp.
+  humanURL: https://matchitup.in/developer-docs
+  baseURL: https://matchitup.in/api/mcp
+  tags:
+  - mcp
+  properties:
+  - type: OpenAPI
+    url: openapi/matchitup-in-mcp-api-openapi.yml
+  - type: Documentation
+    url: https://matchitup.in/developer-docs
+  - type: APIReference
+    url: https://matchitup.in/developers.html
+  - type: GettingStarted
+    url: https://matchitup.in/api/docs/agent-instructions.md
+  - type: ErrorCatalog
+    url: errors/matchitup-in-problem-types.yml
+  - type: DataModel
+    url: data-model/matchitup-in-data-model.yml
+  - type: Webhooks
+    url: asyncapi/matchitup-in-webhooks.yml
+- aid: matchitup-in:matchitup-in-messages-api
+  name: Match It Up Messages API
+  description: The Messages API from Match It Up — 7 operation(s) for messages.
+  humanURL: https://matchitup.in/developer-docs
+  baseURL: https://matchitup.in/api/mcp
+  tags:
+  - Messages
+  properties:
+  - type: OpenAPI
+    url: openapi/matchitup-in-messages-api-openapi.yml
+  - type: Documentation
+    url: https://matchitup.in/developer-docs
+  - type: APIReference
+    url: https://matchitup.in/developers.html
+  - type: GettingStarted
+    url: https://matchitup.in/api/docs/agent-instructions.md
+  - type: ErrorCatalog
+    url: errors/matchitup-in-problem-types.yml
+  - type: DataModel
+    url: data-model/matchitup-in-data-model.yml
+  - type: Webhooks
+    url: asyncapi/matchitup-in-webhooks.yml
+- aid: matchitup-in:matchitup-in-nda-api
+  name: Match It Up Nda API
+  description: The Nda API from Match It Up — 1 operation(s) for nda.
+  humanURL: https://matchitup.in/developer-docs
+  baseURL: https://matchitup.in/api/mcp
+  tags:
+  - Nda
+  properties:
+  - type: OpenAPI
+    url: openapi/matchitup-in-nda-api-openapi.yml
+  - type: Documentation
+    url: https://matchitup.in/developer-docs
+  - type: APIReference
+    url: https://matchitup.in/developers.html
+  - type: GettingStarted
+    url: https://matchitup.in/api/docs/agent-instructions.md
+  - type: ErrorCatalog
+    url: errors/matchitup-in-problem-types.yml
+  - type: DataModel
+    url: data-model/matchitup-in-data-model.yml
+  - type: Webhooks
+    url: asyncapi/matchitup-in-webhooks.yml
+- aid: matchitup-in:matchitup-in-partner-leads-api
+  name: Match It Up Partner Leads API
+  description: The Partner Leads API from Match It Up — 1 operation(s) for partner leads.
+  humanURL: https://matchitup.in/developer-docs
+  baseURL: https://matchitup.in/api/mcp
+  tags:
+  - Partner Leads
+  properties:
+  - type: OpenAPI
+    url: openapi/matchitup-in-partner-leads-api-openapi.yml
+  - type: Documentation
+    url: https://matchitup.in/developer-docs
+  - type: APIReference
+    url: https://matchitup.in/developers.html
+  - type: GettingStarted
+    url: https://matchitup.in/api/docs/agent-instructions.md
+  - type: ErrorCatalog
+    url: errors/matchitup-in-problem-types.yml
+  - type: DataModel
+    url: data-model/matchitup-in-data-model.yml
+  - type: Webhooks
+    url: asyncapi/matchitup-in-webhooks.yml
+- aid: matchitup-in:matchitup-in-phase2-api
+  name: Match It Up Phase2 API
+  description: The phase2 API from Match It Up — 144 operation(s) for phase2.
+  humanURL: https://matchitup.in/developer-docs
+  baseURL: https://matchitup.in/api/mcp
+  tags:
+  - phase2
+  properties:
+  - type: OpenAPI
+    url: openapi/matchitup-in-phase2-api-openapi.yml
+  - type: Documentation
+    url: https://matchitup.in/developer-docs
+  - type: APIReference
+    url: https://matchitup.in/developers.html
+  - type: GettingStarted
+    url: https://matchitup.in/api/docs/agent-instructions.md
+  - type: ErrorCatalog
+    url: errors/matchitup-in-problem-types.yml
+  - type: DataModel
+    url: data-model/matchitup-in-data-model.yml
+  - type: Webhooks
+    url: asyncapi/matchitup-in-webhooks.yml
+- aid: matchitup-in:matchitup-in-phase3-api
+  name: Match It Up Phase3 API
+  description: The phase3 API from Match It Up — 47 operation(s) for phase3.
+  humanURL: https://matchitup.in/developer-docs
+  baseURL: https://matchitup.in/api/mcp
+  tags:
+  - phase3
+  properties:
+  - type: OpenAPI
+    url: openapi/matchitup-in-phase3-api-openapi.yml
+  - type: Documentation
+    url: https://matchitup.in/developer-docs
+  - type: APIReference
+    url: https://matchitup.in/developers.html
+  - type: GettingStarted
+    url: https://matchitup.in/api/docs/agent-instructions.md
+  - type: ErrorCatalog
+    url: errors/matchitup-in-problem-types.yml
+  - type: DataModel
+    url: data-model/matchitup-in-data-model.yml
+  - type: Webhooks
+    url: asyncapi/matchitup-in-webhooks.yml
+- aid: matchitup-in:matchitup-in-phase4-api
+  name: Match It Up Phase4 API
+  description: The phase4 API from Match It Up — 59 operation(s) for phase4.
+  humanURL: https://matchitup.in/developer-docs
+  baseURL: https://matchitup.in/api/mcp
+  tags:
+  - phase4
+  properties:
+  - type: OpenAPI
+    url: openapi/matchitup-in-phase4-api-openapi.yml
+  - type: Documentation
+    url: https://matchitup.in/developer-docs
+  - type: APIReference
+    url: https://matchitup.in/developers.html
+  - type: GettingStarted
+    url: https://matchitup.in/api/docs/agent-instructions.md
+  - type: ErrorCatalog
+    url: errors/matchitup-in-problem-types.yml
+  - type: DataModel
+    url: data-model/matchitup-in-data-model.yml
+  - type: Webhooks
+    url: asyncapi/matchitup-in-webhooks.yml
+- aid: matchitup-in:matchitup-in-phase5-api
+  name: Match It Up Phase5 API
+  description: The phase5 API from Match It Up — 34 operation(s) for phase5.
+  humanURL: https://matchitup.in/developer-docs
+  baseURL: https://matchitup.in/api/mcp
+  tags:
+  - phase5
+  properties:
+  - type: OpenAPI
+    url: openapi/matchitup-in-phase5-api-openapi.yml
+  - type: Documentation
+    url: https://matchitup.in/developer-docs
+  - type: APIReference
+    url: https://matchitup.in/developers.html
+  - type: GettingStarted
+    url: https://matchitup.in/api/docs/agent-instructions.md
+  - type: ErrorCatalog
+    url: errors/matchitup-in-problem-types.yml
+  - type: DataModel
+    url: data-model/matchitup-in-data-model.yml
+  - type: Webhooks
+    url: asyncapi/matchitup-in-webhooks.yml
+- aid: matchitup-in:matchitup-in-pitch-deck-api
+  name: Match It Up Pitch Deck API
+  description: The Pitch Deck API from Match It Up — 1 operation(s) for pitch deck.
+  humanURL: https://matchitup.in/developer-docs
+  baseURL: https://matchitup.in/api/mcp
+  tags:
+  - Pitch Deck
+  properties:
+  - type: OpenAPI
+    url: openapi/matchitup-in-pitch-deck-api-openapi.yml
+  - type: Documentation
+    url: https://matchitup.in/developer-docs
+  - type: APIReference
+    url: https://matchitup.in/developers.html
+  - type: GettingStarted
+    url: https://matchitup.in/api/docs/agent-instructions.md
+  - type: ErrorCatalog
+    url: errors/matchitup-in-problem-types.yml
+  - type: DataModel
+    url: data-model/matchitup-in-data-model.yml
+  - type: Webhooks
+    url: asyncapi/matchitup-in-webhooks.yml
+- aid: matchitup-in:matchitup-in-protocol-api
+  name: Match It Up Protocol API
+  description: The Protocol API from Match It Up — 3 operation(s) for protocol.
+  humanURL: https://matchitup.in/developer-docs
+  baseURL: https://matchitup.in/api/mcp
+  tags:
+  - Protocol
+  properties:
+  - type: OpenAPI
+    url: openapi/matchitup-in-protocol-api-openapi.yml
+  - type: Documentation
+    url: https://matchitup.in/developer-docs
+  - type: APIReference
+    url: https://matchitup.in/developers.html
+  - type: GettingStarted
+    url: https://matchitup.in/api/docs/agent-instructions.md
+  - type: ErrorCatalog
+    url: errors/matchitup-in-problem-types.yml
+  - type: DataModel
+    url: data-model/matchitup-in-data-model.yml
+  - type: Webhooks
+    url: asyncapi/matchitup-in-webhooks.yml
+- aid: matchitup-in:matchitup-in-public-api
+  name: Match It Up Public API
+  description: The Public API from Match It Up — 2 operation(s) for public.
+  humanURL: https://matchitup.in/developer-docs
+  baseURL: https://matchitup.in/api/mcp
+  tags:
+  - Public
+  properties:
+  - type: OpenAPI
+    url: openapi/matchitup-in-public-api-openapi.yml
+  - type: Documentation
+    url: https://matchitup.in/developer-docs
+  - type: APIReference
+    url: https://matchitup.in/developers.html
+  - type: GettingStarted
+    url: https://matchitup.in/api/docs/agent-instructions.md
+  - type: ErrorCatalog
+    url: errors/matchitup-in-problem-types.yml
+  - type: DataModel
+    url: data-model/matchitup-in-data-model.yml
+  - type: Webhooks
+    url: asyncapi/matchitup-in-webhooks.yml
+- aid: matchitup-in:matchitup-in-referrals-api
+  name: Match It Up Referrals API
+  description: The referrals API from Match It Up — 2 operation(s) for referrals.
+  humanURL: https://matchitup.in/developer-docs
+  baseURL: https://matchitup.in/api/mcp
+  tags:
+  - referrals
+  properties:
+  - type: OpenAPI
+    url: openapi/matchitup-in-referrals-api-openapi.yml
+  - type: Documentation
+    url: https://matchitup.in/developer-docs
+  - type: APIReference
+    url: https://matchitup.in/developers.html
+  - type: GettingStarted
+    url: https://matchitup.in/api/docs/agent-instructions.md
+  - type: ErrorCatalog
+    url: errors/matchitup-in-problem-types.yml
+  - type: DataModel
+    url: data-model/matchitup-in-data-model.yml
+  - type: Webhooks
+    url: asyncapi/matchitup-in-webhooks.yml
+- aid: matchitup-in:matchitup-in-social-auth-api
+  name: Match It Up Social Auth API
+  description: The social-auth API from Match It Up — 9 operation(s) for social-auth.
+  humanURL: https://matchitup.in/developer-docs
+  baseURL: https://matchitup.in/api/mcp
+  tags:
+  - social-auth
+  properties:
+  - type: OpenAPI
+    url: openapi/matchitup-in-social-auth-api-openapi.yml
+  - type: Documentation
+    url: https://matchitup.in/developer-docs
+  - type: APIReference
+    url: https://matchitup.in/developers.html
+  - type: GettingStarted
+    url: https://matchitup.in/api/docs/agent-instructions.md
+  - type: ErrorCatalog
+    url: errors/matchitup-in-problem-types.yml
+  - type: DataModel
+    url: data-model/matchitup-in-data-model.yml
+  - type: Webhooks
+    url: asyncapi/matchitup-in-webhooks.yml
+- aid: matchitup-in:matchitup-in-sprint8-api
+  name: Match It Up Sprint8 API
+  description: The sprint8 API from Match It Up — 13 operation(s) for sprint8.
+  humanURL: https://matchitup.in/developer-docs
+  baseURL: https://matchitup.in/api/mcp
+  tags:
+  - sprint8
+  properties:
+  - type: OpenAPI
+    url: openapi/matchitup-in-sprint8-api-openapi.yml
+  - type: Documentation
+    url: https://matchitup.in/developer-docs
+  - type: APIReference
+    url: https://matchitup.in/developers.html
+  - type: GettingStarted
+    url: https://matchitup.in/api/docs/agent-instructions.md
+  - type: ErrorCatalog
+    url: errors/matchitup-in-problem-types.yml
+  - type: DataModel
+    url: data-model/matchitup-in-data-model.yml
+  - type: Webhooks
+    url: asyncapi/matchitup-in-webhooks.yml
+- aid: matchitup-in:matchitup-in-sprint9-api
+  name: Match It Up Sprint9 API
+  description: The sprint9 API from Match It Up — 9 operation(s) for sprint9.
+  humanURL: https://matchitup.in/developer-docs
+  baseURL: https://matchitup.in/api/mcp
+  tags:
+  - sprint9
+  properties:
+  - type: OpenAPI
+    url: openapi/matchitup-in-sprint9-api-openapi.yml
+  - type: Documentation
+    url: https://matchitup.in/developer-docs
+  - type: APIReference
+    url: https://matchitup.in/developers.html
+  - type: GettingStarted
+    url: https://matchitup.in/api/docs/agent-instructions.md
+  - type: ErrorCatalog
+    url: errors/matchitup-in-problem-types.yml
+  - type: DataModel
+    url: data-model/matchitup-in-data-model.yml
+  - type: Webhooks
+    url: asyncapi/matchitup-in-webhooks.yml
+- aid: matchitup-in:matchitup-in-ssr-api
+  name: Match It Up SSR API
+  description: The SSR API from Match It Up — 2 operation(s) for ssr.
+  humanURL: https://matchitup.in/developer-docs
+  baseURL: https://matchitup.in/api/mcp
+  tags:
+  - SSR
+  properties:
+  - type: OpenAPI
+    url: openapi/matchitup-in-ssr-api-openapi.yml
+  - type: Documentation
+    url: https://matchitup.in/developer-docs
+  - type: APIReference
+    url: https://matchitup.in/developers.html
+  - type: GettingStarted
+    url: https://matchitup.in/api/docs/agent-instructions.md
+  - type: ErrorCatalog
+    url: errors/matchitup-in-problem-types.yml
+  - type: DataModel
+    url: data-model/matchitup-in-data-model.yml
+  - type: Webhooks
+    url: asyncapi/matchitup-in-webhooks.yml
+- aid: matchitup-in:matchitup-in-subscriptions-api
+  name: Match It Up Subscriptions API
+  description: The Subscriptions API from Match It Up — 8 operation(s) for subscriptions.
+  humanURL: https://matchitup.in/developer-docs
+  baseURL: https://matchitup.in/api/mcp
+  tags:
+  - Subscriptions
+  properties:
+  - type: OpenAPI
+    url: openapi/matchitup-in-subscriptions-api-openapi.yml
+  - type: Documentation
+    url: https://matchitup.in/developer-docs
+  - type: APIReference
+    url: https://matchitup.in/developers.html
+  - type: GettingStarted
+    url: https://matchitup.in/api/docs/agent-instructions.md
+  - type: ErrorCatalog
+    url: errors/matchitup-in-problem-types.yml
+  - type: DataModel
+    url: data-model/matchitup-in-data-model.yml
+  - type: Webhooks
+    url: asyncapi/matchitup-in-webhooks.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Overlay
+  url: overlays/matchitup-in-openapi-overlay.yaml
 - type: AgenticAccess
   url: agentic-access/matchitup-in-agentic-access.yml
 - type: DomainSecurity
@@ -238,3 +802,10 @@ common:
   url: https://matchitup.in/privacy-policy
 - type: IncidentNotification
   url: https://matchitup.in/privacy-policy
+x-a2a:
+  verified: true
+  probed: '2026-09-26'
+  url: "https://matchitup.in/.well-known/agent-card.json"
+  grade: "near-conformant"
+  protocol_version: "1.0"
+  control: 404

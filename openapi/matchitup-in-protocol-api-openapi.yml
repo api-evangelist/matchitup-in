@@ -1,0 +1,79 @@
+openapi: 3.2.0
+info:
+  title: Matchitup In Protocol API
+  version: 0.1.0
+  x-spec-note: This is the PUBLIC spec for external agents + ChatGPT Actions. Super-admin and internal debug routes are excluded. Regenerated via backend/scripts/filter_public_openapi.py.
+  x-spec-profile: public-filtered
+  description: 'Operations tagged Protocol across 2 of this provider''s published API definitions: matchitup-in-openapi.json, matchitup-in-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://matchitup.in
+  description: Production
+tags:
+- name: Protocol
+paths:
+  /api/protocol/discover:
+    get:
+      summary: Unified Discover Agent
+      description: 'Unified discovery for external agents (MCP Tool #30).
+
+        Searches MIU users, external agents, and room posts.
+
+        X-API-Key auth required.'
+      operationId: unified_discover_agent_api_protocol_discover_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Protocol
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/protocol/research-person:
+    post:
+      summary: Research Person Endpoint
+      description: '360° web research for any person (MCP Tool #28).
+
+        Enriches via Perplexity+Tavily and cross-matches with calling agent''s profile.
+
+        X-API-Key auth required.'
+      operationId: research_person_endpoint_api_protocol_research_person_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Protocol
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/protocol/why-meet:
+    post:
+      summary: Why Meet Endpoint
+      description: 'Cross-match brief: why should the calling agent''s owner meet this person?
+
+        (MCP Tool #29). X-API-Key auth required.'
+      operationId: why_meet_endpoint_api_protocol_why_meet_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Protocol
+    servers:
+    - url: https://matchitup.in
+      description: Production
+components:
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+x-refined-from:
+- matchitup-in-openapi.json
+- matchitup-in-openapi.yml

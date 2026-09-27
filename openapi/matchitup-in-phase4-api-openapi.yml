@@ -1,0 +1,2098 @@
+openapi: 3.2.0
+info:
+  title: Matchitup In Phase4 API
+  version: 0.1.0
+  x-spec-note: This is the PUBLIC spec for external agents + ChatGPT Actions. Super-admin and internal debug routes are excluded. Regenerated via backend/scripts/filter_public_openapi.py.
+  x-spec-profile: public-filtered
+  description: 'Operations tagged phase4 across 2 of this provider''s published API definitions: matchitup-in-openapi.json, matchitup-in-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://matchitup.in
+  description: Production
+tags:
+- name: phase4
+paths:
+  /api/matches/available-count:
+    get:
+      tags:
+      - phase4
+      summary: Get Available Matches Count
+      description: Get count of potential matches available for the user
+      operationId: get_available_matches_count_api_matches_available_count_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/members/debug:
+    get:
+      tags:
+      - phase4
+      summary: Debug Members
+      description: 'Debug endpoint to diagnose why a user sees no members.
+
+        Returns breakdown of all exclusions and available members.'
+      operationId: debug_members_api_members_debug_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/members/diagnose:
+    get:
+      tags:
+      - phase4
+      summary: Diagnose Members
+      description: 'Diagnostic endpoint to find exactly where members processing fails.
+
+        Returns step-by-step breakdown of the entire members processing pipeline.'
+      operationId: diagnose_members_api_members_diagnose_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/members/simple:
+    get:
+      tags:
+      - phase4
+      summary: Get Members Simple
+      description: 'Simplified members endpoint for debugging - bypasses complex processing.
+
+        Returns basic member data without ranking, scoring, or UserProfile validation.'
+      operationId: get_members_simple_api_members_simple_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/members:
+    get:
+      tags:
+      - phase4
+      summary: Get Members
+      description: 'Get browsable members with full diversity ranking algorithm.
+
+        Balances visibility across new members, industries, chapters, and engagement levels.
+
+        Excludes: already matched, already liked, and skipped users (unless include_skipped=True for search).
+
+        If search_mode=True, returns ALL users except current user (for search functionality).
+
+        If sort_by_ai_score=True, members are sorted by AI intent match score (highest first).'
+      operationId: get_members_api_members_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: include_skipped
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Include Skipped
+      - name: search_mode
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Search Mode
+      - name: sort_by_ai_score
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Sort By Ai Score
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Page
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 50
+          title: Limit
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/ai-intent-match/{target_user_id}:
+    get:
+      tags:
+      - phase4
+      summary: Get Ai Intent Match
+      description: 'AI-Powered Intent Matching Agent.
+
+        Returns structured match insights with score, label, match points, and hook.'
+      operationId: get_ai_intent_match_api_ai_intent_match__target_user_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: target_user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Target User Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/ai-intent-match/batch:
+    post:
+      tags:
+      - phase4
+      summary: Get Ai Intent Match Batch
+      description: 'Batch AI Intent Match for multiple users.
+
+        Returns dict of user_id -> intent match result.'
+      operationId: get_ai_intent_match_batch_api_ai_intent_match_batch_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                type: string
+              type: array
+              title: Target User Ids
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/ai-match-reason/{target_user_id}:
+    get:
+      tags:
+      - phase4
+      summary: Get Ai Match Reason
+      description: 'Generate an AI-powered match reason explaining why two users should connect.
+
+        Uses caching to avoid repeated API calls.'
+      operationId: get_ai_match_reason_api_ai_match_reason__target_user_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: target_user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Target User Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/ai-match-reasons/batch:
+    post:
+      tags:
+      - phase4
+      summary: Get Ai Match Reasons Batch
+      description: 'Generate AI-powered match reasons for multiple users in batch.
+
+        More efficient for loading browse cards.'
+      operationId: get_ai_match_reasons_batch_api_ai_match_reasons_batch_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                type: string
+              type: array
+              title: Target User Ids
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/members/search:
+    post:
+      tags:
+      - phase4
+      summary: Search Members
+      operationId: search_members_api_members_search_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberSearchRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/UserProfile'
+                type: array
+                title: Response Search Members Api Members Search Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/members/{member_id}:
+    get:
+      tags:
+      - phase4
+      summary: Get Member
+      operationId: get_member_api_members__member_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: member_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Member Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/relevance/{member_id}:
+    get:
+      tags:
+      - phase4
+      summary: Get Relevance Score
+      description: 'Get comprehensive "Why You Matched" data between current user and another member.
+
+        Returns detailed match insights including:
+
+        - Exact Give-Ask overlaps
+
+        - Industry adjacency
+
+        - Historical success data
+
+        - Confidence breakdown'
+      operationId: get_relevance_score_api_relevance__member_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: member_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Member Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/likes:
+    post:
+      tags:
+      - phase4
+      summary: Like User
+      description: 'Like a user (right swipe). If mutual, creates a match.
+
+        Returns status: "liked" or "matched" (mutual match created)
+
+        Respects match limits based on subscription tier.'
+      operationId: like_user_api_likes_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LikeCreate'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LikeResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/skip:
+    post:
+      tags:
+      - phase4
+      summary: Skip User
+      description: 'Skip/pass on a user (left swipe). Records the skip to hide from future browsing.
+
+        Also stores as last_skip for undo functionality (Pro/Elite only).
+
+        Counts toward daily swipe limit for starter/free tier.'
+      operationId: skip_user_api_skip_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LikeCreate'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/undo-skip:
+    post:
+      tags:
+      - phase4
+      summary: Undo Last Skip
+      description: 'Undo the last skip/pass action. Only available for Pro and Elite users.
+
+        Returns the profile of the user that was un-skipped.'
+      operationId: undo_last_skip_api_undo_skip_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/can-undo-skip:
+    get:
+      tags:
+      - phase4
+      summary: Check Can Undo Skip
+      description: 'Check if user can undo their last skip.
+
+        Returns whether undo is available and time remaining.'
+      operationId: check_can_undo_skip_api_can_undo_skip_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/likes/{target_user_id}:
+    delete:
+      tags:
+      - phase4
+      summary: Unlike User
+      description: Remove a like (unlike a user). This removes the pending like.
+      operationId: unlike_user_api_likes__target_user_id__delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: target_user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Target User Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/likes/reject-incoming/{from_user_id}:
+    post:
+      tags:
+      - phase4
+      summary: Reject Incoming Like
+      description: 'Reject an incoming like (from Who Liked You page).
+
+        This removes the like from the database so no more reminder emails are sent.
+
+        Also creates a skip record to prevent showing this user again.'
+      operationId: reject_incoming_like_api_likes_reject_incoming__from_user_id__post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: from_user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: From User Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/likes/pending:
+    get:
+      tags:
+      - phase4
+      summary: Get Pending Likes
+      description: Get count of users who have liked you (pending matches, excluding expired)
+      operationId: get_pending_likes_api_likes_pending_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/likes/who-liked-me:
+    get:
+      tags:
+      - phase4
+      summary: Get Who Liked Me
+      description: 'Get users who have liked you (PRO/ELITE feature).
+
+        Free users can only see the count, not the profiles.
+
+        Excludes expired likes (7+ days old without response).'
+      operationId: get_who_liked_me_api_likes_who_liked_me_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/likes/my-pending-likes:
+    get:
+      tags:
+      - phase4
+      summary: Get My Pending Likes
+      description: 'Get profiles the current user has liked but haven''t liked back yet.
+
+        These are outgoing likes waiting for response.
+
+        Pending likes expire after 7 days.'
+      operationId: get_my_pending_likes_api_likes_my_pending_likes_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/likes/my-expired-likes:
+    get:
+      tags:
+      - phase4
+      summary: Get My Expired Likes
+      description: 'Get profiles the current user has liked but have now expired.
+
+        These can potentially be revived with payment.'
+      operationId: get_my_expired_likes_api_likes_my_expired_likes_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/likes/expired-received:
+    get:
+      tags:
+      - phase4
+      summary: Get Expired Received Likes
+      description: 'Get likes I RECEIVED that have expired (I didn''t respond in time).
+
+        These can potentially be revived with payment by the receiver.'
+      operationId: get_expired_received_likes_api_likes_expired_received_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/likes/{like_id}/dismiss:
+    post:
+      tags:
+      - phase4
+      summary: Dismiss Expired Like
+      description: Permanently dismiss an expired like so it doesn't show in the expired tab.
+      operationId: dismiss_expired_like_api_likes__like_id__dismiss_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: like_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Like Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/likes/{like_id}/revive:
+    post:
+      tags:
+      - phase4
+      summary: Revive Expired Like
+      description: 'Revive an expired like.
+
+        - For ''sent'' type: Reset the expiry on a like you sent that expired
+
+        - For ''received'' type: Accept an expired like you received (creates a match)'
+      operationId: revive_expired_like_api_likes__like_id__revive_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: like_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Like Id
+      - name: revive_type
+        in: query
+        required: false
+        schema:
+          type: string
+          default: sent
+          title: Revive Type
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/endorsements:
+    post:
+      tags:
+      - phase4
+      summary: Create Endorsement
+      description: 'Create an endorsement for another user.
+
+        Can only endorse users you have matched with.'
+      operationId: create_endorsement_api_endorsements_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EndorsementCreate'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/endorsements/{user_id}:
+    get:
+      tags:
+      - phase4
+      summary: Get User Endorsements
+      description: Get all endorsements for a user
+      operationId: get_user_endorsements_api_endorsements__user_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: User Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/reputation/{user_id}:
+    get:
+      tags:
+      - phase4
+      summary: Get User Reputation
+      description: Get reputation badges for a user
+      operationId: get_user_reputation_api_reputation__user_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: User Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/introductions:
+    get:
+      tags:
+      - phase4
+      summary: Get My Introductions
+      description: Get all introductions made by the current user
+      operationId: get_my_introductions_api_introductions_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+    post:
+      tags:
+      - phase4
+      summary: Create Introduction
+      description: Create an introduction between two of your matches
+      operationId: create_introduction_api_introductions_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IntroductionCreate'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/introductions/received:
+    get:
+      tags:
+      - phase4
+      summary: Get Received Introductions
+      description: Get introductions where the current user was introduced to someone
+      operationId: get_received_introductions_api_introductions_received_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/introductions/handshake:
+    post:
+      tags:
+      - phase4
+      summary: Mark Handshake
+      description: Mark an introduction as a successful handshake (either party can mark it)
+      operationId: mark_handshake_api_introductions_handshake_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MarkHandshake'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/connector-stats:
+    get:
+      tags:
+      - phase4
+      summary: Get Connector Stats
+      description: Get connector statistics for the current user
+      operationId: get_connector_stats_api_connector_stats_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/leaderboard:
+    get:
+      tags:
+      - phase4
+      summary: Get Leaderboard
+      description: Get top connectors leaderboard based on handshakes + introductions
+      operationId: get_leaderboard_api_leaderboard_get
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 10
+          title: Limit
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/potential-introductions:
+    get:
+      tags:
+      - phase4
+      summary: Get Potential Introductions
+      description: Get AI suggestions for potential introductions between user's matches
+      operationId: get_potential_introductions_api_potential_introductions_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/matches:
+    post:
+      tags:
+      - phase4
+      summary: Create Match
+      description: Legacy endpoint - redirects to mutual matching system
+      operationId: create_match_api_matches_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MatchCreate'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LikeResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/matches/with-expiry:
+    get:
+      tags:
+      - phase4
+      summary: Get Matches With Expiry
+      description: Get all matches with expiry information for the UI
+      operationId: get_matches_with_expiry_api_matches_with_expiry_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/matches/{match_id}:
+    delete:
+      tags:
+      - phase4
+      summary: Delete Match
+      description: Delete a match and all associated messages
+      operationId: delete_match_api_matches__match_id__delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: match_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Match Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/mutual-connections/{target_user_id}:
+    get:
+      tags:
+      - phase4
+      summary: Get Mutual Connections Api
+      description: 'Get mutual connections between current user and target user.
+
+        Returns ONLY actual mutual matches (people both users have matched with).'
+      operationId: get_mutual_connections_api_api_mutual_connections__target_user_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: target_user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Target User Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/credibility/status:
+    get:
+      tags:
+      - phase4
+      summary: Get Credibility Status
+      description: Get the credibility/enrichment status for the current user.
+      operationId: get_credibility_status_api_credibility_status_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/credibility/trigger:
+    post:
+      tags:
+      - phase4
+      summary: Trigger Credibility Enrichment
+      description: Manually trigger credibility enrichment for the current user.
+      operationId: trigger_credibility_enrichment_api_credibility_trigger_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/credibility/help:
+    get:
+      tags:
+      - phase4
+      summary: Get Credibility Help
+      description: Get help information about the credibility verification system.
+      operationId: get_credibility_help_api_credibility_help_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/push/vapid-key:
+    get:
+      tags:
+      - phase4
+      summary: Get Vapid Public Key
+      description: Get the VAPID public key for push subscription
+      operationId: get_vapid_public_key_api_push_vapid_key_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/push/subscribe:
+    post:
+      tags:
+      - phase4
+      summary: Subscribe Push
+      description: Subscribe to push notifications
+      operationId: subscribe_push_api_push_subscribe_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PushSubscription'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/push/unsubscribe:
+    delete:
+      tags:
+      - phase4
+      summary: Unsubscribe Push
+      description: Unsubscribe from push notifications
+      operationId: unsubscribe_push_api_push_unsubscribe_delete
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/network/intelligence:
+    get:
+      tags:
+      - phase4
+      summary: Network Intelligence
+      description: 'Phase 4b: Public network intelligence feed.
+
+        Anonymized aggregate signals — no PII.'
+      operationId: network_intelligence_api_network_intelligence_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/network/leaderboard:
+    get:
+      tags:
+      - phase4
+      summary: Network Leaderboard
+      description: 'Phase 4a: Public agent leaderboard ranked by trust_score.
+
+        Only includes agents with computed reputation scores.'
+      operationId: network_leaderboard_api_network_leaderboard_get
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 20
+          title: Limit
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/network/activity:
+    get:
+      tags:
+      - phase4
+      summary: Network Activity Feed
+      description: 'Phase 4d: Public anonymized activity feed.
+
+        Aggregates recent Mixer runs, intros sent, deal rooms, and agent registrations.
+
+        No PII — all events are anonymized.'
+      operationId: network_activity_feed_api_network_activity_get
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 15
+          title: Limit
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/discover/circles:
+    get:
+      tags:
+      - phase4
+      summary: Get Discoverable Circles
+      description: 'Get public brew circles from open communities for homepage discovery.
+
+        No authentication required - these are public circles.
+
+
+        Query params:
+
+        - limit: Max results (default 20)
+
+        - search: Search term for circle name/description
+
+        - community_id: Filter by specific community'
+      operationId: get_discoverable_circles_api_discover_circles_get
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 20
+          title: Limit
+      - name: search
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search
+      - name: community_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Community Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/discover/communities:
+    get:
+      tags:
+      - phase4
+      summary: Get Discoverable Communities
+      description: 'Get open communities for discovery.
+
+        No authentication required.
+
+
+        Query params:
+
+        - limit: Max results (default 20)
+
+        - search: Search term for community name/description
+
+        - city: Filter by city'
+      operationId: get_discoverable_communities_api_discover_communities_get
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 20
+          title: Limit
+      - name: search
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search
+      - name: city
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: City
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/discover/stats:
+    get:
+      tags:
+      - phase4
+      summary: Get Discover Stats
+      description: 'Get statistics for the discover page.
+
+        No authentication required.'
+      operationId: get_discover_stats_api_discover_stats_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/discover/stats/debug:
+    get:
+      tags:
+      - phase4
+      summary: Get Discover Stats Debug
+      description: Debug endpoint to see what circles are being counted
+      operationId: get_discover_stats_debug_api_discover_stats_debug_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/notifications/matches:
+    get:
+      tags:
+      - phase4
+      summary: Get Match Notifications
+      description: Get match notifications for the current user
+      operationId: get_match_notifications_api_notifications_matches_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 20
+          title: Limit
+      - name: unread_only
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Unread Only
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/notifications/matches/read:
+    post:
+      tags:
+      - phase4
+      summary: Mark Match Notifications Read
+      description: Mark match notifications as read. If no IDs provided, marks all as read.
+      operationId: mark_match_notifications_read_api_notifications_matches_read_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MarkNotificationsReadRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/notifications/matches/count:
+    get:
+      tags:
+      - phase4
+      summary: Get Match Notification Count
+      description: Get unread match notification count for the bell icon
+      operationId: get_match_notification_count_api_notifications_matches_count_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/matches/feedback:
+    post:
+      tags:
+      - phase4
+      summary: Submit Match Feedback
+      description: 'Submit feedback on a match suggestion.
+
+        Used to improve AI match quality over time.'
+      operationId: submit_match_feedback_api_matches_feedback_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MatchFeedback'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/matches/feedback/stats:
+    get:
+      tags:
+      - phase4
+      summary: Get Match Feedback Stats
+      description: 'Get AI match quality statistics (admin only).
+
+        Returns metrics on helpful rate, score distribution, and conversion rates.'
+      operationId: get_match_feedback_stats_api_matches_feedback_stats_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: days
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 30
+          title: Days
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/matches/feedback/my-history:
+    get:
+      tags:
+      - phase4
+      summary: Get My Match Feedback
+      description: Get the current user's match feedback history
+      operationId: get_my_match_feedback_api_matches_feedback_my_history_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 20
+          title: Limit
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/home/daily-matches:
+    get:
+      tags:
+      - phase4
+      summary: Get Daily Matches
+      description: 'Returns 3 AI-scored match candidates for the HomeTab, rotating daily.
+
+        - Same 3 people are shown throughout the day (consistent UX).
+
+        - New candidates appear each day (excludes people shown in the last 7 days).
+
+        - Already-connected users are never shown again.
+
+        - When fresh pool is exhausted, falls back to recently-seen (not connected) users.
+
+        - Gate: users with 0 gives AND 0 asks receive a 403 complete_profile error.'
+      operationId: get_daily_matches_api_home_daily_matches_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/home/match-reason:
+    post:
+      tags:
+      - phase4
+      summary: Get Match Reason
+      description: 'Generate a GPT-4o one-liner explaining why this is a great match.
+
+        Accepts: { target_user_id, my_gives, my_asks, their_name, their_gives, their_asks, their_role, their_industry }
+
+        Returns: { reason: str, cached: bool }
+
+        Caches generated reason in daily_home_matches to avoid redundant LLM calls.'
+      operationId: get_match_reason_api_home_match_reason_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+components:
+  schemas:
+    UserProfile:
+      properties:
+        id:
+          type: string
+          title: Id
+        email:
+          type: string
+          title: Email
+        name:
+          type: string
+          title: Name
+        company:
+          type: string
+          title: Company
+        business_description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Business Description
+        credibility_line:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Credibility Line
+        industry:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Industry
+        region:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Region
+        chapter_region:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Chapter Region
+        website:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Website
+        instagram:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Instagram
+        linkedin:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Linkedin
+        whatsapp_number:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Whatsapp Number
+        profile_photo:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Profile Photo
+        gives:
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+          title: Gives
+        asks:
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+          title: Asks
+        profile_activated:
+          type: boolean
+          title: Profile Activated
+          default: false
+        created_at:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Created At
+        badges:
+          items:
+            type: string
+          type: array
+          title: Badges
+        profile_views:
+          type: integer
+          title: Profile Views
+          default: 0
+        last_activity:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Activity
+        mi_pin:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Mi Pin
+        mu_pin:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Mu Pin
+        referral_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Referral Code
+        referred_by_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Referred By Name
+        match_count:
+          type: integer
+          title: Match Count
+          default: 0
+        response_rate:
+          type: number
+          title: Response Rate
+          default: 0.0
+        subscription_tier:
+          type: string
+          title: Subscription Tier
+          default: starter
+        subscription_expires_at:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Subscription Expires At
+        daily_swipes_used:
+          type: integer
+          title: Daily Swipes Used
+          default: 0
+        daily_swipes_reset_at:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Daily Swipes Reset At
+        reputation_badges:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Reputation Badges
+        trust_score:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Trust Score
+        trust_tier:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Trust Tier
+        primary_community:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Primary Community
+        calendly_link:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Calendly Link
+        communities:
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+          title: Communities
+        is_admin:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Admin
+        elite_protocol_agent_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Elite Protocol Agent Id
+        elite_protocol_api_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Elite Protocol Api Key
+        pro_protocol_agent_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Pro Protocol Agent Id
+        pro_protocol_api_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Pro Protocol Api Key
+        enriched_gives:
+          items:
+            type: string
+          type: array
+          title: Enriched Gives
+        enriched_asks:
+          items:
+            type: string
+          type: array
+          title: Enriched Asks
+      type: object
+      required:
+      - id
+      - email
+      - name
+      - company
+      title: UserProfile
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    MatchCreate:
+      properties:
+        target_user_id:
+          type: string
+          title: Target User Id
+      type: object
+      required:
+      - target_user_id
+      title: MatchCreate
+    MatchFeedback:
+      properties:
+        target_user_id:
+          type: string
+          title: Target User Id
+        feedback_type:
+          type: string
+          title: Feedback Type
+        ai_score:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Ai Score
+        comment:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment
+      type: object
+      required:
+      - target_user_id
+      - feedback_type
+      title: MatchFeedback
+      description: Model for collecting user feedback on AI matches
+    MarkHandshake:
+      properties:
+        introduction_id:
+          type: string
+          title: Introduction Id
+      type: object
+      required:
+      - introduction_id
+      title: MarkHandshake
+    MemberSearchRequest:
+      properties:
+        query:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Query
+        industry:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Industry
+      type: object
+      title: MemberSearchRequest
+    LikeCreate:
+      properties:
+        target_user_id:
+          type: string
+          title: Target User Id
+      type: object
+      required:
+      - target_user_id
+      title: LikeCreate
+    MarkNotificationsReadRequest:
+      properties:
+        notification_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Notification Ids
+      type: object
+      title: MarkNotificationsReadRequest
+    EndorsementCreate:
+      properties:
+        to_user_id:
+          type: string
+          title: To User Id
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - to_user_id
+      - message
+      title: EndorsementCreate
+    LikeResponse:
+      properties:
+        status:
+          type: string
+          title: Status
+        match:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Match
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - status
+      - message
+      title: LikeResponse
+    IntroductionCreate:
+      properties:
+        person_a_id:
+          type: string
+          title: Person A Id
+        person_b_id:
+          type: string
+          title: Person B Id
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - person_a_id
+      - person_b_id
+      - message
+      title: IntroductionCreate
+    PushSubscription:
+      properties:
+        endpoint:
+          type: string
+          title: Endpoint
+        keys:
+          additionalProperties:
+            type: string
+          type: object
+          title: Keys
+      type: object
+      required:
+      - endpoint
+      - keys
+      title: PushSubscription
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+x-refined-from:
+- matchitup-in-openapi.json
+- matchitup-in-openapi.yml

@@ -1,0 +1,468 @@
+openapi: 3.2.0
+info:
+  title: Matchitup In Social Auth API
+  version: 0.1.0
+  x-spec-note: This is the PUBLIC spec for external agents + ChatGPT Actions. Super-admin and internal debug routes are excluded. Regenerated via backend/scripts/filter_public_openapi.py.
+  x-spec-profile: public-filtered
+  description: 'Operations tagged social-auth across 2 of this provider''s published API definitions: matchitup-in-openapi.json, matchitup-in-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://matchitup.in
+  description: Production
+tags:
+- name: social-auth
+paths:
+  /api/auth/{provider}/login:
+    get:
+      tags:
+      - social-auth
+      summary: Social Login
+      description: 'Kick off OAuth flow — redirect to provider consent page.
+
+
+        Optional ?link_token= param allows an already-logged-in user to
+
+        LINK an additional social account (instead of starting a new session).'
+      operationId: social_login_api_auth__provider__login_get
+      parameters:
+      - name: provider
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Provider
+      - name: link_token
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Link Token
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/auth/{provider}/callback:
+    get:
+      tags:
+      - social-auth
+      summary: Social Callback
+      description: 'OAuth provider redirects here after consent.
+
+        We exchange the code, look up/create the user, issue our own JWT,
+
+        then redirect to frontend /social-done?token=...'
+      operationId: social_callback_api_auth__provider__callback_get
+      parameters:
+      - name: provider
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Provider
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/auth/social-providers:
+    get:
+      tags:
+      - social-auth
+      summary: Get Social Providers
+      description: Return which social providers are linked to the current user's account.
+      operationId: get_social_providers_api_auth_social_providers_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/auth/social-disconnect/{provider}:
+    delete:
+      tags:
+      - social-auth
+      summary: Social Disconnect
+      description: Remove a social provider from user's account, with safety guard.
+      operationId: social_disconnect_api_auth_social_disconnect__provider__delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: provider
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Provider
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/auth/check-email:
+    post:
+      tags:
+      - social-auth
+      summary: Check Email
+      description: 'Given an email, return whether an account exists and which auth methods it has.
+
+        Used on /login to surface "This account is linked to Google. Continue with Google?"
+
+        Always returns 200 (even when no match) — never leaks "user not found".'
+      operationId: check_email_api_auth_check_email_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckEmailRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/auth/oauth-onboarding:
+    post:
+      tags:
+      - social-auth
+      summary: Oauth Onboarding
+      description: 'Called once by /social-done after a fresh OAuth signup.
+
+        Idempotent: if `onboarding_processed: True` on the user doc, returns early.
+
+        Replays UTM + referral code captured before the OAuth redirect.
+
+        Welcome email itself fires on profile activation (see phase3.py).'
+      operationId: oauth_onboarding_api_auth_oauth_onboarding_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OAuthOnboardingRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/auth/merge-with-existing/start:
+    post:
+      tags:
+      - social-auth
+      summary: Merge Start
+      description: 'Step 1 of merge: an OAuth-fresh user requests to merge into an existing account.
+
+        Sends an OTP to the OTHER account''s email so we can prove ownership.
+
+        Only allowed if the current account is "fresh" (no gives/asks yet) — protects
+
+        against malicious merges from an attacker who took over a Google account.'
+      operationId: merge_start_api_auth_merge_with_existing_start_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MergeRequestStart'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/auth/merge-with-existing/confirm:
+    post:
+      tags:
+      - social-auth
+      summary: Merge Confirm
+      description: 'Step 2 of merge: validate OTP and perform the merge.
+
+        Moves the current (fresh OAuth) user''s providers + linked_emails into the
+
+        target account, then soft-deletes the source.'
+      operationId: merge_confirm_api_auth_merge_with_existing_confirm_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MergeRequestConfirm'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/auth/complete-social-registration:
+    post:
+      tags:
+      - social-auth
+      summary: Complete Social Registration
+      description: 'Called by the /register?source=social form after a fresh OAuth signup.
+
+        UPDATES the existing social user doc with the business-onboarding fields
+
+        that OAuth did not provide. Does NOT create a new user.
+
+        Email/name/profile_picture stay as OAuth populated them.'
+      operationId: complete_social_registration_api_auth_complete_social_registration_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompleteSocialRegistrationRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+components:
+  schemas:
+    OAuthOnboardingRequest:
+      properties:
+        tracking:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Tracking
+      type: object
+      title: OAuthOnboardingRequest
+    CheckEmailRequest:
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email
+      type: object
+      required:
+      - email
+      title: CheckEmailRequest
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    MergeRequestConfirm:
+      properties:
+        other_email:
+          type: string
+          format: email
+          title: Other Email
+        otp:
+          type: string
+          title: Otp
+      type: object
+      required:
+      - other_email
+      - otp
+      title: MergeRequestConfirm
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    CompleteSocialRegistrationRequest:
+      properties:
+        company:
+          type: string
+          title: Company
+        business_description:
+          type: string
+          title: Business Description
+        industry:
+          type: string
+          title: Industry
+        region:
+          type: string
+          title: Region
+        whatsapp_number:
+          type: string
+          title: Whatsapp Number
+        website:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Website
+          default: ''
+        instagram:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Instagram
+          default: ''
+        linkedin:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Linkedin
+          default: ''
+        credibility_line:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Credibility Line
+          default: ''
+        profile_photo:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Profile Photo
+          default: ''
+        ref_mi_pin:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ref Mi Pin
+          default: ''
+        invite_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Invite Code
+          default: ''
+        referral_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Referral Code
+          default: ''
+      type: object
+      required:
+      - company
+      - business_description
+      - industry
+      - region
+      - whatsapp_number
+      title: CompleteSocialRegistrationRequest
+    MergeRequestStart:
+      properties:
+        other_email:
+          type: string
+          format: email
+          title: Other Email
+      type: object
+      required:
+      - other_email
+      title: MergeRequestStart
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+x-refined-from:
+- matchitup-in-openapi.json
+- matchitup-in-openapi.yml

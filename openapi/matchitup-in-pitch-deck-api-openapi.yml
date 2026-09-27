@@ -1,0 +1,49 @@
+openapi: 3.2.0
+info:
+  title: Matchitup In Pitch Deck API
+  version: 0.1.0
+  x-spec-note: This is the PUBLIC spec for external agents + ChatGPT Actions. Super-admin and internal debug routes are excluded. Regenerated via backend/scripts/filter_public_openapi.py.
+  x-spec-profile: public-filtered
+  description: 'Operations tagged Pitch Deck across 2 of this provider''s published API definitions: matchitup-in-openapi.json, matchitup-in-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://matchitup.in
+  description: Production
+tags:
+- name: Pitch Deck
+paths:
+  /api/pitch-deck/settings:
+    get:
+      summary: Get Pitch Deck Settings
+      description: Return the current pitch deck URL (public).
+      operationId: get_pitch_deck_settings_api_pitch_deck_settings_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Pitch Deck
+    put:
+      summary: Update Pitch Deck Settings
+      description: Update the pitch deck URL — admin only.
+      operationId: update_pitch_deck_settings_api_pitch_deck_settings_put
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Pitch Deck
+    servers:
+    - url: https://matchitup.in
+      description: Production
+components:
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+x-refined-from:
+- matchitup-in-openapi.json
+- matchitup-in-openapi.yml

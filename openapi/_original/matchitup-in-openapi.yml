@@ -1,3 +1,5 @@
+# x-archived-from: matchitup-in-openapi.yml
+# x-archived-on: 2026-09-26
 # Verbatim conversion (JSON -> YAML) of https://matchitup.in/openapi.json fetched 2026-09-19.
 # Original JSON preserved at openapi/_original/matchitup-in-openapi.json. No content was altered.
 openapi: 3.1.0

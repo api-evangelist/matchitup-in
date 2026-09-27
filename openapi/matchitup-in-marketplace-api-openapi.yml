@@ -1,0 +1,347 @@
+openapi: 3.2.0
+info:
+  title: Matchitup In Marketplace API
+  version: 0.1.0
+  x-spec-note: This is the PUBLIC spec for external agents + ChatGPT Actions. Super-admin and internal debug routes are excluded. Regenerated via backend/scripts/filter_public_openapi.py.
+  x-spec-profile: public-filtered
+  description: 'Operations tagged marketplace across 2 of this provider''s published API definitions: matchitup-in-openapi.json, matchitup-in-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://matchitup.in
+  description: Production
+tags:
+- name: Marketplace
+paths:
+  /api/marketplace:
+    get:
+      tags:
+      - Marketplace
+      summary: List Intents
+      description: 'Browse service offers / requests. Filters: intent_type, category, q, mine.'
+      operationId: list_intents_api_marketplace_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: intent_type
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Intent Type
+      - name: category
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Category
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+          default: active
+          title: Status
+      - name: q
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Q
+      - name: mine
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Mine
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 30
+          title: Limit
+      - name: skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Skip
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - Marketplace
+      summary: Create Intent
+      description: Create a new service intent directly from the marketplace UI.
+      operationId: create_intent_api_marketplace_post
+      security:
+      - HTTPBearer: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateIntentBody'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/marketplace/{intent_id}:
+    get:
+      tags:
+      - Marketplace
+      summary: Get Intent
+      description: Full intent detail. Owner sees all responses; others see response count only.
+      operationId: get_intent_api_marketplace__intent_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: intent_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Intent Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Marketplace
+      summary: Delete Intent
+      description: Owner hard-deletes intent + cascades responses.
+      operationId: delete_intent_api_marketplace__intent_id__delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: intent_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Intent Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/marketplace/{intent_id}/respond:
+    post:
+      tags:
+      - Marketplace
+      summary: Respond To Intent
+      operationId: respond_to_intent_api_marketplace__intent_id__respond_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: intent_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Intent Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RespondBody'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/marketplace/{intent_id}/close:
+    post:
+      tags:
+      - Marketplace
+      summary: Close Intent
+      description: Owner marks their intent as closed.
+      operationId: close_intent_api_marketplace__intent_id__close_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: intent_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Intent Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    RespondBody:
+      properties:
+        message:
+          type: string
+          maxLength: 800
+          minLength: 1
+          title: Message
+      type: object
+      required:
+      - message
+      title: RespondBody
+    CreateIntentBody:
+      properties:
+        intent_type:
+          type: string
+          pattern: ^(offer|request)$
+          title: Intent Type
+        title:
+          type: string
+          maxLength: 120
+          minLength: 3
+          title: Title
+        description:
+          type: string
+          maxLength: 1000
+          title: Description
+          default: ''
+        category:
+          type: string
+          maxLength: 60
+          title: Category
+          default: ''
+        price:
+          anyOf:
+          - type: number
+            minimum: 0.0
+          - type: 'null'
+          title: Price
+        pricing_type:
+          anyOf:
+          - type: string
+            pattern: ^(fixed|hourly|negotiable|free)$
+          - type: 'null'
+          title: Pricing Type
+        budget_min:
+          anyOf:
+          - type: number
+            minimum: 0.0
+          - type: 'null'
+          title: Budget Min
+        budget_max:
+          anyOf:
+          - type: number
+            minimum: 0.0
+          - type: 'null'
+          title: Budget Max
+        delivery_window:
+          anyOf:
+          - type: string
+            maxLength: 50
+          - type: 'null'
+          title: Delivery Window
+      type: object
+      required:
+      - intent_type
+      - title
+      title: CreateIntentBody
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+x-refined-from:
+- matchitup-in-openapi.json
+- matchitup-in-openapi.yml

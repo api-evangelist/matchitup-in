@@ -1,0 +1,141 @@
+openapi: 3.2.0
+info:
+  title: Matchitup In SSR API
+  version: 0.1.0
+  x-spec-note: This is the PUBLIC spec for external agents + ChatGPT Actions. Super-admin and internal debug routes are excluded. Regenerated via backend/scripts/filter_public_openapi.py.
+  x-spec-profile: public-filtered
+  description: 'Operations tagged SSR across 2 of this provider''s published API definitions: matchitup-in-openapi.json, matchitup-in-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://matchitup.in
+  description: Production
+tags:
+- name: SSR
+paths:
+  /api/ssr/bot/{agent_id}:
+    get:
+      tags:
+      - SSR
+      summary: Ssr Agent Profile
+      description: 'Pre-rendered HTML for /bot/{agent_id}.
+
+
+        - Crawler UA → full HTML with meta tags + JSON-LD (200 text/html)
+
+        - Browser UA → JSON with redirect URL (200 application/json)
+
+
+        Production nginx snippet (add alongside /m/ in nginx-og-routes.conf):
+
+        location /bot/ {
+
+        if ($http_user_agent ~* "googlebot|twitterbot|linkedinbot|facebot|...") {
+
+        proxy_pass http://127.0.0.1:8001;
+
+        rewrite ^/bot/(.*)$ /api/ssr/bot/$1 break;
+
+        }
+
+        proxy_pass http://127.0.0.1:3000;
+
+        }'
+      operationId: ssr_agent_profile_api_ssr_bot__agent_id__get
+      parameters:
+      - name: agent_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Agent Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/ssr/developer-docs:
+    get:
+      tags:
+      - SSR
+      summary: Ssr Developer Docs
+      description: 'Pre-rendered HTML for /developer-docs.
+
+
+        - Crawler UA → full HTML with meta tags + JSON-LD (200 text/html)
+
+        - Browser UA → JSON with redirect URL (200 application/json)
+
+
+        Production nginx snippet:
+
+        location /developer-docs {
+
+        if ($http_user_agent ~* "googlebot|twitterbot|...") {
+
+        proxy_pass http://127.0.0.1:8001;
+
+        rewrite ^/developer-docs$ /api/ssr/developer-docs break;
+
+        }
+
+        proxy_pass http://127.0.0.1:3000;
+
+        }'
+      operationId: ssr_developer_docs_api_ssr_developer_docs_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+    servers:
+    - url: https://matchitup.in
+      description: Production
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+x-refined-from:
+- matchitup-in-openapi.json
+- matchitup-in-openapi.yml

@@ -1,0 +1,1194 @@
+openapi: 3.2.0
+info:
+  title: Matchitup In Brew Circles API
+  version: 0.1.0
+  x-spec-note: This is the PUBLIC spec for external agents + ChatGPT Actions. Super-admin and internal debug routes are excluded. Regenerated via backend/scripts/filter_public_openapi.py.
+  x-spec-profile: public-filtered
+  description: 'Operations tagged Brew Circles across 2 of this provider''s published API definitions: matchitup-in-openapi.json, matchitup-in-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://matchitup.in
+  description: Production
+tags:
+- name: Brew Circles
+paths:
+  /api/brew-circles/intents:
+    get:
+      tags:
+      - Brew Circles
+      summary: Get Post Intents
+      description: Get available post intent types.
+      operationId: get_post_intents_api_brew_circles_intents_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/brew-circles/reactions:
+    get:
+      tags:
+      - Brew Circles
+      summary: Get Reaction Types
+      description: Get available reaction types.
+      operationId: get_reaction_types_api_brew_circles_reactions_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+    post:
+      tags:
+      - Brew Circles
+      summary: Toggle User Reaction
+      description: Toggle a reaction on a post or reply.
+      operationId: toggle_user_reaction_api_brew_circles_reactions_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ToggleReactionRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/brew-circles/flag-reasons:
+    get:
+      tags:
+      - Brew Circles
+      summary: Get Flag Reasons
+      description: Get available flag reasons.
+      operationId: get_flag_reasons_api_brew_circles_flag_reasons_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/brew-circles/notifications:
+    get:
+      tags:
+      - Brew Circles
+      summary: Get User Notifications
+      description: Get notifications for the current user.
+      operationId: get_user_notifications_api_brew_circles_notifications_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Skip
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 20
+          title: Limit
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/brew-circles/notifications/read:
+    post:
+      tags:
+      - Brew Circles
+      summary: Mark User Notifications Read
+      description: Mark notifications as read.
+      operationId: mark_user_notifications_read_api_brew_circles_notifications_read_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              anyOf:
+              - $ref: '#/components/schemas/MarkBrewNotificationsRequest'
+              - type: 'null'
+              title: Request
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/brew-circles/notifications/count:
+    get:
+      tags:
+      - Brew Circles
+      summary: Get User Notification Count
+      description: Get unread notification count for the current user.
+      operationId: get_user_notification_count_api_brew_circles_notifications_count_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/brew-circles/circles/{circle_id}/members/search:
+    get:
+      tags:
+      - Brew Circles
+      summary: Search Members For Mention
+      description: Search circle members by name for @mention autocomplete.
+      operationId: search_members_for_mention_api_brew_circles_circles__circle_id__members_search_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: circle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Circle Id
+      - name: q
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ''
+          title: Q
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 10
+          title: Limit
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/brew-circles/settings/notifications:
+    get:
+      tags:
+      - Brew Circles
+      summary: Get Notification Settings
+      description: Get user's Brew Circle notification settings.
+      operationId: get_notification_settings_api_brew_circles_settings_notifications_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+    put:
+      tags:
+      - Brew Circles
+      summary: Update Notification Settings
+      description: Update user's Brew Circle notification settings.
+      operationId: update_notification_settings_api_brew_circles_settings_notifications_put
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificationSettingsRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/brew-circles/user/circles:
+    get:
+      tags:
+      - Brew Circles
+      summary: Get User Brew Circles
+      description: Get all Brew Circles the current user is a member of, enriched with unread + last activity.
+      operationId: get_user_brew_circles_api_brew_circles_user_circles_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/brew-circles/community/{community_id}:
+    get:
+      tags:
+      - Brew Circles
+      summary: Get Circle For Community
+      description: Get the Brew Circle for a community.
+      operationId: get_circle_for_community_api_brew_circles_community__community_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: community_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Community Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/brew-circles/{circle_id}:
+    get:
+      tags:
+      - Brew Circles
+      summary: Get Circle
+      description: Get a Brew Circle by ID.
+      operationId: get_circle_api_brew_circles__circle_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: circle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Circle Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Brew Circles
+      summary: Admin Delete Brew Circle
+      description: Delete a Brew Circle (admin only). Cannot delete the last circle in a community.
+      operationId: admin_delete_brew_circle_api_brew_circles__circle_id__delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: circle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Circle Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/brew-circles/{circle_id}/join:
+    post:
+      tags:
+      - Brew Circles
+      summary: Join Circle
+      description: Join a Brew Circle.
+      operationId: join_circle_api_brew_circles__circle_id__join_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: circle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Circle Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/brew-circles/{circle_id}/members:
+    get:
+      tags:
+      - Brew Circles
+      summary: List Circle Members
+      description: List members of a Brew Circle.
+      operationId: list_circle_members_api_brew_circles__circle_id__members_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: circle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Circle Id
+      - name: skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Skip
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 50
+          title: Limit
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/brew-circles/link-preview:
+    post:
+      tags:
+      - Brew Circles
+      summary: Get Link Preview
+      description: Fetch link preview (OG tags) for a URL.
+      operationId: get_link_preview_api_brew_circles_link_preview_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LinkPreviewRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/brew-circles/posts:
+    post:
+      tags:
+      - Brew Circles
+      summary: Create New Post
+      description: Create a new post in a Brew Circle.
+      operationId: create_new_post_api_brew_circles_posts_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePostRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/brew-circles/{circle_id}/posts:
+    get:
+      tags:
+      - Brew Circles
+      summary: List Posts
+      description: Get posts in a Brew Circle, optionally filtered by hashtag.
+      operationId: list_posts_api_brew_circles__circle_id__posts_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: circle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Circle Id
+      - name: skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Skip
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 20
+          title: Limit
+      - name: tag
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tag
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/brew-circles/{circle_id}/trending-tags:
+    get:
+      tags:
+      - Brew Circles
+      summary: Trending Tags
+      description: Return top hashtags used in this circle over the last 30 days.
+      operationId: trending_tags_api_brew_circles__circle_id__trending_tags_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: circle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Circle Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/brew-circles/{circle_id}/posts/check-new:
+    get:
+      tags:
+      - Brew Circles
+      summary: Check New Posts
+      description: Check for new posts since a given timestamp (for polling).
+      operationId: check_new_posts_api_brew_circles__circle_id__posts_check_new_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: circle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Circle Id
+      - name: since
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Since
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/brew-circles/posts/{post_id}:
+    get:
+      tags:
+      - Brew Circles
+      summary: Get Single Post
+      description: Get a single post with details.
+      operationId: get_single_post_api_brew_circles_posts__post_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: post_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Post Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Brew Circles
+      summary: Remove Post
+      description: Delete a post (only by author).
+      operationId: remove_post_api_brew_circles_posts__post_id__delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: post_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Post Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    put:
+      tags:
+      - Brew Circles
+      summary: Update Post
+      description: Edit a post (only by author).
+      operationId: update_post_api_brew_circles_posts__post_id__put
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: post_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Post Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditPostRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/brew-circles/replies:
+    post:
+      tags:
+      - Brew Circles
+      summary: Create New Reply
+      description: Create a reply to a post.
+      operationId: create_new_reply_api_brew_circles_replies_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateReplyRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/brew-circles/posts/{post_id}/replies:
+    get:
+      tags:
+      - Brew Circles
+      summary: List Replies
+      description: Get replies for a post.
+      operationId: list_replies_api_brew_circles_posts__post_id__replies_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: post_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Post Id
+      - name: skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Skip
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 50
+          title: Limit
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/brew-circles/replies/{reply_id}:
+    put:
+      tags:
+      - Brew Circles
+      summary: Update Reply
+      description: Edit a reply. Only the author can edit.
+      operationId: update_reply_api_brew_circles_replies__reply_id__put
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: reply_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Reply Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditReplyRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Brew Circles
+      summary: Remove Reply
+      description: Delete a reply. Only the author can delete.
+      operationId: remove_reply_api_brew_circles_replies__reply_id__delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: reply_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Reply Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/brew-circles/reactions/{target_type}/{target_id}:
+    get:
+      tags:
+      - Brew Circles
+      summary: Get Content Reactors
+      description: Get list of users who reacted to a post or reply.
+      operationId: get_content_reactors_api_brew_circles_reactions__target_type___target_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: target_type
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Target Type
+      - name: target_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Target Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/brew-circles/flags:
+    post:
+      tags:
+      - Brew Circles
+      summary: Flag User Content
+      description: Flag content for moderation.
+      operationId: flag_user_content_api_brew_circles_flags_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlagContentRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/brew-circles/community/{community_id}/all:
+    get:
+      tags:
+      - Brew Circles
+      summary: Get All Circles For Community
+      description: Get ALL Brew Circles for a community (for admin/multi-circle view).
+      operationId: get_all_circles_for_community_api_brew_circles_community__community_id__all_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: community_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Community Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/brew-circles/{circle_id}/settings:
+    put:
+      tags:
+      - Brew Circles
+      summary: Update Brew Circle Settings
+      description: Update Brew Circle settings (admin only).
+      operationId: update_brew_circle_settings_api_brew_circles__circle_id__settings_put
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: circle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Circle Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBrewCircleRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+components:
+  schemas:
+    UpdateBrewCircleRequest:
+      properties:
+        name:
+          anyOf:
+          - type: string
+            maxLength: 100
+          - type: 'null'
+          title: Name
+        description:
+          anyOf:
+          - type: string
+            maxLength: 500
+          - type: 'null'
+          title: Description
+        circle_status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Circle Status
+        is_default:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Default
+        size_limit:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Size Limit
+      type: object
+      title: UpdateBrewCircleRequest
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    EditReplyRequest:
+      properties:
+        content:
+          type: string
+          maxLength: 500
+          title: Content
+      type: object
+      required:
+      - content
+      title: EditReplyRequest
+    NotificationSettingsRequest:
+      properties:
+        brew_notifications:
+          type: boolean
+          title: Brew Notifications
+          default: true
+      type: object
+      title: NotificationSettingsRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ToggleReactionRequest:
+      properties:
+        target_type:
+          type: string
+          title: Target Type
+        target_id:
+          type: string
+          title: Target Id
+        reaction_type:
+          type: string
+          title: Reaction Type
+      type: object
+      required:
+      - target_type
+      - target_id
+      - reaction_type
+      title: ToggleReactionRequest
+    FlagContentRequest:
+      properties:
+        content_type:
+          type: string
+          title: Content Type
+        content_id:
+          type: string
+          title: Content Id
+        reason:
+          type: string
+          title: Reason
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+      type: object
+      required:
+      - content_type
+      - content_id
+      - reason
+      title: FlagContentRequest
+    MarkBrewNotificationsRequest:
+      properties:
+        notification_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Notification Ids
+      type: object
+      title: MarkBrewNotificationsRequest
+    CreateReplyRequest:
+      properties:
+        post_id:
+          type: string
+          title: Post Id
+        content:
+          type: string
+          maxLength: 500
+          title: Content
+        parent_reply_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Parent Reply Id
+      type: object
+      required:
+      - post_id
+      - content
+      title: CreateReplyRequest
+    LinkPreviewRequest:
+      properties:
+        url:
+          type: string
+          title: Url
+      type: object
+      required:
+      - url
+      title: LinkPreviewRequest
+    CreatePostRequest:
+      properties:
+        circle_id:
+          type: string
+          title: Circle Id
+        intent_type:
+          type: string
+          title: Intent Type
+        content:
+          type: string
+          maxLength: 1000
+          title: Content
+        custom_intent_label:
+          anyOf:
+          - type: string
+            maxLength: 50
+          - type: 'null'
+          title: Custom Intent Label
+      type: object
+      required:
+      - circle_id
+      - intent_type
+      - content
+      title: CreatePostRequest
+    EditPostRequest:
+      properties:
+        content:
+          type: string
+          maxLength: 1000
+          title: Content
+      type: object
+      required:
+      - content
+      title: EditPostRequest
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+x-refined-from:
+- matchitup-in-openapi.json
+- matchitup-in-openapi.yml

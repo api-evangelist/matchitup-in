@@ -1,0 +1,1180 @@
+openapi: 3.2.0
+info:
+  title: Matchitup In Phase5 API
+  version: 0.1.0
+  x-spec-note: This is the PUBLIC spec for external agents + ChatGPT Actions. Super-admin and internal debug routes are excluded. Regenerated via backend/scripts/filter_public_openapi.py.
+  x-spec-profile: public-filtered
+  description: 'Operations tagged phase5 across 2 of this provider''s published API definitions: matchitup-in-openapi.json, matchitup-in-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://matchitup.in
+  description: Production
+tags:
+- name: phase5
+paths:
+  /api/subscriptions/cancel:
+    post:
+      tags:
+      - phase5
+      summary: Cancel Subscription With Survey
+      description: Cancel user's subscription with optional survey reason
+      operationId: cancel_subscription_with_survey_api_subscriptions_cancel_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelSubscriptionRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/subscription/status:
+    get:
+      tags:
+      - phase5
+      summary: Get Subscription Status
+      description: Get user's subscription tier, limits, and usage
+      operationId: get_subscription_status_api_subscription_status_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/payments/config:
+    get:
+      tags:
+      - phase5
+      summary: Get Payment Config
+      description: Get payment configuration for frontend
+      operationId: get_payment_config_api_payments_config_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/payments/plans:
+    get:
+      tags:
+      - phase5
+      summary: Get Subscription Plans
+      description: Get all available subscription plans
+      operationId: get_subscription_plans_api_payments_plans_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/payments/my-subscription:
+    get:
+      tags:
+      - phase5
+      summary: Get My Subscription
+      description: Get current user's subscription details
+      operationId: get_my_subscription_api_payments_my_subscription_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/payments/create-order:
+    post:
+      tags:
+      - phase5
+      summary: Create Payment Order
+      description: Create a Razorpay order for subscription upgrade with discount support
+      operationId: create_payment_order_api_payments_create_order_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrderRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/payments/verify:
+    post:
+      tags:
+      - phase5
+      summary: Verify Payment
+      description: Verify payment and activate subscription
+      operationId: verify_payment_api_payments_verify_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: razorpay_order_id
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Razorpay Order Id
+      - name: razorpay_payment_id
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Razorpay Payment Id
+      - name: razorpay_signature
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Razorpay Signature
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/payments/webhook:
+    post:
+      tags:
+      - phase5
+      summary: Handle Payment Webhook
+      description: Handle Razorpay webhook events
+      operationId: handle_payment_webhook_api_payments_webhook_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/subscriptions/cancel-reasons:
+    get:
+      tags:
+      - phase5
+      summary: Get Cancellation Reasons
+      description: Get list of cancellation reasons for survey
+      operationId: get_cancellation_reasons_api_subscriptions_cancel_reasons_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/payments/cancel-subscription:
+    post:
+      tags:
+      - phase5
+      summary: Cancel Subscription
+      description: Cancel user's subscription (will remain active until period end)
+      operationId: cancel_subscription_api_payments_cancel_subscription_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/subscription/trial-status:
+    get:
+      tags:
+      - phase5
+      summary: Get Trial Status
+      description: Get user's trial status
+      operationId: get_trial_status_api_subscription_trial_status_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/activity/signals:
+    get:
+      tags:
+      - phase5
+      summary: Get Activity Signals Endpoint
+      description: 'Phase 2c: Returns FOMO signals tailored to the user''s industry + city.'
+      operationId: get_activity_signals_endpoint_api_activity_signals_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/community-admin/invite-analytics/{community_id}:
+    get:
+      tags:
+      - phase5
+      summary: Get Community Invite Analytics
+      description: 'Get aggregated invite code analytics for a community.
+
+        Available to community admins of that community.'
+      operationId: get_community_invite_analytics_api_community_admin_invite_analytics__community_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: community_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Community Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/circles/{circle_id}/request-access:
+    post:
+      tags:
+      - phase5
+      summary: Request Circle Access
+      description: 'Request access to a brew circle.
+
+        User provides optional justification for why they want to join.
+
+        AI Moderator automatically scores and may auto-approve/reject based on profile fit.'
+      operationId: request_circle_access_api_circles__circle_id__request_access_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: circle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Circle Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CircleJoinRequestInput'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/circles/{circle_id}/request-status:
+    get:
+      tags:
+      - phase5
+      summary: Get Circle Request Status
+      description: Check if user has a pending/approved/rejected request for a circle.
+      operationId: get_circle_request_status_api_circles__circle_id__request_status_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: circle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Circle Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/circles/requests/{request_id}:
+    delete:
+      tags:
+      - phase5
+      summary: Cancel Circle Request
+      description: Cancel a pending join request (user can only cancel their own).
+      operationId: cancel_circle_request_api_circles_requests__request_id__delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: request_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Request Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/communities/validate-code:
+    post:
+      tags:
+      - phase5
+      summary: Validate Code Endpoint
+      description: Validate a community code without joining
+      operationId: validate_code_endpoint_api_communities_validate_code_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JoinCommunityRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/communities/join:
+    post:
+      tags:
+      - phase5
+      summary: Join Community Endpoint
+      description: Join a community using a code
+      operationId: join_community_endpoint_api_communities_join_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JoinCommunityRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/communities/leave/{community_id}:
+    delete:
+      tags:
+      - phase5
+      summary: Leave Community Endpoint
+      description: Leave a community
+      operationId: leave_community_endpoint_api_communities_leave__community_id__delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: community_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Community Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/communities/my-communities:
+    get:
+      tags:
+      - phase5
+      summary: Get My Communities
+      description: Get all communities the current user belongs to
+      operationId: get_my_communities_api_communities_my_communities_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/communities/check-admin:
+    get:
+      tags:
+      - phase5
+      summary: Check Community Admin
+      description: Check if current user is admin of any community
+      operationId: check_community_admin_api_communities_check_admin_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/communities/admin-all:
+    get:
+      tags:
+      - phase5
+      summary: Get All Admin Communities
+      description: Get ALL communities where current user is admin
+      operationId: get_all_admin_communities_api_communities_admin_all_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/communities/leave:
+    post:
+      tags:
+      - phase5
+      summary: Leave Community
+      description: Leave a community
+      operationId: leave_community_api_communities_leave_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LeaveCommunityRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/community-admin/dashboard:
+    get:
+      tags:
+      - phase5
+      summary: Get Community Admin Dashboard
+      description: Get community admin dashboard data. Optionally specify community_id for multi-community admins.
+      operationId: get_community_admin_dashboard_api_community_admin_dashboard_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: community_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Community Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/community-admin/members:
+    get:
+      tags:
+      - phase5
+      summary: Get Community Admin Members
+      description: Get members list for community admin. Optionally specify community_id for multi-community admins.
+      operationId: get_community_admin_members_api_community_admin_members_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Page
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 20
+          title: Limit
+      - name: search
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search
+      - name: community_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Community Id
+      - name: circle_filter
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Circle Filter
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/community-admin/members/{member_id}:
+    delete:
+      tags:
+      - phase5
+      summary: Remove Member From Community
+      description: 'Remove a member from community.
+
+        Works for both Community Admins (their own community) and Super Admins (any community).'
+      operationId: remove_member_from_community_api_community_admin_members__member_id__delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: member_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Member Id
+      - name: community_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Community Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/community-admin/codes:
+    post:
+      tags:
+      - phase5
+      summary: Create Community Code Endpoint
+      description: Create a new community code
+      operationId: create_community_code_endpoint_api_community_admin_codes_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCodeRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/community-admin/codes/{code_id}:
+    put:
+      tags:
+      - phase5
+      summary: Update Community Code Endpoint
+      description: Update a community code status
+      operationId: update_community_code_endpoint_api_community_admin_codes__code_id__put
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: code_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Code Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCodeStatusRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/community-admin/code-qr/{code}:
+    get:
+      tags:
+      - phase5
+      summary: Get Code Qr
+      description: Get QR code for a specific community code
+      operationId: get_code_qr_api_community_admin_code_qr__code__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Code
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/community-admin/circles/{circle_id}/visibility:
+    put:
+      tags:
+      - phase5
+      summary: Update Circle Visibility Community Admin
+      description: 'Update brew circle visibility - Community Admin endpoint.
+
+        Community admins can only change visibility for circles in their own communities.
+
+
+        - public: Visible on homepage (if community is open), anyone can request to join
+
+        - community: Only visible to community members
+
+        - private: Invite-only, hidden from non-members'
+      operationId: update_circle_visibility_community_admin_api_community_admin_circles__circle_id__visibility_put
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: circle_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Circle Id
+      - name: visibility
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Visibility
+      - name: community_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Community Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/community-admin/circle-requests:
+    get:
+      tags:
+      - phase5
+      summary: Get Community Admin Circle Requests
+      description: 'Get circle join requests for communities this admin manages.
+
+        Community admins can view and manage requests for their communities.'
+      operationId: get_community_admin_circle_requests_api_community_admin_circle_requests_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: status
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/community-admin/circle-requests/{request_id}/approve:
+    post:
+      tags:
+      - phase5
+      summary: Community Admin Approve Request
+      description: 'Approve a circle join request - Community Admin endpoint.
+
+        Community admins can only approve requests for their own communities.'
+      operationId: community_admin_approve_request_api_community_admin_circle_requests__request_id__approve_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: request_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Request Id
+      - name: admin_note
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: ''
+          title: Admin Note
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/community-admin/circle-requests/{request_id}/reject:
+    post:
+      tags:
+      - phase5
+      summary: Community Admin Reject Request
+      description: 'Reject a circle join request - Community Admin endpoint.
+
+        Community admins can only reject requests for their own communities.'
+      operationId: community_admin_reject_request_api_community_admin_circle_requests__request_id__reject_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: request_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Request Id
+      - name: admin_note
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: ''
+          title: Admin Note
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/communities/{community_id}/exclusivity:
+    get:
+      tags:
+      - phase5
+      summary: Get Community Exclusivity
+      description: Get community exclusivity status
+      operationId: get_community_exclusivity_api_communities__community_id__exclusivity_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: community_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Community Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+components:
+  schemas:
+    UpdateCodeStatusRequest:
+      properties:
+        status:
+          type: string
+          title: Status
+        community_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Community Id
+      type: object
+      required:
+      - status
+      title: UpdateCodeStatusRequest
+    JoinCommunityRequest:
+      properties:
+        code:
+          type: string
+          title: Code
+      type: object
+      required:
+      - code
+      title: JoinCommunityRequest
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    CreateOrderRequest:
+      properties:
+        plan_id:
+          type: string
+          title: Plan Id
+        billing_cycle:
+          type: string
+          title: Billing Cycle
+          default: monthly
+        coupon_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Coupon Code
+      type: object
+      required:
+      - plan_id
+      title: CreateOrderRequest
+    CreateCodeRequest:
+      properties:
+        max_uses:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Uses
+        expires_days:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Expires Days
+        discount_percent:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Discount Percent
+          default: 0
+        discount_valid_months:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Discount Valid Months
+          default: 0
+        community_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Community Id
+        grant_tier:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Grant Tier
+        grant_duration_months:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Grant Duration Months
+          default: 0
+        brew_circle_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Brew Circle Id
+        brew_circle_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Brew Circle Name
+      type: object
+      title: CreateCodeRequest
+    LeaveCommunityRequest:
+      properties:
+        community_id:
+          type: string
+          title: Community Id
+      type: object
+      required:
+      - community_id
+      title: LeaveCommunityRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    CancelSubscriptionRequest:
+      properties:
+        reason_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reason Id
+      type: object
+      title: CancelSubscriptionRequest
+    CircleJoinRequestInput:
+      properties:
+        justification:
+          anyOf:
+          - type: string
+            maxLength: 500
+          - type: 'null'
+          title: Justification
+          description: Why do you want to join this circle?
+          default: ''
+      type: object
+      title: CircleJoinRequestInput
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+x-refined-from:
+- matchitup-in-openapi.json
+- matchitup-in-openapi.yml

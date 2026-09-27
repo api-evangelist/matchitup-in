@@ -1,0 +1,53 @@
+openapi: 3.2.0
+info:
+  title: Matchitup In Public API
+  version: 0.1.0
+  x-spec-note: This is the PUBLIC spec for external agents + ChatGPT Actions. Super-admin and internal debug routes are excluded. Regenerated via backend/scripts/filter_public_openapi.py.
+  x-spec-profile: public-filtered
+  description: 'Operations tagged Public across 2 of this provider''s published API definitions: matchitup-in-openapi.json, matchitup-in-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://matchitup.in
+  description: Production
+tags:
+- name: Public
+paths:
+  /api/public/region-stats:
+    get:
+      summary: Get Public Region Stats
+      description: Get active profile counts by region - public endpoint for landing page (CACHED)
+      operationId: get_public_region_stats_api_public_region_stats_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Public
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/public/industry-stats:
+    get:
+      summary: Get Public Industry Stats
+      description: Get active profile counts by industry - public endpoint for landing page (CACHED)
+      operationId: get_public_industry_stats_api_public_industry_stats_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Public
+    servers:
+    - url: https://matchitup.in
+      description: Production
+components:
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+x-refined-from:
+- matchitup-in-openapi.json
+- matchitup-in-openapi.yml

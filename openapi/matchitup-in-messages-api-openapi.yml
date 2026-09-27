@@ -1,0 +1,323 @@
+openapi: 3.2.0
+info:
+  title: Matchitup In Messages API
+  version: 0.1.0
+  x-spec-note: This is the PUBLIC spec for external agents + ChatGPT Actions. Super-admin and internal debug routes are excluded. Regenerated via backend/scripts/filter_public_openapi.py.
+  x-spec-profile: public-filtered
+  description: 'Operations tagged Messages across 2 of this provider''s published API definitions: matchitup-in-openapi.json, matchitup-in-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://matchitup.in
+  description: Production
+tags:
+- name: Messages
+paths:
+  /api/messages:
+    post:
+      tags:
+      - Messages
+      summary: Send Message
+      description: Send a message to a match
+      operationId: send_message_api_messages_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageCreate'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/messages/{match_id}:
+    get:
+      tags:
+      - Messages
+      summary: Get Messages
+      description: Get all messages for a match
+      operationId: get_messages_api_messages__match_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: match_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Match Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Message'
+                title: Response Get Messages Api Messages  Match Id  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/messages/{message_id}:
+    delete:
+      tags:
+      - Messages
+      summary: Delete Message
+      description: Delete a specific message (only sender can delete)
+      operationId: delete_message_api_messages__message_id__delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: message_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Message Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/messages/{message_id}/report:
+    post:
+      tags:
+      - Messages
+      summary: Report Message
+      description: Report a DM message for Trust & Safety review.
+      operationId: report_message_api_messages__message_id__report_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: message_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Message Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageReport'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/messages/unread/count:
+    get:
+      tags:
+      - Messages
+      summary: Get Unread Count
+      description: Get total unread message count across all matches
+      operationId: get_unread_count_api_messages_unread_count_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/messages/{match_id}/openers:
+    get:
+      tags:
+      - Messages
+      summary: Get Conversation Openers
+      description: Generate 3 personalised conversation starter suggestions using Claude Haiku.
+      operationId: get_conversation_openers_api_messages__match_id__openers_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: match_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Match Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+  /api/messages/{match_id}/quick-replies:
+    get:
+      tags:
+      - Messages
+      summary: Get Quick Replies
+      description: Generate 4 contextual quick-reply suggestions based on recent conversation using Claude Haiku.
+      operationId: get_quick_replies_api_messages__match_id__quick_replies_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: match_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Match Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    servers:
+    - url: https://matchitup.in
+      description: Production
+components:
+  schemas:
+    MessageCreate:
+      properties:
+        match_id:
+          type: string
+          title: Match Id
+        content:
+          type: string
+          title: Content
+      type: object
+      required:
+      - match_id
+      - content
+      title: MessageCreate
+    Message:
+      properties:
+        id:
+          type: string
+          title: Id
+        match_id:
+          type: string
+          title: Match Id
+        sender_id:
+          type: string
+          title: Sender Id
+        sender_name:
+          type: string
+          title: Sender Name
+        content:
+          type: string
+          title: Content
+        created_at:
+          type: string
+          title: Created At
+        read_at:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Read At
+      type: object
+      required:
+      - id
+      - match_id
+      - sender_id
+      - sender_name
+      - content
+      - created_at
+      title: Message
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    MessageReport:
+      properties:
+        reason:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reason
+          default: inappropriate
+      type: object
+      title: MessageReport
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+x-refined-from:
+- matchitup-in-openapi.json
+- matchitup-in-openapi.yml
