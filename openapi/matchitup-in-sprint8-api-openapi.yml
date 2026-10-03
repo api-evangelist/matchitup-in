@@ -1,10 +1,10 @@
 openapi: 3.2.0
 info:
-  title: Matchitup In Sprint8 API
+  title: Fast Sprint8 API
   version: 0.1.0
-  x-spec-note: This is the PUBLIC spec for external agents + ChatGPT Actions. Super-admin and internal debug routes are excluded. Regenerated via backend/scripts/filter_public_openapi.py.
   x-spec-profile: public-filtered
-  description: 'Operations tagged sprint8 across 2 of this provider''s published API definitions: matchitup-in-openapi.json, matchitup-in-openapi.yml. Each path carries the servers of the definition it was published in.'
+  x-spec-note: This is the PUBLIC spec for external agents + ChatGPT Actions. Super-admin and internal debug routes are excluded. Regenerated via backend/scripts/filter_public_openapi.py.
+  description: Public API for external agents and ChatGPT Custom GPT Actions.
 servers:
 - url: https://matchitup.in
   description: Production
@@ -40,9 +40,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/agent/{agent_id}/status:
     get:
       tags:
@@ -75,9 +72,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/agent/webhooks/health:
     get:
       tags:
@@ -95,9 +89,6 @@ paths:
           content:
             application/json:
               schema: {}
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/agent/a2a/message:
     post:
       tags:
@@ -131,9 +122,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/agent/a2a/inbox:
     get:
       tags:
@@ -161,9 +149,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/agent/{agent_id}/passport:
     get:
       tags:
@@ -206,9 +191,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/agent/passport/regenerate:
     post:
       tags:
@@ -224,9 +206,6 @@ paths:
           content:
             application/json:
               schema: {}
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/federation/register:
     post:
       tags:
@@ -261,9 +240,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/federation/agents:
     get:
       tags:
@@ -298,9 +274,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/a2a-rpc:
     post:
       tags:
@@ -349,9 +322,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/v1/message:send:
     post:
       tags:
@@ -381,9 +351,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/agent/jwks.json:
     get:
       tags:
@@ -408,9 +375,6 @@ paths:
           content:
             application/json:
               schema: {}
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/agent/{agent_id}/did.json:
     get:
       tags:
@@ -449,87 +413,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
 components:
   schemas:
-    A2AMessageRequest:
-      properties:
-        recipient_agent_id:
-          type: string
-          title: Recipient Agent Id
-        intent:
-          type: string
-          title: Intent
-        payload:
-          additionalProperties: true
-          type: object
-          title: Payload
-          default: {}
-        sign:
-          type: boolean
-          title: Sign
-          default: false
-      type: object
-      required:
-      - recipient_agent_id
-      - intent
-      title: A2AMessageRequest
-      description: 'A2A message body. Accepts both `to_agent_id` (documented canonical name)
-
-        and `recipient_agent_id` (legacy alias).'
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    JsonRpcRequest:
-      properties:
-        jsonrpc:
-          type: string
-          title: Jsonrpc
-          default: '2.0'
-        method:
-          type: string
-          title: Method
-        params:
-          additionalProperties: true
-          type: object
-          title: Params
-          default: {}
-        id:
-          title: Id
-      type: object
-      required:
-      - method
-      title: JsonRpcRequest
-      description: JSON-RPC 2.0 request envelope.
     HeartbeatRequest:
       properties:
         status:
@@ -586,10 +471,83 @@ components:
         (`name`, omit `external_agent_id` to auto-generate) and the legacy
 
         explicit names (`agent_name`, `external_agent_id`).'
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    JsonRpcRequest:
+      properties:
+        jsonrpc:
+          type: string
+          title: Jsonrpc
+          default: '2.0'
+        method:
+          type: string
+          title: Method
+        params:
+          additionalProperties: true
+          type: object
+          title: Params
+          default: {}
+        id:
+          title: Id
+      type: object
+      required:
+      - method
+      title: JsonRpcRequest
+      description: JSON-RPC 2.0 request envelope.
+    A2AMessageRequest:
+      properties:
+        recipient_agent_id:
+          type: string
+          title: Recipient Agent Id
+        intent:
+          type: string
+          title: Intent
+        payload:
+          additionalProperties: true
+          type: object
+          title: Payload
+          default: {}
+        sign:
+          type: boolean
+          title: Sign
+          default: false
+      type: object
+      required:
+      - recipient_agent_id
+      - intent
+      title: A2AMessageRequest
+      description: 'A2A message body. Accepts both `to_agent_id` (documented canonical name)
+
+        and `recipient_agent_id` (legacy alias).'
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http
       scheme: bearer
-x-refined-from:
-- matchitup-in-openapi.json
-- matchitup-in-openapi.yml

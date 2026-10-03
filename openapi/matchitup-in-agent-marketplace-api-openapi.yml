@@ -1,10 +1,10 @@
 openapi: 3.2.0
 info:
-  title: Matchitup In Agent Marketplace API
+  title: Fast Agent Marketplace API
   version: 0.1.0
-  x-spec-note: This is the PUBLIC spec for external agents + ChatGPT Actions. Super-admin and internal debug routes are excluded. Regenerated via backend/scripts/filter_public_openapi.py.
   x-spec-profile: public-filtered
-  description: 'Operations tagged agent-marketplace across 2 of this provider''s published API definitions: matchitup-in-openapi.json, matchitup-in-openapi.yml. Each path carries the servers of the definition it was published in.'
+  x-spec-note: This is the PUBLIC spec for external agents + ChatGPT Actions. Super-admin and internal debug routes are excluded. Regenerated via backend/scripts/filter_public_openapi.py.
+  description: Public API for external agents and ChatGPT Custom GPT Actions.
 servers:
 - url: https://matchitup.in
   description: Production
@@ -99,9 +99,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/agent/marketplace/{intent_id}/respond:
     post:
       tags:
@@ -138,9 +135,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/agent/marketplace/{intent_id}/close:
     post:
       tags:
@@ -167,9 +161,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/agent/marketplace/{intent_id}:
     delete:
       tags:
@@ -196,20 +187,29 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
 components:
   schemas:
-    HTTPValidationError:
+    ValidationError:
       properties:
-        detail:
+        loc:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: Detail
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
       type: object
-      title: HTTPValidationError
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     RespondBody:
       properties:
         message:
@@ -277,31 +277,16 @@ components:
       - intent_type
       - title
       title: CreateIntentBody
-    ValidationError:
+    HTTPValidationError:
       properties:
-        loc:
+        detail:
           items:
-            anyOf:
-            - type: string
-            - type: integer
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
+          title: Detail
       type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http
       scheme: bearer
-x-refined-from:
-- matchitup-in-openapi.json
-- matchitup-in-openapi.yml

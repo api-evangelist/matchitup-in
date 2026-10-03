@@ -1,10 +1,10 @@
 openapi: 3.2.0
 info:
-  title: Matchitup In Phase5 API
+  title: Fast Phase5 API
   version: 0.1.0
-  x-spec-note: This is the PUBLIC spec for external agents + ChatGPT Actions. Super-admin and internal debug routes are excluded. Regenerated via backend/scripts/filter_public_openapi.py.
   x-spec-profile: public-filtered
-  description: 'Operations tagged phase5 across 2 of this provider''s published API definitions: matchitup-in-openapi.json, matchitup-in-openapi.yml. Each path carries the servers of the definition it was published in.'
+  x-spec-note: This is the PUBLIC spec for external agents + ChatGPT Actions. Super-admin and internal debug routes are excluded. Regenerated via backend/scripts/filter_public_openapi.py.
+  description: Public API for external agents and ChatGPT Custom GPT Actions.
 servers:
 - url: https://matchitup.in
   description: Production
@@ -38,9 +38,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/subscription/status:
     get:
       tags:
@@ -56,9 +53,6 @@ paths:
               schema: {}
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/payments/config:
     get:
       tags:
@@ -72,9 +66,6 @@ paths:
           content:
             application/json:
               schema: {}
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/payments/plans:
     get:
       tags:
@@ -88,9 +79,6 @@ paths:
           content:
             application/json:
               schema: {}
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/payments/my-subscription:
     get:
       tags:
@@ -106,9 +94,6 @@ paths:
               schema: {}
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/payments/create-order:
     post:
       tags:
@@ -136,9 +121,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/payments/verify:
     post:
       tags:
@@ -179,9 +161,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/payments/webhook:
     post:
       tags:
@@ -195,9 +174,6 @@ paths:
           content:
             application/json:
               schema: {}
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/subscriptions/cancel-reasons:
     get:
       tags:
@@ -211,9 +187,6 @@ paths:
           content:
             application/json:
               schema: {}
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/payments/cancel-subscription:
     post:
       tags:
@@ -229,9 +202,6 @@ paths:
               schema: {}
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/subscription/trial-status:
     get:
       tags:
@@ -247,9 +217,6 @@ paths:
               schema: {}
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/activity/signals:
     get:
       tags:
@@ -265,9 +232,6 @@ paths:
               schema: {}
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/community-admin/invite-analytics/{community_id}:
     get:
       tags:
@@ -298,9 +262,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/circles/{circle_id}/request-access:
     post:
       tags:
@@ -339,9 +300,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/circles/{circle_id}/request-status:
     get:
       tags:
@@ -370,9 +328,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/circles/requests/{request_id}:
     delete:
       tags:
@@ -401,9 +356,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/communities/validate-code:
     post:
       tags:
@@ -429,9 +381,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/communities/join:
     post:
       tags:
@@ -459,9 +408,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/communities/leave/{community_id}:
     delete:
       tags:
@@ -490,9 +436,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/communities/my-communities:
     get:
       tags:
@@ -508,9 +451,6 @@ paths:
               schema: {}
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/communities/check-admin:
     get:
       tags:
@@ -526,9 +466,6 @@ paths:
               schema: {}
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/communities/admin-all:
     get:
       tags:
@@ -544,9 +481,6 @@ paths:
               schema: {}
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/communities/leave:
     post:
       tags:
@@ -574,9 +508,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/community-admin/dashboard:
     get:
       tags:
@@ -607,9 +538,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/community-admin/members:
     get:
       tags:
@@ -670,9 +598,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/community-admin/members/{member_id}:
     delete:
       tags:
@@ -711,9 +636,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/community-admin/codes:
     post:
       tags:
@@ -741,9 +663,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/community-admin/codes/{code_id}:
     put:
       tags:
@@ -778,9 +697,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/community-admin/code-qr/{code}:
     get:
       tags:
@@ -809,9 +725,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/community-admin/circles/{circle_id}/visibility:
     put:
       tags:
@@ -863,9 +776,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/community-admin/circle-requests:
     get:
       tags:
@@ -898,9 +808,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/community-admin/circle-requests/{request_id}/approve:
     post:
       tags:
@@ -940,9 +847,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/community-admin/circle-requests/{request_id}/reject:
     post:
       tags:
@@ -982,9 +886,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/communities/{community_id}/exclusivity:
     get:
       tags:
@@ -1013,11 +914,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
 components:
   schemas:
+    LeaveCommunityRequest:
+      properties:
+        community_id:
+          type: string
+          title: Community Id
+      type: object
+      required:
+      - community_id
+      title: LeaveCommunityRequest
     UpdateCodeStatusRequest:
       properties:
         status:
@@ -1032,15 +939,33 @@ components:
       required:
       - status
       title: UpdateCodeStatusRequest
-    JoinCommunityRequest:
+    CancelSubscriptionRequest:
       properties:
-        code:
+        reason_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reason Id
+      type: object
+      title: CancelSubscriptionRequest
+    CreateOrderRequest:
+      properties:
+        plan_id:
           type: string
-          title: Code
+          title: Plan Id
+        billing_cycle:
+          type: string
+          title: Billing Cycle
+          default: monthly
+        coupon_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Coupon Code
       type: object
       required:
-      - code
-      title: JoinCommunityRequest
+      - plan_id
+      title: CreateOrderRequest
     ValidationError:
       properties:
         loc:
@@ -1062,24 +987,27 @@ components:
       - msg
       - type
       title: ValidationError
-    CreateOrderRequest:
+    JoinCommunityRequest:
       properties:
-        plan_id:
+        code:
           type: string
-          title: Plan Id
-        billing_cycle:
-          type: string
-          title: Billing Cycle
-          default: monthly
-        coupon_code:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Coupon Code
+          title: Code
       type: object
       required:
-      - plan_id
-      title: CreateOrderRequest
+      - code
+      title: JoinCommunityRequest
+    CircleJoinRequestInput:
+      properties:
+        justification:
+          anyOf:
+          - type: string
+            maxLength: 500
+          - type: 'null'
+          title: Justification
+          description: Why do you want to join this circle?
+          default: ''
+      type: object
+      title: CircleJoinRequestInput
     CreateCodeRequest:
       properties:
         max_uses:
@@ -1132,15 +1060,6 @@ components:
           title: Brew Circle Name
       type: object
       title: CreateCodeRequest
-    LeaveCommunityRequest:
-      properties:
-        community_id:
-          type: string
-          title: Community Id
-      type: object
-      required:
-      - community_id
-      title: LeaveCommunityRequest
     HTTPValidationError:
       properties:
         detail:
@@ -1150,31 +1069,7 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    CancelSubscriptionRequest:
-      properties:
-        reason_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Reason Id
-      type: object
-      title: CancelSubscriptionRequest
-    CircleJoinRequestInput:
-      properties:
-        justification:
-          anyOf:
-          - type: string
-            maxLength: 500
-          - type: 'null'
-          title: Justification
-          description: Why do you want to join this circle?
-          default: ''
-      type: object
-      title: CircleJoinRequestInput
   securitySchemes:
     HTTPBearer:
       type: http
       scheme: bearer
-x-refined-from:
-- matchitup-in-openapi.json
-- matchitup-in-openapi.yml

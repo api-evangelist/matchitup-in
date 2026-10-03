@@ -1,10 +1,10 @@
 openapi: 3.2.0
 info:
-  title: Matchitup In Messages API
+  title: Fast Messages API
   version: 0.1.0
-  x-spec-note: This is the PUBLIC spec for external agents + ChatGPT Actions. Super-admin and internal debug routes are excluded. Regenerated via backend/scripts/filter_public_openapi.py.
   x-spec-profile: public-filtered
-  description: 'Operations tagged Messages across 2 of this provider''s published API definitions: matchitup-in-openapi.json, matchitup-in-openapi.yml. Each path carries the servers of the definition it was published in.'
+  x-spec-note: This is the PUBLIC spec for external agents + ChatGPT Actions. Super-admin and internal debug routes are excluded. Regenerated via backend/scripts/filter_public_openapi.py.
+  description: Public API for external agents and ChatGPT Custom GPT Actions.
 servers:
 - url: https://matchitup.in
   description: Production
@@ -39,9 +39,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/messages/{match_id}:
     get:
       tags:
@@ -74,9 +71,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/messages/{message_id}:
     delete:
       tags:
@@ -105,9 +99,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/messages/{message_id}/report:
     post:
       tags:
@@ -142,9 +133,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/messages/unread/count:
     get:
       tags:
@@ -160,9 +148,6 @@ paths:
               schema: {}
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/messages/{match_id}/openers:
     get:
       tags:
@@ -191,9 +176,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/messages/{match_id}/quick-replies:
     get:
       tags:
@@ -222,11 +204,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
 components:
   schemas:
+    MessageReport:
+      properties:
+        reason:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reason
+          default: inappropriate
+      type: object
+      title: MessageReport
     MessageCreate:
       properties:
         match_id:
@@ -240,6 +229,36 @@ components:
       - match_id
       - content
       title: MessageCreate
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     Message:
       properties:
         id:
@@ -274,50 +293,7 @@ components:
       - content
       - created_at
       title: Message
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    MessageReport:
-      properties:
-        reason:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Reason
-          default: inappropriate
-      type: object
-      title: MessageReport
   securitySchemes:
     HTTPBearer:
       type: http
       scheme: bearer
-x-refined-from:
-- matchitup-in-openapi.json
-- matchitup-in-openapi.yml

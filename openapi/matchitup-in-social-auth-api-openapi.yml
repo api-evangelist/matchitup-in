@@ -1,10 +1,10 @@
 openapi: 3.2.0
 info:
-  title: Matchitup In Social Auth API
+  title: Fast Social Auth API
   version: 0.1.0
-  x-spec-note: This is the PUBLIC spec for external agents + ChatGPT Actions. Super-admin and internal debug routes are excluded. Regenerated via backend/scripts/filter_public_openapi.py.
   x-spec-profile: public-filtered
-  description: 'Operations tagged social-auth across 2 of this provider''s published API definitions: matchitup-in-openapi.json, matchitup-in-openapi.yml. Each path carries the servers of the definition it was published in.'
+  x-spec-note: This is the PUBLIC spec for external agents + ChatGPT Actions. Super-admin and internal debug routes are excluded. Regenerated via backend/scripts/filter_public_openapi.py.
+  description: Public API for external agents and ChatGPT Custom GPT Actions.
 servers:
 - url: https://matchitup.in
   description: Production
@@ -50,9 +50,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/auth/{provider}/callback:
     get:
       tags:
@@ -83,9 +80,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/auth/social-providers:
     get:
       tags:
@@ -101,9 +95,6 @@ paths:
               schema: {}
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/auth/social-disconnect/{provider}:
     delete:
       tags:
@@ -132,9 +123,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/auth/check-email:
     post:
       tags:
@@ -164,9 +152,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/auth/oauth-onboarding:
     post:
       tags:
@@ -200,9 +185,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/auth/merge-with-existing/start:
     post:
       tags:
@@ -236,9 +218,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/auth/merge-with-existing/confirm:
     post:
       tags:
@@ -270,9 +249,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/auth/complete-social-registration:
     post:
       tags:
@@ -306,9 +282,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
 components:
   schemas:
     OAuthOnboardingRequest:
@@ -322,6 +295,16 @@ components:
           title: Tracking
       type: object
       title: OAuthOnboardingRequest
+    MergeRequestStart:
+      properties:
+        other_email:
+          type: string
+          format: email
+          title: Other Email
+      type: object
+      required:
+      - other_email
+      title: MergeRequestStart
     CheckEmailRequest:
       properties:
         email:
@@ -332,6 +315,20 @@ components:
       required:
       - email
       title: CheckEmailRequest
+    MergeRequestConfirm:
+      properties:
+        other_email:
+          type: string
+          format: email
+          title: Other Email
+        otp:
+          type: string
+          title: Otp
+      type: object
+      required:
+      - other_email
+      - otp
+      title: MergeRequestConfirm
     ValidationError:
       properties:
         loc:
@@ -353,20 +350,6 @@ components:
       - msg
       - type
       title: ValidationError
-    MergeRequestConfirm:
-      properties:
-        other_email:
-          type: string
-          format: email
-          title: Other Email
-        otp:
-          type: string
-          title: Otp
-      type: object
-      required:
-      - other_email
-      - otp
-      title: MergeRequestConfirm
     HTTPValidationError:
       properties:
         detail:
@@ -449,20 +432,7 @@ components:
       - region
       - whatsapp_number
       title: CompleteSocialRegistrationRequest
-    MergeRequestStart:
-      properties:
-        other_email:
-          type: string
-          format: email
-          title: Other Email
-      type: object
-      required:
-      - other_email
-      title: MergeRequestStart
   securitySchemes:
     HTTPBearer:
       type: http
       scheme: bearer
-x-refined-from:
-- matchitup-in-openapi.json
-- matchitup-in-openapi.yml

@@ -1,10 +1,10 @@
 openapi: 3.2.0
 info:
-  title: Matchitup In Brew Circles API
+  title: Fast Brew Circles API
   version: 0.1.0
-  x-spec-note: This is the PUBLIC spec for external agents + ChatGPT Actions. Super-admin and internal debug routes are excluded. Regenerated via backend/scripts/filter_public_openapi.py.
   x-spec-profile: public-filtered
-  description: 'Operations tagged Brew Circles across 2 of this provider''s published API definitions: matchitup-in-openapi.json, matchitup-in-openapi.yml. Each path carries the servers of the definition it was published in.'
+  x-spec-note: This is the PUBLIC spec for external agents + ChatGPT Actions. Super-admin and internal debug routes are excluded. Regenerated via backend/scripts/filter_public_openapi.py.
+  description: Public API for external agents and ChatGPT Custom GPT Actions.
 servers:
 - url: https://matchitup.in
   description: Production
@@ -24,9 +24,6 @@ paths:
           content:
             application/json:
               schema: {}
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/brew-circles/reactions:
     get:
       tags:
@@ -66,9 +63,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/brew-circles/flag-reasons:
     get:
       tags:
@@ -82,9 +76,6 @@ paths:
           content:
             application/json:
               schema: {}
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/brew-circles/notifications:
     get:
       tags:
@@ -121,9 +112,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/brew-circles/notifications/read:
     post:
       tags:
@@ -153,9 +141,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/brew-circles/notifications/count:
     get:
       tags:
@@ -171,9 +156,6 @@ paths:
               schema: {}
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/brew-circles/circles/{circle_id}/members/search:
     get:
       tags:
@@ -216,9 +198,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/brew-circles/settings/notifications:
     get:
       tags:
@@ -260,9 +239,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/brew-circles/user/circles:
     get:
       tags:
@@ -278,9 +254,6 @@ paths:
               schema: {}
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/brew-circles/community/{community_id}:
     get:
       tags:
@@ -309,9 +282,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/brew-circles/{circle_id}:
     get:
       tags:
@@ -367,9 +337,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/brew-circles/{circle_id}/join:
     post:
       tags:
@@ -398,9 +365,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/brew-circles/{circle_id}/members:
     get:
       tags:
@@ -443,9 +407,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/brew-circles/link-preview:
     post:
       tags:
@@ -473,9 +434,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/brew-circles/posts:
     post:
       tags:
@@ -503,9 +461,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/brew-circles/{circle_id}/posts:
     get:
       tags:
@@ -556,9 +511,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/brew-circles/{circle_id}/trending-tags:
     get:
       tags:
@@ -587,9 +539,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/brew-circles/{circle_id}/posts/check-new:
     get:
       tags:
@@ -624,9 +573,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/brew-circles/posts/{post_id}:
     get:
       tags:
@@ -715,9 +661,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/brew-circles/replies:
     post:
       tags:
@@ -745,9 +688,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/brew-circles/posts/{post_id}/replies:
     get:
       tags:
@@ -790,9 +730,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/brew-circles/replies/{reply_id}:
     put:
       tags:
@@ -854,9 +791,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/brew-circles/reactions/{target_type}/{target_id}:
     get:
       tags:
@@ -891,9 +825,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/brew-circles/flags:
     post:
       tags:
@@ -921,9 +852,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/brew-circles/community/{community_id}/all:
     get:
       tags:
@@ -952,9 +880,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/brew-circles/{circle_id}/settings:
     put:
       tags:
@@ -989,11 +914,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
 components:
   schemas:
+    MarkBrewNotificationsRequest:
+      properties:
+        notification_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Notification Ids
+      type: object
+      title: MarkBrewNotificationsRequest
     UpdateBrewCircleRequest:
       properties:
         name:
@@ -1025,6 +958,71 @@ components:
           title: Size Limit
       type: object
       title: UpdateBrewCircleRequest
+    CreateReplyRequest:
+      properties:
+        post_id:
+          type: string
+          title: Post Id
+        content:
+          type: string
+          maxLength: 500
+          title: Content
+        parent_reply_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Parent Reply Id
+      type: object
+      required:
+      - post_id
+      - content
+      title: CreateReplyRequest
+    CreatePostRequest:
+      properties:
+        circle_id:
+          type: string
+          title: Circle Id
+        intent_type:
+          type: string
+          title: Intent Type
+        content:
+          type: string
+          maxLength: 1000
+          title: Content
+        custom_intent_label:
+          anyOf:
+          - type: string
+            maxLength: 50
+          - type: 'null'
+          title: Custom Intent Label
+      type: object
+      required:
+      - circle_id
+      - intent_type
+      - content
+      title: CreatePostRequest
+    FlagContentRequest:
+      properties:
+        content_type:
+          type: string
+          title: Content Type
+        content_id:
+          type: string
+          title: Content Id
+        reason:
+          type: string
+          title: Reason
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+      type: object
+      required:
+      - content_type
+      - content_id
+      - reason
+      title: FlagContentRequest
     ValidationError:
       properties:
         loc:
@@ -1064,15 +1062,6 @@ components:
           default: true
       type: object
       title: NotificationSettingsRequest
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ToggleReactionRequest:
       properties:
         target_type:
@@ -1090,91 +1079,6 @@ components:
       - target_id
       - reaction_type
       title: ToggleReactionRequest
-    FlagContentRequest:
-      properties:
-        content_type:
-          type: string
-          title: Content Type
-        content_id:
-          type: string
-          title: Content Id
-        reason:
-          type: string
-          title: Reason
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-      type: object
-      required:
-      - content_type
-      - content_id
-      - reason
-      title: FlagContentRequest
-    MarkBrewNotificationsRequest:
-      properties:
-        notification_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Notification Ids
-      type: object
-      title: MarkBrewNotificationsRequest
-    CreateReplyRequest:
-      properties:
-        post_id:
-          type: string
-          title: Post Id
-        content:
-          type: string
-          maxLength: 500
-          title: Content
-        parent_reply_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Parent Reply Id
-      type: object
-      required:
-      - post_id
-      - content
-      title: CreateReplyRequest
-    LinkPreviewRequest:
-      properties:
-        url:
-          type: string
-          title: Url
-      type: object
-      required:
-      - url
-      title: LinkPreviewRequest
-    CreatePostRequest:
-      properties:
-        circle_id:
-          type: string
-          title: Circle Id
-        intent_type:
-          type: string
-          title: Intent Type
-        content:
-          type: string
-          maxLength: 1000
-          title: Content
-        custom_intent_label:
-          anyOf:
-          - type: string
-            maxLength: 50
-          - type: 'null'
-          title: Custom Intent Label
-      type: object
-      required:
-      - circle_id
-      - intent_type
-      - content
-      title: CreatePostRequest
     EditPostRequest:
       properties:
         content:
@@ -1185,10 +1089,25 @@ components:
       required:
       - content
       title: EditPostRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    LinkPreviewRequest:
+      properties:
+        url:
+          type: string
+          title: Url
+      type: object
+      required:
+      - url
+      title: LinkPreviewRequest
   securitySchemes:
     HTTPBearer:
       type: http
       scheme: bearer
-x-refined-from:
-- matchitup-in-openapi.json
-- matchitup-in-openapi.yml

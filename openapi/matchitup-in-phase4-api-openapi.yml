@@ -1,10 +1,10 @@
 openapi: 3.2.0
 info:
-  title: Matchitup In Phase4 API
+  title: Fast Phase4 API
   version: 0.1.0
-  x-spec-note: This is the PUBLIC spec for external agents + ChatGPT Actions. Super-admin and internal debug routes are excluded. Regenerated via backend/scripts/filter_public_openapi.py.
   x-spec-profile: public-filtered
-  description: 'Operations tagged phase4 across 2 of this provider''s published API definitions: matchitup-in-openapi.json, matchitup-in-openapi.yml. Each path carries the servers of the definition it was published in.'
+  x-spec-note: This is the PUBLIC spec for external agents + ChatGPT Actions. Super-admin and internal debug routes are excluded. Regenerated via backend/scripts/filter_public_openapi.py.
+  description: Public API for external agents and ChatGPT Custom GPT Actions.
 servers:
 - url: https://matchitup.in
   description: Production
@@ -26,9 +26,6 @@ paths:
               schema: {}
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/members/debug:
     get:
       tags:
@@ -46,9 +43,6 @@ paths:
               schema: {}
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/members/diagnose:
     get:
       tags:
@@ -66,9 +60,6 @@ paths:
               schema: {}
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/members/simple:
     get:
       tags:
@@ -86,9 +77,6 @@ paths:
               schema: {}
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/members:
     get:
       tags:
@@ -154,9 +142,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/ai-intent-match/{target_user_id}:
     get:
       tags:
@@ -187,9 +172,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/ai-intent-match/batch:
     post:
       tags:
@@ -222,9 +204,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/ai-match-reason/{target_user_id}:
     get:
       tags:
@@ -255,9 +234,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/ai-match-reasons/batch:
     post:
       tags:
@@ -290,9 +266,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/members/search:
     post:
       tags:
@@ -323,9 +296,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/members/{member_id}:
     get:
       tags:
@@ -354,9 +324,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/relevance/{member_id}:
     get:
       tags:
@@ -395,9 +362,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/likes:
     post:
       tags:
@@ -430,9 +394,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/skip:
     post:
       tags:
@@ -464,9 +425,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/undo-skip:
     post:
       tags:
@@ -484,9 +442,6 @@ paths:
               schema: {}
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/can-undo-skip:
     get:
       tags:
@@ -504,9 +459,6 @@ paths:
               schema: {}
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/likes/{target_user_id}:
     delete:
       tags:
@@ -535,9 +487,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/likes/reject-incoming/{from_user_id}:
     post:
       tags:
@@ -570,9 +519,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/likes/pending:
     get:
       tags:
@@ -588,9 +534,6 @@ paths:
               schema: {}
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/likes/who-liked-me:
     get:
       tags:
@@ -610,9 +553,6 @@ paths:
               schema: {}
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/likes/my-pending-likes:
     get:
       tags:
@@ -632,9 +572,6 @@ paths:
               schema: {}
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/likes/my-expired-likes:
     get:
       tags:
@@ -652,9 +589,6 @@ paths:
               schema: {}
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/likes/expired-received:
     get:
       tags:
@@ -672,9 +606,6 @@ paths:
               schema: {}
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/likes/{like_id}/dismiss:
     post:
       tags:
@@ -703,9 +634,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/likes/{like_id}/revive:
     post:
       tags:
@@ -745,9 +673,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/endorsements:
     post:
       tags:
@@ -777,9 +702,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/endorsements/{user_id}:
     get:
       tags:
@@ -808,9 +730,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/reputation/{user_id}:
     get:
       tags:
@@ -839,9 +758,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/introductions:
     get:
       tags:
@@ -883,9 +799,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/introductions/received:
     get:
       tags:
@@ -901,9 +814,6 @@ paths:
               schema: {}
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/introductions/handshake:
     post:
       tags:
@@ -931,9 +841,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/connector-stats:
     get:
       tags:
@@ -949,9 +856,6 @@ paths:
               schema: {}
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/leaderboard:
     get:
       tags:
@@ -979,9 +883,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/potential-introductions:
     get:
       tags:
@@ -997,9 +898,6 @@ paths:
               schema: {}
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/matches:
     post:
       tags:
@@ -1028,9 +926,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/matches/with-expiry:
     get:
       tags:
@@ -1046,9 +941,6 @@ paths:
               schema: {}
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/matches/{match_id}:
     delete:
       tags:
@@ -1077,9 +969,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/mutual-connections/{target_user_id}:
     get:
       tags:
@@ -1110,9 +999,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/credibility/status:
     get:
       tags:
@@ -1128,9 +1014,6 @@ paths:
               schema: {}
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/credibility/trigger:
     post:
       tags:
@@ -1146,9 +1029,6 @@ paths:
               schema: {}
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/credibility/help:
     get:
       tags:
@@ -1162,9 +1042,6 @@ paths:
           content:
             application/json:
               schema: {}
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/push/vapid-key:
     get:
       tags:
@@ -1178,9 +1055,6 @@ paths:
           content:
             application/json:
               schema: {}
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/push/subscribe:
     post:
       tags:
@@ -1208,9 +1082,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/push/unsubscribe:
     delete:
       tags:
@@ -1226,9 +1097,6 @@ paths:
               schema: {}
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/network/intelligence:
     get:
       tags:
@@ -1244,9 +1112,6 @@ paths:
           content:
             application/json:
               schema: {}
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/network/leaderboard:
     get:
       tags:
@@ -1276,9 +1141,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/network/activity:
     get:
       tags:
@@ -1310,9 +1172,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/discover/circles:
     get:
       tags:
@@ -1367,9 +1226,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/discover/communities:
     get:
       tags:
@@ -1424,9 +1280,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/discover/stats:
     get:
       tags:
@@ -1442,9 +1295,6 @@ paths:
           content:
             application/json:
               schema: {}
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/discover/stats/debug:
     get:
       tags:
@@ -1458,9 +1308,6 @@ paths:
           content:
             application/json:
               schema: {}
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/notifications/matches:
     get:
       tags:
@@ -1497,9 +1344,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/notifications/matches/read:
     post:
       tags:
@@ -1526,9 +1370,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/notifications/matches/count:
     get:
       tags:
@@ -1544,9 +1385,6 @@ paths:
               schema: {}
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/matches/feedback:
     post:
       tags:
@@ -1576,9 +1414,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/matches/feedback/stats:
     get:
       tags:
@@ -1610,9 +1445,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/matches/feedback/my-history:
     get:
       tags:
@@ -1642,9 +1474,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/home/daily-matches:
     get:
       tags:
@@ -1670,9 +1499,6 @@ paths:
               schema: {}
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/home/match-reason:
     post:
       tags:
@@ -1694,11 +1520,151 @@ paths:
               schema: {}
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
 components:
   schemas:
+    MarkNotificationsReadRequest:
+      properties:
+        notification_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Notification Ids
+      type: object
+      title: MarkNotificationsReadRequest
+    LikeResponse:
+      properties:
+        status:
+          type: string
+          title: Status
+        match:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Match
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - status
+      - message
+      title: LikeResponse
+    PushSubscription:
+      properties:
+        endpoint:
+          type: string
+          title: Endpoint
+        keys:
+          additionalProperties:
+            type: string
+          type: object
+          title: Keys
+      type: object
+      required:
+      - endpoint
+      - keys
+      title: PushSubscription
+    MarkHandshake:
+      properties:
+        introduction_id:
+          type: string
+          title: Introduction Id
+      type: object
+      required:
+      - introduction_id
+      title: MarkHandshake
+    MemberSearchRequest:
+      properties:
+        query:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Query
+        industry:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Industry
+      type: object
+      title: MemberSearchRequest
+    IntroductionCreate:
+      properties:
+        person_a_id:
+          type: string
+          title: Person A Id
+        person_b_id:
+          type: string
+          title: Person B Id
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - person_a_id
+      - person_b_id
+      - message
+      title: IntroductionCreate
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    EndorsementCreate:
+      properties:
+        to_user_id:
+          type: string
+          title: To User Id
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - to_user_id
+      - message
+      title: EndorsementCreate
+    MatchFeedback:
+      properties:
+        target_user_id:
+          type: string
+          title: Target User Id
+        feedback_type:
+          type: string
+          title: Feedback Type
+        ai_score:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Ai Score
+        comment:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment
+      type: object
+      required:
+      - target_user_id
+      - feedback_type
+      title: MatchFeedback
+      description: Model for collecting user feedback on AI matches
     UserProfile:
       properties:
         id:
@@ -1919,83 +1885,6 @@ components:
       - name
       - company
       title: UserProfile
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    MatchCreate:
-      properties:
-        target_user_id:
-          type: string
-          title: Target User Id
-      type: object
-      required:
-      - target_user_id
-      title: MatchCreate
-    MatchFeedback:
-      properties:
-        target_user_id:
-          type: string
-          title: Target User Id
-        feedback_type:
-          type: string
-          title: Feedback Type
-        ai_score:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Ai Score
-        comment:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Comment
-      type: object
-      required:
-      - target_user_id
-      - feedback_type
-      title: MatchFeedback
-      description: Model for collecting user feedback on AI matches
-    MarkHandshake:
-      properties:
-        introduction_id:
-          type: string
-          title: Introduction Id
-      type: object
-      required:
-      - introduction_id
-      title: MarkHandshake
-    MemberSearchRequest:
-      properties:
-        query:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Query
-        industry:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Industry
-      type: object
-      title: MemberSearchRequest
     LikeCreate:
       properties:
         target_user_id:
@@ -2005,81 +1894,15 @@ components:
       required:
       - target_user_id
       title: LikeCreate
-    MarkNotificationsReadRequest:
+    MatchCreate:
       properties:
-        notification_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Notification Ids
-      type: object
-      title: MarkNotificationsReadRequest
-    EndorsementCreate:
-      properties:
-        to_user_id:
+        target_user_id:
           type: string
-          title: To User Id
-        message:
-          type: string
-          title: Message
+          title: Target User Id
       type: object
       required:
-      - to_user_id
-      - message
-      title: EndorsementCreate
-    LikeResponse:
-      properties:
-        status:
-          type: string
-          title: Status
-        match:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Match
-        message:
-          type: string
-          title: Message
-      type: object
-      required:
-      - status
-      - message
-      title: LikeResponse
-    IntroductionCreate:
-      properties:
-        person_a_id:
-          type: string
-          title: Person A Id
-        person_b_id:
-          type: string
-          title: Person B Id
-        message:
-          type: string
-          title: Message
-      type: object
-      required:
-      - person_a_id
-      - person_b_id
-      - message
-      title: IntroductionCreate
-    PushSubscription:
-      properties:
-        endpoint:
-          type: string
-          title: Endpoint
-        keys:
-          additionalProperties:
-            type: string
-          type: object
-          title: Keys
-      type: object
-      required:
-      - endpoint
-      - keys
-      title: PushSubscription
+      - target_user_id
+      title: MatchCreate
     HTTPValidationError:
       properties:
         detail:
@@ -2093,6 +1916,3 @@ components:
     HTTPBearer:
       type: http
       scheme: bearer
-x-refined-from:
-- matchitup-in-openapi.json
-- matchitup-in-openapi.yml

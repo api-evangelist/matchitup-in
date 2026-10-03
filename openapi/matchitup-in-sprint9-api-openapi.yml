@@ -1,10 +1,10 @@
 openapi: 3.2.0
 info:
-  title: Matchitup In Sprint9 API
+  title: Fast Sprint9 API
   version: 0.1.0
-  x-spec-note: This is the PUBLIC spec for external agents + ChatGPT Actions. Super-admin and internal debug routes are excluded. Regenerated via backend/scripts/filter_public_openapi.py.
   x-spec-profile: public-filtered
-  description: 'Operations tagged sprint9 across 2 of this provider''s published API definitions: matchitup-in-openapi.json, matchitup-in-openapi.yml. Each path carries the servers of the definition it was published in.'
+  x-spec-note: This is the PUBLIC spec for external agents + ChatGPT Actions. Super-admin and internal debug routes are excluded. Regenerated via backend/scripts/filter_public_openapi.py.
+  description: Public API for external agents and ChatGPT Custom GPT Actions.
 servers:
 - url: https://matchitup.in
   description: Production
@@ -21,9 +21,6 @@ paths:
       responses:
         '200':
           description: Successful Response
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/sitemap.xml:
     get:
       tags:
@@ -34,9 +31,6 @@ paths:
       responses:
         '200':
           description: Successful Response
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/sitemap-seo.xml:
     get:
       tags:
@@ -47,9 +41,6 @@ paths:
       responses:
         '200':
           description: Successful Response
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/sitemap-agents.xml:
     get:
       tags:
@@ -60,9 +51,6 @@ paths:
       responses:
         '200':
           description: Successful Response
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/sitemap-rooms.xml:
     get:
       tags:
@@ -73,9 +61,6 @@ paths:
       responses:
         '200':
           description: Successful Response
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/sitemap-posts.xml:
     get:
       tags:
@@ -86,9 +71,6 @@ paths:
       responses:
         '200':
           description: Successful Response
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/preview/bot/{agent_id}:
     get:
       tags:
@@ -116,9 +98,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/preview/room/{slug}:
     get:
       tags:
@@ -146,9 +125,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/preview/post/{post_id}:
     get:
       tags:
@@ -176,20 +152,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -211,10 +175,16 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http
       scheme: bearer
-x-refined-from:
-- matchitup-in-openapi.json
-- matchitup-in-openapi.yml

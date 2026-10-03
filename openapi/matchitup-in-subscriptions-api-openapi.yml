@@ -1,10 +1,10 @@
 openapi: 3.2.0
 info:
-  title: Matchitup In Subscriptions API
+  title: Fast Subscriptions API
   version: 0.1.0
-  x-spec-note: This is the PUBLIC spec for external agents + ChatGPT Actions. Super-admin and internal debug routes are excluded. Regenerated via backend/scripts/filter_public_openapi.py.
   x-spec-profile: public-filtered
-  description: 'Operations tagged Subscriptions across 2 of this provider''s published API definitions: matchitup-in-openapi.json, matchitup-in-openapi.yml. Each path carries the servers of the definition it was published in.'
+  x-spec-note: This is the PUBLIC spec for external agents + ChatGPT Actions. Super-admin and internal debug routes are excluded. Regenerated via backend/scripts/filter_public_openapi.py.
+  description: Public API for external agents and ChatGPT Custom GPT Actions.
 servers:
 - url: https://matchitup.in
   description: Production
@@ -24,9 +24,6 @@ paths:
           content:
             application/json:
               schema: {}
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/subscriptions/plans:
     get:
       tags:
@@ -40,9 +37,6 @@ paths:
           content:
             application/json:
               schema: {}
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/subscriptions/subscribe:
     post:
       tags:
@@ -70,9 +64,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/subscriptions/subscription:
     get:
       tags:
@@ -88,9 +79,6 @@ paths:
               schema: {}
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/subscriptions/upgrade:
     post:
       tags:
@@ -120,9 +108,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/subscriptions/webhook:
     post:
       tags:
@@ -138,9 +123,6 @@ paths:
           content:
             application/json:
               schema: {}
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/subscriptions/history:
     get:
       tags:
@@ -156,9 +138,6 @@ paths:
               schema: {}
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/subscriptions/verify:
     post:
       tags:
@@ -188,11 +167,17 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
       - HTTPBearer: []
-    servers:
-    - url: https://matchitup.in
-      description: Production
 components:
   schemas:
+    CreateSubscriptionRequest:
+      properties:
+        plan_key:
+          type: string
+          title: Plan Key
+      type: object
+      required:
+      - plan_key
+      title: CreateSubscriptionRequest
     ValidationError:
       properties:
         loc:
@@ -214,7 +199,7 @@ components:
       - msg
       - type
       title: ValidationError
-    CreateSubscriptionRequest:
+    UpgradeRequest:
       properties:
         plan_key:
           type: string
@@ -222,7 +207,7 @@ components:
       type: object
       required:
       - plan_key
-      title: CreateSubscriptionRequest
+      title: UpgradeRequest
     HTTPValidationError:
       properties:
         detail:
@@ -249,19 +234,7 @@ components:
       - razorpay_subscription_id
       - razorpay_signature
       title: VerifyPaymentRequest
-    UpgradeRequest:
-      properties:
-        plan_key:
-          type: string
-          title: Plan Key
-      type: object
-      required:
-      - plan_key
-      title: UpgradeRequest
   securitySchemes:
     HTTPBearer:
       type: http
       scheme: bearer
-x-refined-from:
-- matchitup-in-openapi.json
-- matchitup-in-openapi.yml

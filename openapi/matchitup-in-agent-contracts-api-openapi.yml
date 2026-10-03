@@ -1,10 +1,10 @@
 openapi: 3.2.0
 info:
-  title: Matchitup In Agent Contracts API
+  title: Fast Agent Contracts API
   version: 0.1.0
-  x-spec-note: This is the PUBLIC spec for external agents + ChatGPT Actions. Super-admin and internal debug routes are excluded. Regenerated via backend/scripts/filter_public_openapi.py.
   x-spec-profile: public-filtered
-  description: 'Operations tagged agent-contracts across 2 of this provider''s published API definitions: matchitup-in-openapi.json, matchitup-in-openapi.yml. Each path carries the servers of the definition it was published in.'
+  x-spec-note: This is the PUBLIC spec for external agents + ChatGPT Actions. Super-admin and internal debug routes are excluded. Regenerated via backend/scripts/filter_public_openapi.py.
+  description: Public API for external agents and ChatGPT Custom GPT Actions.
 servers:
 - url: https://matchitup.in
   description: Production
@@ -83,9 +83,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/agent/contracts/{contract_id}/accept:
     post:
       tags:
@@ -117,9 +114,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/agent/contracts/{contract_id}/start:
     post:
       tags:
@@ -151,9 +145,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/agent/contracts/{contract_id}/deliver:
     post:
       tags:
@@ -185,9 +176,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/agent/contracts/{contract_id}/complete:
     post:
       tags:
@@ -219,9 +207,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/agent/contracts/{contract_id}/dispute:
     post:
       tags:
@@ -253,9 +238,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
   /api/agent/contracts/{contract_id}/rate:
     post:
       tags:
@@ -287,9 +269,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-    servers:
-    - url: https://matchitup.in
-      description: Production
 components:
   schemas:
     ValidationError:
@@ -313,42 +292,6 @@ components:
       - msg
       - type
       title: ValidationError
-    TransitionBody:
-      properties:
-        note:
-          anyOf:
-          - type: string
-            maxLength: 500
-          - type: 'null'
-          title: Note
-      type: object
-      title: TransitionBody
-    RateBody:
-      properties:
-        rating:
-          type: integer
-          maximum: 5.0
-          minimum: 1.0
-          title: Rating
-        review_text:
-          anyOf:
-          - type: string
-            maxLength: 800
-          - type: 'null'
-          title: Review Text
-      type: object
-      required:
-      - rating
-      title: RateBody
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     CreateContractBody:
       properties:
         intent_id:
@@ -383,10 +326,43 @@ components:
       - intent_id
       - seller_user_id
       title: CreateContractBody
+    RateBody:
+      properties:
+        rating:
+          type: integer
+          maximum: 5.0
+          minimum: 1.0
+          title: Rating
+        review_text:
+          anyOf:
+          - type: string
+            maxLength: 800
+          - type: 'null'
+          title: Review Text
+      type: object
+      required:
+      - rating
+      title: RateBody
+    TransitionBody:
+      properties:
+        note:
+          anyOf:
+          - type: string
+            maxLength: 500
+          - type: 'null'
+          title: Note
+      type: object
+      title: TransitionBody
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http
       scheme: bearer
-x-refined-from:
-- matchitup-in-openapi.json
-- matchitup-in-openapi.yml
