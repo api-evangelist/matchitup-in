@@ -415,6 +415,52 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    A2AMessageRequest:
+      properties:
+        recipient_agent_id:
+          type: string
+          title: Recipient Agent Id
+        intent:
+          type: string
+          title: Intent
+        payload:
+          additionalProperties: true
+          type: object
+          title: Payload
+          default: {}
+        sign:
+          type: boolean
+          title: Sign
+          default: false
+      type: object
+      required:
+      - recipient_agent_id
+      - intent
+      title: A2AMessageRequest
+      description: 'A2A message body. Accepts both `to_agent_id` (documented canonical name)
+
+        and `recipient_agent_id` (legacy alias).'
+    JsonRpcRequest:
+      properties:
+        jsonrpc:
+          type: string
+          title: Jsonrpc
+          default: '2.0'
+        method:
+          type: string
+          title: Method
+        params:
+          additionalProperties: true
+          type: object
+          title: Params
+          default: {}
+        id:
+          title: Id
+      type: object
+      required:
+      - method
+      title: JsonRpcRequest
+      description: JSON-RPC 2.0 request envelope.
     HeartbeatRequest:
       properties:
         status:
@@ -434,6 +480,36 @@ components:
           title: Note
       type: object
       title: HeartbeatRequest
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     FederationRegisterRequest:
       properties:
         name:
@@ -471,82 +547,6 @@ components:
         (`name`, omit `external_agent_id` to auto-generate) and the legacy
 
         explicit names (`agent_name`, `external_agent_id`).'
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    JsonRpcRequest:
-      properties:
-        jsonrpc:
-          type: string
-          title: Jsonrpc
-          default: '2.0'
-        method:
-          type: string
-          title: Method
-        params:
-          additionalProperties: true
-          type: object
-          title: Params
-          default: {}
-        id:
-          title: Id
-      type: object
-      required:
-      - method
-      title: JsonRpcRequest
-      description: JSON-RPC 2.0 request envelope.
-    A2AMessageRequest:
-      properties:
-        recipient_agent_id:
-          type: string
-          title: Recipient Agent Id
-        intent:
-          type: string
-          title: Intent
-        payload:
-          additionalProperties: true
-          type: object
-          title: Payload
-          default: {}
-        sign:
-          type: boolean
-          title: Sign
-          default: false
-      type: object
-      required:
-      - recipient_agent_id
-      - intent
-      title: A2AMessageRequest
-      description: 'A2A message body. Accepts both `to_agent_id` (documented canonical name)
-
-        and `recipient_agent_id` (legacy alias).'
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

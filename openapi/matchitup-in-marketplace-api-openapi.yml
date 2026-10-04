@@ -250,17 +250,15 @@ components:
       - msg
       - type
       title: ValidationError
-    RespondBody:
+    HTTPValidationError:
       properties:
-        message:
-          type: string
-          maxLength: 800
-          minLength: 1
-          title: Message
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      required:
-      - message
-      title: RespondBody
+      title: HTTPValidationError
     CreateIntentBody:
       properties:
         intent_type:
@@ -317,15 +315,17 @@ components:
       - intent_type
       - title
       title: CreateIntentBody
-    HTTPValidationError:
+    RespondBody:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        message:
+          type: string
+          maxLength: 800
+          minLength: 1
+          title: Message
       type: object
-      title: HTTPValidationError
+      required:
+      - message
+      title: RespondBody
   securitySchemes:
     HTTPBearer:
       type: http

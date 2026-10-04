@@ -63,15 +63,6 @@ components:
       - msg
       - type
       title: ValidationError
-    RefreshTokenRequest:
-      properties:
-        refresh_token:
-          type: string
-          title: Refresh Token
-      type: object
-      required:
-      - refresh_token
-      title: RefreshTokenRequest
     HTTPValidationError:
       properties:
         detail:
@@ -81,6 +72,15 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    RefreshTokenRequest:
+      properties:
+        refresh_token:
+          type: string
+          title: Refresh Token
+      type: object
+      required:
+      - refresh_token
+      title: RefreshTokenRequest
   securitySchemes:
     HTTPBearer:
       type: http

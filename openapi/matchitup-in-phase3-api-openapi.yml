@@ -1188,339 +1188,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    UserRegister:
-      properties:
-        email:
-          type: string
-          format: email
-          title: Email
-        password:
-          type: string
-          title: Password
-        name:
-          type: string
-          title: Name
-        company:
-          type: string
-          title: Company
-        business_description:
-          type: string
-          title: Business Description
-        credibility_line:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Credibility Line
-        industry:
-          type: string
-          title: Industry
-        region:
-          type: string
-          title: Region
-        website:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Website
-        instagram:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Instagram
-        linkedin:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Linkedin
-        profile_photo:
-          type: string
-          title: Profile Photo
-        whatsapp_number:
-          type: string
-          title: Whatsapp Number
-        ref_mi_pin:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Ref Mi Pin
-        invite_code:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Invite Code
-        referral_code:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Referral Code
-      type: object
-      required:
-      - email
-      - password
-      - name
-      - company
-      - business_description
-      - industry
-      - region
-      - profile_photo
-      - whatsapp_number
-      title: UserRegister
-    SendEmailOTPRequest:
-      properties:
-        email:
-          type: string
-          format: email
-          title: Email
-      type: object
-      required:
-      - email
-      title: SendEmailOTPRequest
-    GoogleSessionRequest:
-      properties:
-        session_id:
-          type: string
-          title: Session Id
-      type: object
-      required:
-      - session_id
-      title: GoogleSessionRequest
-    ResetPasswordRequest:
-      properties:
-        token:
-          type: string
-          title: Token
-        new_password:
-          type: string
-          title: New Password
-      type: object
-      required:
-      - token
-      - new_password
-      title: ResetPasswordRequest
-    SendLoginOTPRequest:
-      properties:
-        email:
-          type: string
-          format: email
-          title: Email
-        device_token:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Device Token
-      type: object
-      required:
-      - email
-      title: SendLoginOTPRequest
-    AuthResponse:
-      properties:
-        token:
-          type: string
-          title: Token
-        refresh_token:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Refresh Token
-        expires_in:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Expires In
-        user:
-          $ref: '#/components/schemas/UserProfile'
-        account_reactivated:
-          type: boolean
-          title: Account Reactivated
-          default: false
-      type: object
-      required:
-      - token
-      - user
-      title: AuthResponse
-    ForgotPasswordRequest:
-      properties:
-        email:
-          type: string
-          format: email
-          title: Email
-      type: object
-      required:
-      - email
-      title: ForgotPasswordRequest
-    DeviceCheckRequest:
-      properties:
-        email:
-          type: string
-          format: email
-          title: Email
-        device_token:
-          type: string
-          title: Device Token
-      type: object
-      required:
-      - email
-      - device_token
-      title: DeviceCheckRequest
-    UserSearchRequest:
-      properties:
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        email:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Email
-        chapter_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Chapter Name
-        chapter_region:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Chapter Region
-        company:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Company
-        industry:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Industry
-      type: object
-      title: UserSearchRequest
-      description: Comprehensive user search with multiple filters
-    ProfileCompletionStatus:
-      properties:
-        has_offers:
-          type: boolean
-          title: Has Offers
-          default: false
-        has_needs:
-          type: boolean
-          title: Has Needs
-          default: false
-        is_complete:
-          type: boolean
-          title: Is Complete
-          default: false
-        completed_at:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Completed At
-        last_updated_at:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Last Updated At
-        show_sticky_banner:
-          type: boolean
-          title: Show Sticky Banner
-          default: false
-        show_card_prompt:
-          type: boolean
-          title: Show Card Prompt
-          default: false
-        show_update_reminder:
-          type: boolean
-          title: Show Update Reminder
-          default: false
-        original_need:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Original Need
-        dashboard_sessions:
-          type: integer
-          title: Dashboard Sessions
-          default: 0
-      type: object
-      title: ProfileCompletionStatus
-      description: Response model for profile completion status
-    UserLogin:
-      properties:
-        email:
-          type: string
-          format: email
-          title: Email
-        password:
-          type: string
-          title: Password
-      type: object
-      required:
-      - email
-      - password
-      title: UserLogin
-    DeleteAccountRequest:
-      properties:
-        password:
-          type: string
-          title: Password
-      type: object
-      required:
-      - password
-      title: DeleteAccountRequest
-    VerifyLoginOTPRequest:
-      properties:
-        email:
-          type: string
-          format: email
-          title: Email
-        otp:
-          type: string
-          title: Otp
-        trust_device:
-          type: boolean
-          title: Trust Device
-          default: true
-        device_info:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Device Info
-      type: object
-      required:
-      - email
-      - otp
-      title: VerifyLoginOTPRequest
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    DismissReminderRequest:
-      properties:
-        action:
-          type: string
-          title: Action
-      type: object
-      required:
-      - action
-      title: DismissReminderRequest
     UserProfile:
       properties:
         id:
@@ -1741,6 +1408,299 @@ components:
       - name
       - company
       title: UserProfile
+    AuthResponse:
+      properties:
+        token:
+          type: string
+          title: Token
+        refresh_token:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Refresh Token
+        expires_in:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Expires In
+        user:
+          $ref: '#/components/schemas/UserProfile'
+        account_reactivated:
+          type: boolean
+          title: Account Reactivated
+          default: false
+      type: object
+      required:
+      - token
+      - user
+      title: AuthResponse
+    SendEmailOTPRequest:
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email
+      type: object
+      required:
+      - email
+      title: SendEmailOTPRequest
+    DeviceCheckRequest:
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email
+        device_token:
+          type: string
+          title: Device Token
+      type: object
+      required:
+      - email
+      - device_token
+      title: DeviceCheckRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    DeleteAccountRequest:
+      properties:
+        password:
+          type: string
+          title: Password
+      type: object
+      required:
+      - password
+      title: DeleteAccountRequest
+    ResetPasswordRequest:
+      properties:
+        token:
+          type: string
+          title: Token
+        new_password:
+          type: string
+          title: New Password
+      type: object
+      required:
+      - token
+      - new_password
+      title: ResetPasswordRequest
+    UserSearchRequest:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email
+        chapter_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Chapter Name
+        chapter_region:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Chapter Region
+        company:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Company
+        industry:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Industry
+      type: object
+      title: UserSearchRequest
+      description: Comprehensive user search with multiple filters
+    GoogleSessionRequest:
+      properties:
+        session_id:
+          type: string
+          title: Session Id
+      type: object
+      required:
+      - session_id
+      title: GoogleSessionRequest
+    VerifyLoginOTPRequest:
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email
+        otp:
+          type: string
+          title: Otp
+        trust_device:
+          type: boolean
+          title: Trust Device
+          default: true
+        device_info:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Device Info
+      type: object
+      required:
+      - email
+      - otp
+      title: VerifyLoginOTPRequest
+    VerifyEmailOTPRequest:
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email
+        otp:
+          type: string
+          title: Otp
+      type: object
+      required:
+      - email
+      - otp
+      title: VerifyEmailOTPRequest
+    UserRegister:
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email
+        password:
+          type: string
+          title: Password
+        name:
+          type: string
+          title: Name
+        company:
+          type: string
+          title: Company
+        business_description:
+          type: string
+          title: Business Description
+        credibility_line:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Credibility Line
+        industry:
+          type: string
+          title: Industry
+        region:
+          type: string
+          title: Region
+        website:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Website
+        instagram:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Instagram
+        linkedin:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Linkedin
+        profile_photo:
+          type: string
+          title: Profile Photo
+        whatsapp_number:
+          type: string
+          title: Whatsapp Number
+        ref_mi_pin:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ref Mi Pin
+        invite_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Invite Code
+        referral_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Referral Code
+      type: object
+      required:
+      - email
+      - password
+      - name
+      - company
+      - business_description
+      - industry
+      - region
+      - profile_photo
+      - whatsapp_number
+      title: UserRegister
+    UserLogin:
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email
+        password:
+          type: string
+          title: Password
+      type: object
+      required:
+      - email
+      - password
+      title: UserLogin
+    DismissReminderRequest:
+      properties:
+        action:
+          type: string
+          title: Action
+      type: object
+      required:
+      - action
+      title: DismissReminderRequest
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ForgotPasswordRequest:
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email
+      type: object
+      required:
+      - email
+      title: ForgotPasswordRequest
     ProfileUpdate:
       properties:
         name:
@@ -1826,29 +1786,69 @@ components:
           title: Asks
       type: object
       title: ProfileUpdate
-    VerifyEmailOTPRequest:
+    SendLoginOTPRequest:
       properties:
         email:
           type: string
           format: email
           title: Email
-        otp:
-          type: string
-          title: Otp
+        device_token:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Device Token
       type: object
       required:
       - email
-      - otp
-      title: VerifyEmailOTPRequest
-    HTTPValidationError:
+      title: SendLoginOTPRequest
+    ProfileCompletionStatus:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        has_offers:
+          type: boolean
+          title: Has Offers
+          default: false
+        has_needs:
+          type: boolean
+          title: Has Needs
+          default: false
+        is_complete:
+          type: boolean
+          title: Is Complete
+          default: false
+        completed_at:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Completed At
+        last_updated_at:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Updated At
+        show_sticky_banner:
+          type: boolean
+          title: Show Sticky Banner
+          default: false
+        show_card_prompt:
+          type: boolean
+          title: Show Card Prompt
+          default: false
+        show_update_reminder:
+          type: boolean
+          title: Show Update Reminder
+          default: false
+        original_need:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Original Need
+        dashboard_sessions:
+          type: integer
+          title: Dashboard Sessions
+          default: 0
       type: object
-      title: HTTPValidationError
+      title: ProfileCompletionStatus
+      description: Response model for profile completion status
   securitySchemes:
     HTTPBearer:
       type: http

@@ -271,27 +271,23 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ValidationError:
+    RateBody:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
+        rating:
+          type: integer
+          maximum: 5.0
+          minimum: 1.0
+          title: Rating
+        review_text:
+          anyOf:
+          - type: string
+            maxLength: 800
+          - type: 'null'
+          title: Review Text
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - rating
+      title: RateBody
     CreateContractBody:
       properties:
         intent_id:
@@ -326,23 +322,6 @@ components:
       - intent_id
       - seller_user_id
       title: CreateContractBody
-    RateBody:
-      properties:
-        rating:
-          type: integer
-          maximum: 5.0
-          minimum: 1.0
-          title: Rating
-        review_text:
-          anyOf:
-          - type: string
-            maxLength: 800
-          - type: 'null'
-          title: Review Text
-      type: object
-      required:
-      - rating
-      title: RateBody
     TransitionBody:
       properties:
         note:
@@ -353,6 +332,27 @@ components:
           title: Note
       type: object
       title: TransitionBody
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     HTTPValidationError:
       properties:
         detail:

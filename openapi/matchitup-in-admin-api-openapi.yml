@@ -442,6 +442,20 @@ components:
       - msg
       - type
       title: ValidationError
+    UpdateCodeStatusRequest:
+      properties:
+        status:
+          type: string
+          title: Status
+        community_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Community Id
+      type: object
+      required:
+      - status
+      title: UpdateCodeStatusRequest
     HTTPValidationError:
       properties:
         detail:
@@ -503,20 +517,6 @@ components:
           title: Brew Circle Name
       type: object
       title: CreateCodeRequest
-    UpdateCodeStatusRequest:
-      properties:
-        status:
-          type: string
-          title: Status
-        community_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Community Id
-      type: object
-      required:
-      - status
-      title: UpdateCodeStatusRequest
   securitySchemes:
     HTTPBearer:
       type: http

@@ -916,38 +916,27 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    LeaveCommunityRequest:
+    CircleJoinRequestInput:
       properties:
-        community_id:
-          type: string
-          title: Community Id
-      type: object
-      required:
-      - community_id
-      title: LeaveCommunityRequest
-    UpdateCodeStatusRequest:
-      properties:
-        status:
-          type: string
-          title: Status
-        community_id:
+        justification:
           anyOf:
           - type: string
+            maxLength: 500
           - type: 'null'
-          title: Community Id
+          title: Justification
+          description: Why do you want to join this circle?
+          default: ''
+      type: object
+      title: CircleJoinRequestInput
+    JoinCommunityRequest:
+      properties:
+        code:
+          type: string
+          title: Code
       type: object
       required:
-      - status
-      title: UpdateCodeStatusRequest
-    CancelSubscriptionRequest:
-      properties:
-        reason_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Reason Id
-      type: object
-      title: CancelSubscriptionRequest
+      - code
+      title: JoinCommunityRequest
     CreateOrderRequest:
       properties:
         plan_id:
@@ -966,6 +955,20 @@ components:
       required:
       - plan_id
       title: CreateOrderRequest
+    UpdateCodeStatusRequest:
+      properties:
+        status:
+          type: string
+          title: Status
+        community_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Community Id
+      type: object
+      required:
+      - status
+      title: UpdateCodeStatusRequest
     ValidationError:
       properties:
         loc:
@@ -987,27 +990,15 @@ components:
       - msg
       - type
       title: ValidationError
-    JoinCommunityRequest:
+    CancelSubscriptionRequest:
       properties:
-        code:
-          type: string
-          title: Code
-      type: object
-      required:
-      - code
-      title: JoinCommunityRequest
-    CircleJoinRequestInput:
-      properties:
-        justification:
+        reason_id:
           anyOf:
           - type: string
-            maxLength: 500
           - type: 'null'
-          title: Justification
-          description: Why do you want to join this circle?
-          default: ''
+          title: Reason Id
       type: object
-      title: CircleJoinRequestInput
+      title: CancelSubscriptionRequest
     CreateCodeRequest:
       properties:
         max_uses:
@@ -1069,6 +1060,15 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    LeaveCommunityRequest:
+      properties:
+        community_id:
+          type: string
+          title: Community Id
+      type: object
+      required:
+      - community_id
+      title: LeaveCommunityRequest
   securitySchemes:
     HTTPBearer:
       type: http

@@ -206,29 +206,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    MessageReport:
-      properties:
-        reason:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Reason
-          default: inappropriate
-      type: object
-      title: MessageReport
-    MessageCreate:
-      properties:
-        match_id:
-          type: string
-          title: Match Id
-        content:
-          type: string
-          title: Content
-      type: object
-      required:
-      - match_id
-      - content
-      title: MessageCreate
     ValidationError:
       properties:
         loc:
@@ -250,6 +227,19 @@ components:
       - msg
       - type
       title: ValidationError
+    MessageCreate:
+      properties:
+        match_id:
+          type: string
+          title: Match Id
+        content:
+          type: string
+          title: Content
+      type: object
+      required:
+      - match_id
+      - content
+      title: MessageCreate
     HTTPValidationError:
       properties:
         detail:
@@ -293,6 +283,16 @@ components:
       - content
       - created_at
       title: Message
+    MessageReport:
+      properties:
+        reason:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reason
+          default: inappropriate
+      type: object
+      title: MessageReport
   securitySchemes:
     HTTPBearer:
       type: http

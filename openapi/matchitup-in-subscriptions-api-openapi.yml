@@ -169,6 +169,15 @@ paths:
       - HTTPBearer: []
 components:
   schemas:
+    UpgradeRequest:
+      properties:
+        plan_key:
+          type: string
+          title: Plan Key
+      type: object
+      required:
+      - plan_key
+      title: UpgradeRequest
     CreateSubscriptionRequest:
       properties:
         plan_key:
@@ -199,24 +208,6 @@ components:
       - msg
       - type
       title: ValidationError
-    UpgradeRequest:
-      properties:
-        plan_key:
-          type: string
-          title: Plan Key
-      type: object
-      required:
-      - plan_key
-      title: UpgradeRequest
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     VerifyPaymentRequest:
       properties:
         razorpay_payment_id:
@@ -234,6 +225,15 @@ components:
       - razorpay_subscription_id
       - razorpay_signature
       title: VerifyPaymentRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http
