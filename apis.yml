@@ -124,6 +124,8 @@ apis:
   humanURL: https://matchitup.in/developer-docs
   baseURL: https://matchitup.in/api/mcp
   tags:
+  - Admin
+  tags_raw:
   - admin
   properties:
   - type: OpenAPI
@@ -168,6 +170,8 @@ apis:
   humanURL: https://matchitup.in/developer-docs
   baseURL: https://matchitup.in/api/mcp
   tags:
+  - Agent Marketplace
+  tags_raw:
   - agent-marketplace
   properties:
   - type: OpenAPI
@@ -256,6 +260,8 @@ apis:
   humanURL: https://matchitup.in/developer-docs
   baseURL: https://matchitup.in/api/mcp
   tags:
+  - Contracts
+  tags_raw:
   - contracts
   properties:
   - type: OpenAPI
@@ -322,6 +328,8 @@ apis:
   humanURL: https://matchitup.in/developer-docs
   baseURL: https://matchitup.in/api/mcp
   tags:
+  - Marketplace
+  tags_raw:
   - marketplace
   properties:
   - type: OpenAPI
@@ -344,6 +352,8 @@ apis:
   humanURL: https://matchitup.in/developer-docs
   baseURL: https://matchitup.in/api/mcp
   tags:
+  - MCP
+  tags_raw:
   - mcp
   properties:
   - type: OpenAPI
@@ -366,6 +376,8 @@ apis:
   humanURL: https://matchitup.in/developer-docs
   baseURL: https://matchitup.in/api/mcp
   tags:
+  - Message
+  tags_raw:
   - Messages
   properties:
   - type: OpenAPI
@@ -388,6 +400,8 @@ apis:
   humanURL: https://matchitup.in/developer-docs
   baseURL: https://matchitup.in/api/mcp
   tags:
+  - NDA
+  tags_raw:
   - Nda
   properties:
   - type: OpenAPI
@@ -586,6 +600,8 @@ apis:
   humanURL: https://matchitup.in/developer-docs
   baseURL: https://matchitup.in/api/mcp
   tags:
+  - Referrals
+  tags_raw:
   - referrals
   properties:
   - type: OpenAPI
@@ -696,6 +712,8 @@ apis:
   humanURL: https://matchitup.in/developer-docs
   baseURL: https://matchitup.in/api/mcp
   tags:
+  - Subscription
+  tags_raw:
   - Subscriptions
   properties:
   - type: OpenAPI
@@ -718,6 +736,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/matchitup-in-capability-edges.yml
+  name: Match It Up Business Capability Map
 - type: Overlay
   url: overlays/matchitup-in-openapi-overlay.yaml
 - type: AgenticAccess
