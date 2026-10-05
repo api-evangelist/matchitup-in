@@ -1,0 +1,63 @@
+slug: matchitup-in
+provider: Match It Up
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 4
+edges:
+- tag: Subscriptions
+  spec_file: matchitup-in-subscriptions-api-openapi.yml
+  capability_id: BC-4240
+  capability_id_l1: BC-4240
+  capability_name: Subscription Lifecycle Management
+  confidence: 0.85
+  evidence: GET /api/subscriptions/plans  Get Available Plans; POST /api/subscriptions/subscribe  Create
+    User Subscription; POST /api/subscriptions/upgrade  Upgrade User Subscription; POST /api/subscriptions/verify  Verify
+    Payment
+  reason: Plan catalogue, subscription creation, in-life upgrade and current-subscription retrieval are
+    plainly subscription lifecycle management. Payment verification/history and the Razorpay webhook also
+    touch subscription billing, so the specific L2 is ambiguous and only the L1 is asserted.
+- tag: phase3
+  spec_file: matchitup-in-phase3-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: POST /api/auth/login  Login; POST /api/auth/reset-password; POST /api/auth/google/session  Google
+    Oauth Session; POST /api/auth/check-device  Check Device Trust; schemas UserRegister, VerifyLoginOTPRequest
+  reason: The dominant surface is user registration, login, OTP verification, password reset, OAuth federation
+    and device trust — identity and access management. Some profile-management endpoints dilute it, so
+    0.8 rather than higher.
+- tag: phase5
+  spec_file: matchitup-in-phase5-api-openapi.yml
+  capability_id: BC-4240
+  capability_id_l1: BC-4240
+  capability_name: Subscription Lifecycle Management
+  confidence: 0.8
+  evidence: POST /api/subscriptions/cancel  Cancel Subscription With Survey; GET /api/payments/plans  Get
+    Subscription Plans; GET /api/subscription/trial-status  Get Trial Status
+  reason: 'Despite the opaque ''phase5'' tag, the operations are plainly the commercial subscription surface:
+    plan listing, subscription status, trial status, order creation/verification and cancellation with
+    reasons. That spans subscription lifecycle (provisioning, trial, cancellation) plus payment collection,
+    so the L1 Subscription Lifecycle Management is the honest level; no single L2 covers plans + trials
+    + cancellation + payment orders.'
+- tag: Contracts
+  spec_file: matchitup-in-contracts-api-openapi.yml
+  capability_id: BC-150.10
+  capability_id_l1: BC-150
+  capability_name: Contract Management
+  confidence: 0.7
+  evidence: POST /api/contracts "Create Contract"; "Accept Contract"; "Deliver Contract"; "Complete Contract";
+    "Dispute Contract"
+  reason: Operations drive an explicit agreement lifecycle from creation through acceptance, delivery,
+    completion and dispute, with a CreateContractBody schema. That is contract lifecycle management; confidence
+    is not higher because these are lightweight peer-to-peer engagement agreements rather than full enterprise
+    CLM.
