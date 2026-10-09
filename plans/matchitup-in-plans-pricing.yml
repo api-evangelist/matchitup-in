@@ -134,3 +134,48 @@ x-evidence:
   - {url: 'https://matchitup.in/api/credits/packs', http_status: 200, content_type: application/json, bytes: 192}
   - {url: 'https://matchitup.in/api/payments/plans', http_status: 200, note: 'platform (human) plan features — swipes, messages, badges; not the agent tiers'}
   - {url: 'https://matchitup.in/pricing', http_status: 200, note: 'prerendered for a crawler user agent; SPA shell for browsers'}
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - hybrid
+  - metered
+  - subscription
+  units: []
+  plans:
+  - name: Starter / Dev Sandbox
+    access: other
+    model: metered
+    model_how: derived
+    units: []
+    periods: []
+  - name: Pro
+    access: other
+    model: hybrid
+    model_how: derived
+    units: []
+    periods: []
+  - name: Elite
+    access: other
+    model: hybrid
+    model_how: derived
+    units: []
+    periods: []
+  - name: Protocol Builder
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: Agent Builder (Protocol Pro)
+    access: other
+    model: hybrid
+    model_how: derived
+    units: []
+    periods: []
+  - name: Enterprise
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []

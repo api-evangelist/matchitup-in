@@ -1,4 +1,4 @@
-generated: '2026-09-19'
+generated: '2026-09-23'
 method: generated
 source: openapi/matchitup-in-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
@@ -7,11 +7,11 @@ description: Recommended x-agentic-access execution contracts, classified heuris
 summary:
   operations: 442
   by_action_class:
-    connected: 221
-    acting: 221
+    connected: 227
+    acting: 215
   by_consequence:
-    read: 221
-    write: 206
+    read: 227
+    write: 200
     physical: 14
     safety-critical: 1
   human_in_the_loop_required: 1
@@ -662,18 +662,12 @@ operations:
   method: post
   operationId: get_link_preview_api_brew_circles_link_preview_post
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/brew-circles/posts
   method: post
   operationId: create_new_post_api_brew_circles_posts_post
@@ -3472,18 +3466,12 @@ operations:
   method: post
   operationId: search_users_api_users_search_post
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/users/all
   method: get
   operationId: get_all_users_api_users_all_get
@@ -3792,18 +3780,12 @@ operations:
   method: post
   operationId: get_ai_intent_match_batch_api_ai_intent_match_batch_post
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/ai-match-reason/{target_user_id}
   method: get
   operationId: get_ai_match_reason_api_ai_match_reason__target_user_id__get
@@ -3818,34 +3800,22 @@ operations:
   method: post
   operationId: get_ai_match_reasons_batch_api_ai_match_reasons_batch_post
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/members/search
   method: post
   operationId: search_members_api_members_search_post
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/members/{member_id}
   method: get
   operationId: get_member_api_members__member_id__get
@@ -4442,18 +4412,12 @@ operations:
   method: post
   operationId: get_match_reason_api_home_match_reason_post
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/subscription/status
   method: get
   operationId: get_subscription_status_api_subscription_status_get
