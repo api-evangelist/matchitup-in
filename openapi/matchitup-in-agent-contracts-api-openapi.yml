@@ -288,6 +288,15 @@ components:
       required:
       - rating
       title: RateBody
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     CreateContractBody:
       properties:
         intent_id:
@@ -322,16 +331,6 @@ components:
       - intent_id
       - seller_user_id
       title: CreateContractBody
-    TransitionBody:
-      properties:
-        note:
-          anyOf:
-          - type: string
-            maxLength: 500
-          - type: 'null'
-          title: Note
-      type: object
-      title: TransitionBody
     ValidationError:
       properties:
         loc:
@@ -353,15 +352,16 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
+    TransitionBody:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        note:
+          anyOf:
+          - type: string
+            maxLength: 500
+          - type: 'null'
+          title: Note
       type: object
-      title: HTTPValidationError
+      title: TransitionBody
   securitySchemes:
     HTTPBearer:
       type: http

@@ -169,6 +169,23 @@ paths:
       - HTTPBearer: []
 components:
   schemas:
+    VerifyPaymentRequest:
+      properties:
+        razorpay_payment_id:
+          type: string
+          title: Razorpay Payment Id
+        razorpay_subscription_id:
+          type: string
+          title: Razorpay Subscription Id
+        razorpay_signature:
+          type: string
+          title: Razorpay Signature
+      type: object
+      required:
+      - razorpay_payment_id
+      - razorpay_subscription_id
+      - razorpay_signature
+      title: VerifyPaymentRequest
     UpgradeRequest:
       properties:
         plan_key:
@@ -178,15 +195,15 @@ components:
       required:
       - plan_key
       title: UpgradeRequest
-    CreateSubscriptionRequest:
+    HTTPValidationError:
       properties:
-        plan_key:
-          type: string
-          title: Plan Key
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      required:
-      - plan_key
-      title: CreateSubscriptionRequest
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -208,32 +225,15 @@ components:
       - msg
       - type
       title: ValidationError
-    VerifyPaymentRequest:
+    CreateSubscriptionRequest:
       properties:
-        razorpay_payment_id:
+        plan_key:
           type: string
-          title: Razorpay Payment Id
-        razorpay_subscription_id:
-          type: string
-          title: Razorpay Subscription Id
-        razorpay_signature:
-          type: string
-          title: Razorpay Signature
+          title: Plan Key
       type: object
       required:
-      - razorpay_payment_id
-      - razorpay_subscription_id
-      - razorpay_signature
-      title: VerifyPaymentRequest
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
+      - plan_key
+      title: CreateSubscriptionRequest
   securitySchemes:
     HTTPBearer:
       type: http

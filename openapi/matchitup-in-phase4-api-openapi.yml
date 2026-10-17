@@ -1522,23 +1522,6 @@ paths:
       - HTTPBearer: []
 components:
   schemas:
-    IntroductionCreate:
-      properties:
-        person_a_id:
-          type: string
-          title: Person A Id
-        person_b_id:
-          type: string
-          title: Person B Id
-        message:
-          type: string
-          title: Message
-      type: object
-      required:
-      - person_a_id
-      - person_b_id
-      - message
-      title: IntroductionCreate
     MatchFeedback:
       properties:
         target_user_id:
@@ -1563,25 +1546,6 @@ components:
       - feedback_type
       title: MatchFeedback
       description: Model for collecting user feedback on AI matches
-    LikeResponse:
-      properties:
-        status:
-          type: string
-          title: Status
-        match:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Match
-        message:
-          type: string
-          title: Message
-      type: object
-      required:
-      - status
-      - message
-      title: LikeResponse
     MatchCreate:
       properties:
         target_user_id:
@@ -1811,45 +1775,65 @@ components:
       - name
       - company
       title: UserProfile
-    MarkNotificationsReadRequest:
+    MemberSearchRequest:
       properties:
-        notification_ids:
+        query:
           anyOf:
-          - items:
-              type: string
-            type: array
+          - type: string
           - type: 'null'
-          title: Notification Ids
+          title: Query
+        industry:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Industry
       type: object
-      title: MarkNotificationsReadRequest
-    PushSubscription:
+      title: MemberSearchRequest
+    LikeResponse:
       properties:
-        endpoint:
+        status:
           type: string
-          title: Endpoint
-        keys:
-          additionalProperties:
-            type: string
-          type: object
-          title: Keys
-      type: object
-      required:
-      - endpoint
-      - keys
-      title: PushSubscription
-    EndorsementCreate:
-      properties:
-        to_user_id:
-          type: string
-          title: To User Id
+          title: Status
+        match:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Match
         message:
           type: string
           title: Message
       type: object
       required:
-      - to_user_id
+      - status
       - message
-      title: EndorsementCreate
+      title: LikeResponse
+    IntroductionCreate:
+      properties:
+        person_a_id:
+          type: string
+          title: Person A Id
+        person_b_id:
+          type: string
+          title: Person B Id
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - person_a_id
+      - person_b_id
+      - message
+      title: IntroductionCreate
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -1871,29 +1855,6 @@ components:
       - msg
       - type
       title: ValidationError
-    LikeCreate:
-      properties:
-        target_user_id:
-          type: string
-          title: Target User Id
-      type: object
-      required:
-      - target_user_id
-      title: LikeCreate
-    MemberSearchRequest:
-      properties:
-        query:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Query
-        industry:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Industry
-      type: object
-      title: MemberSearchRequest
     MarkHandshake:
       properties:
         introduction_id:
@@ -1903,15 +1864,54 @@ components:
       required:
       - introduction_id
       title: MarkHandshake
-    HTTPValidationError:
+    PushSubscription:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        endpoint:
+          type: string
+          title: Endpoint
+        keys:
+          additionalProperties:
+            type: string
+          type: object
+          title: Keys
       type: object
-      title: HTTPValidationError
+      required:
+      - endpoint
+      - keys
+      title: PushSubscription
+    MarkNotificationsReadRequest:
+      properties:
+        notification_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Notification Ids
+      type: object
+      title: MarkNotificationsReadRequest
+    EndorsementCreate:
+      properties:
+        to_user_id:
+          type: string
+          title: To User Id
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - to_user_id
+      - message
+      title: EndorsementCreate
+    LikeCreate:
+      properties:
+        target_user_id:
+          type: string
+          title: Target User Id
+      type: object
+      required:
+      - target_user_id
+      title: LikeCreate
   securitySchemes:
     HTTPBearer:
       type: http

@@ -1188,6 +1188,84 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    GoogleSessionRequest:
+      properties:
+        session_id:
+          type: string
+          title: Session Id
+      type: object
+      required:
+      - session_id
+      title: GoogleSessionRequest
+    SendEmailOTPRequest:
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email
+      type: object
+      required:
+      - email
+      title: SendEmailOTPRequest
+    DeleteAccountRequest:
+      properties:
+        password:
+          type: string
+          title: Password
+      type: object
+      required:
+      - password
+      title: DeleteAccountRequest
+    VerifyLoginOTPRequest:
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email
+        otp:
+          type: string
+          title: Otp
+        trust_device:
+          type: boolean
+          title: Trust Device
+          default: true
+        device_info:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Device Info
+      type: object
+      required:
+      - email
+      - otp
+      title: VerifyLoginOTPRequest
+    ResetPasswordRequest:
+      properties:
+        token:
+          type: string
+          title: Token
+        new_password:
+          type: string
+          title: New Password
+      type: object
+      required:
+      - token
+      - new_password
+      title: ResetPasswordRequest
+    VerifyEmailOTPRequest:
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email
+        otp:
+          type: string
+          title: Otp
+      type: object
+      required:
+      - email
+      - otp
+      title: VerifyEmailOTPRequest
     UserProfile:
       properties:
         id:
@@ -1408,87 +1486,6 @@ components:
       - name
       - company
       title: UserProfile
-    AuthResponse:
-      properties:
-        token:
-          type: string
-          title: Token
-        refresh_token:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Refresh Token
-        expires_in:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Expires In
-        user:
-          $ref: '#/components/schemas/UserProfile'
-        account_reactivated:
-          type: boolean
-          title: Account Reactivated
-          default: false
-      type: object
-      required:
-      - token
-      - user
-      title: AuthResponse
-    SendEmailOTPRequest:
-      properties:
-        email:
-          type: string
-          format: email
-          title: Email
-      type: object
-      required:
-      - email
-      title: SendEmailOTPRequest
-    DeviceCheckRequest:
-      properties:
-        email:
-          type: string
-          format: email
-          title: Email
-        device_token:
-          type: string
-          title: Device Token
-      type: object
-      required:
-      - email
-      - device_token
-      title: DeviceCheckRequest
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    DeleteAccountRequest:
-      properties:
-        password:
-          type: string
-          title: Password
-      type: object
-      required:
-      - password
-      title: DeleteAccountRequest
-    ResetPasswordRequest:
-      properties:
-        token:
-          type: string
-          title: Token
-        new_password:
-          type: string
-          title: New Password
-      type: object
-      required:
-      - token
-      - new_password
-      title: ResetPasswordRequest
     UserSearchRequest:
       properties:
         name:
@@ -1524,183 +1521,15 @@ components:
       type: object
       title: UserSearchRequest
       description: Comprehensive user search with multiple filters
-    GoogleSessionRequest:
+    HTTPValidationError:
       properties:
-        session_id:
-          type: string
-          title: Session Id
-      type: object
-      required:
-      - session_id
-      title: GoogleSessionRequest
-    VerifyLoginOTPRequest:
-      properties:
-        email:
-          type: string
-          format: email
-          title: Email
-        otp:
-          type: string
-          title: Otp
-        trust_device:
-          type: boolean
-          title: Trust Device
-          default: true
-        device_info:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Device Info
-      type: object
-      required:
-      - email
-      - otp
-      title: VerifyLoginOTPRequest
-    VerifyEmailOTPRequest:
-      properties:
-        email:
-          type: string
-          format: email
-          title: Email
-        otp:
-          type: string
-          title: Otp
-      type: object
-      required:
-      - email
-      - otp
-      title: VerifyEmailOTPRequest
-    UserRegister:
-      properties:
-        email:
-          type: string
-          format: email
-          title: Email
-        password:
-          type: string
-          title: Password
-        name:
-          type: string
-          title: Name
-        company:
-          type: string
-          title: Company
-        business_description:
-          type: string
-          title: Business Description
-        credibility_line:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Credibility Line
-        industry:
-          type: string
-          title: Industry
-        region:
-          type: string
-          title: Region
-        website:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Website
-        instagram:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Instagram
-        linkedin:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Linkedin
-        profile_photo:
-          type: string
-          title: Profile Photo
-        whatsapp_number:
-          type: string
-          title: Whatsapp Number
-        ref_mi_pin:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Ref Mi Pin
-        invite_code:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Invite Code
-        referral_code:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Referral Code
-      type: object
-      required:
-      - email
-      - password
-      - name
-      - company
-      - business_description
-      - industry
-      - region
-      - profile_photo
-      - whatsapp_number
-      title: UserRegister
-    UserLogin:
-      properties:
-        email:
-          type: string
-          format: email
-          title: Email
-        password:
-          type: string
-          title: Password
-      type: object
-      required:
-      - email
-      - password
-      title: UserLogin
-    DismissReminderRequest:
-      properties:
-        action:
-          type: string
-          title: Action
-      type: object
-      required:
-      - action
-      title: DismissReminderRequest
-    ValidationError:
-      properties:
-        loc:
+        detail:
           items:
-            anyOf:
-            - type: string
-            - type: integer
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
+          title: Detail
       type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    ForgotPasswordRequest:
-      properties:
-        email:
-          type: string
-          format: email
-          title: Email
-      type: object
-      required:
-      - email
-      title: ForgotPasswordRequest
+      title: HTTPValidationError
     ProfileUpdate:
       properties:
         name:
@@ -1786,6 +1615,16 @@ components:
           title: Asks
       type: object
       title: ProfileUpdate
+    ForgotPasswordRequest:
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email
+      type: object
+      required:
+      - email
+      title: ForgotPasswordRequest
     SendLoginOTPRequest:
       properties:
         email:
@@ -1801,6 +1640,111 @@ components:
       required:
       - email
       title: SendLoginOTPRequest
+    DeviceCheckRequest:
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email
+        device_token:
+          type: string
+          title: Device Token
+      type: object
+      required:
+      - email
+      - device_token
+      title: DeviceCheckRequest
+    UserLogin:
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email
+        password:
+          type: string
+          title: Password
+      type: object
+      required:
+      - email
+      - password
+      title: UserLogin
+    UserRegister:
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email
+        password:
+          type: string
+          title: Password
+        name:
+          type: string
+          title: Name
+        company:
+          type: string
+          title: Company
+        business_description:
+          type: string
+          title: Business Description
+        credibility_line:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Credibility Line
+        industry:
+          type: string
+          title: Industry
+        region:
+          type: string
+          title: Region
+        website:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Website
+        instagram:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Instagram
+        linkedin:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Linkedin
+        profile_photo:
+          type: string
+          title: Profile Photo
+        whatsapp_number:
+          type: string
+          title: Whatsapp Number
+        ref_mi_pin:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ref Mi Pin
+        invite_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Invite Code
+        referral_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Referral Code
+      type: object
+      required:
+      - email
+      - password
+      - name
+      - company
+      - business_description
+      - industry
+      - region
+      - profile_photo
+      - whatsapp_number
+      title: UserRegister
     ProfileCompletionStatus:
       properties:
         has_offers:
@@ -1849,6 +1793,62 @@ components:
       type: object
       title: ProfileCompletionStatus
       description: Response model for profile completion status
+    AuthResponse:
+      properties:
+        token:
+          type: string
+          title: Token
+        refresh_token:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Refresh Token
+        expires_in:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Expires In
+        user:
+          $ref: '#/components/schemas/UserProfile'
+        account_reactivated:
+          type: boolean
+          title: Account Reactivated
+          default: false
+      type: object
+      required:
+      - token
+      - user
+      title: AuthResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    DismissReminderRequest:
+      properties:
+        action:
+          type: string
+          title: Action
+      type: object
+      required:
+      - action
+      title: DismissReminderRequest
   securitySchemes:
     HTTPBearer:
       type: http

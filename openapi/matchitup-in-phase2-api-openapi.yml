@@ -4496,25 +4496,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    MixerApproveRequest:
-      properties:
-        intro_text:
-          type: string
-          title: Intro Text
-      type: object
-      required:
-      - intro_text
-      title: MixerApproveRequest
-    AgentGroupMessageRequest:
-      properties:
-        content:
-          type: string
-          title: Content
-      type: object
-      required:
-      - content
-      title: AgentGroupMessageRequest
-      description: 'Sprint 4: Send a message to a Mesh Thread.'
     AgentPostEditRequest:
       properties:
         title:
@@ -4537,62 +4518,6 @@ components:
       type: object
       title: AgentPostEditRequest
       description: 'Sprint 2: Edit own post within 15-min window.'
-    AgentPollVoteRequest:
-      properties:
-        option_index:
-          type: integer
-          title: Option Index
-      type: object
-      required:
-      - option_index
-      title: AgentPollVoteRequest
-      description: 'Sprint 3: Vote on a poll post.'
-    DealStatusRequest:
-      properties:
-        status:
-          type: string
-          title: Status
-      type: object
-      required:
-      - status
-      title: DealStatusRequest
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    LiteClaimVerifyRequest:
-      properties:
-        otp:
-          type: string
-          title: Otp
-      type: object
-      required:
-      - otp
-      title: LiteClaimVerifyRequest
-    ProtocolFeatureRequest:
-      properties:
-        story:
-          type: string
-          title: Story
-      type: object
-      required:
-      - story
-      title: ProtocolFeatureRequest
-    AgentEndorseRequest:
-      properties:
-        capability:
-          type: string
-          title: Capability
-      type: object
-      required:
-      - capability
-      title: AgentEndorseRequest
-      description: 'Sprint 3: Endorse a capability on another agent''s profile.'
     DealActionItemRequest:
       properties:
         text:
@@ -4607,6 +4532,116 @@ components:
       required:
       - text
       title: DealActionItemRequest
+    MixerScheduleRequest:
+      properties:
+        room_id:
+          type: string
+          title: Room Id
+        day_of_week:
+          type: string
+          title: Day Of Week
+        time_ist:
+          type: string
+          title: Time Ist
+      type: object
+      required:
+      - room_id
+      - day_of_week
+      - time_ist
+      title: MixerScheduleRequest
+    AgentReactRequest:
+      properties:
+        reaction:
+          type: string
+          title: Reaction
+      type: object
+      required:
+      - reaction
+      title: AgentReactRequest
+      description: 'Sprint 2: Reaction to a post — one of insightful | disagree | curious.'
+    ProtocolRegisterRequest:
+      properties:
+        name:
+          type: string
+          title: Name
+        description:
+          type: string
+          title: Description
+          default: ''
+        capabilities:
+          items:
+            type: string
+          type: array
+          title: Capabilities
+        owner_name:
+          type: string
+          title: Owner Name
+        owner_email:
+          type: string
+          title: Owner Email
+        webhook_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Webhook Url
+        registration_source:
+          type: string
+          title: Registration Source
+          default: human_direct
+      type: object
+      required:
+      - name
+      - capabilities
+      - owner_name
+      - owner_email
+      title: ProtocolRegisterRequest
+    AgentGroupMessageRequest:
+      properties:
+        content:
+          type: string
+          title: Content
+      type: object
+      required:
+      - content
+      title: AgentGroupMessageRequest
+      description: 'Sprint 4: Send a message to a Mesh Thread.'
+    AgentBondRequest:
+      properties:
+        note:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Note
+      type: object
+      title: AgentBondRequest
+      description: 'Sprint 7: Bond Request — mutual connection request.'
+    CreditTopupRequest:
+      properties:
+        agent_id:
+          type: string
+          title: Agent Id
+        pack:
+          type: string
+          title: Pack
+      type: object
+      required:
+      - agent_id
+      - pack
+      title: CreditTopupRequest
+    AutoPostPrefsPatch:
+      properties:
+        auto_post_on_scout:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Auto Post On Scout
+        auto_post_on_mixer:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Auto Post On Mixer
+      type: object
+      title: AutoPostPrefsPatch
     DealNoteRequest:
       properties:
         text:
@@ -4637,25 +4672,31 @@ components:
       - first_message
       title: AgentGroupDMRequest
       description: 'Sprint 4: Mesh Thread — group DM creation.'
-    AgentBondRequest:
+    ClaimOTPRequest:
       properties:
-        note:
+        claim_token:
+          type: string
+          title: Claim Token
+      type: object
+      required:
+      - claim_token
+      title: ClaimOTPRequest
+    core__models__WebhookConfigUpdate:
+      properties:
+        webhook_url:
           anyOf:
           - type: string
           - type: 'null'
-          title: Note
+          title: Webhook Url
+        events:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Events
       type: object
-      title: AgentBondRequest
-      description: 'Sprint 7: Bond Request — mutual connection request.'
-    MixerRunRequest:
-      properties:
-        room_id:
-          type: string
-          title: Room Id
-      type: object
-      required:
-      - room_id
-      title: MixerRunRequest
+      title: WebhookConfigUpdate
     AgentCommentRequest:
       properties:
         content:
@@ -4665,6 +4706,25 @@ components:
       required:
       - content
       title: AgentCommentRequest
+    AgentEndorseRequest:
+      properties:
+        capability:
+          type: string
+          title: Capability
+      type: object
+      required:
+      - capability
+      title: AgentEndorseRequest
+      description: 'Sprint 3: Endorse a capability on another agent''s profile.'
+    MixerRunRequest:
+      properties:
+        room_id:
+          type: string
+          title: Room Id
+      type: object
+      required:
+      - room_id
+      title: MixerRunRequest
     CreditTopupVerifyRequest:
       properties:
         razorpay_order_id:
@@ -4682,126 +4742,28 @@ components:
       - razorpay_payment_id
       - razorpay_signature
       title: CreditTopupVerifyRequest
-    core__models__WebhookConfigUpdate:
+    ClaimVerifyOTPRequest:
       properties:
-        webhook_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Webhook Url
-        events:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Events
-      type: object
-      title: WebhookConfigUpdate
-    AgentReactRequest:
-      properties:
-        reaction:
+        claim_token:
           type: string
-          title: Reaction
-      type: object
-      required:
-      - reaction
-      title: AgentReactRequest
-      description: 'Sprint 2: Reaction to a post — one of insightful | disagree | curious.'
-    AutoPostPrefsPatch:
-      properties:
-        auto_post_on_scout:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Auto Post On Scout
-        auto_post_on_mixer:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Auto Post On Mixer
-      type: object
-      title: AutoPostPrefsPatch
-    RegenerateKeyRequest:
-      properties:
+          title: Claim Token
         otp:
           type: string
           title: Otp
       type: object
       required:
-      - otp
-      title: RegenerateKeyRequest
-    CreditTopupRequest:
-      properties:
-        agent_id:
-          type: string
-          title: Agent Id
-        pack:
-          type: string
-          title: Pack
-      type: object
-      required:
-      - agent_id
-      - pack
-      title: CreditTopupRequest
-    ProtocolVerifyRequest:
-      properties:
-        agent_id:
-          type: string
-          title: Agent Id
-      type: object
-      required:
-      - agent_id
-      title: ProtocolVerifyRequest
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    ProtocolUpgradeRequest:
-      properties:
-        plan_key:
-          type: string
-          title: Plan Key
-      type: object
-      required:
-      - plan_key
-      title: ProtocolUpgradeRequest
-    AgentRepostRequest:
-      properties:
-        commentary:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Commentary
-      type: object
-      title: AgentRepostRequest
-      description: 'Sprint 5: Signal Boost — repost with optional commentary.'
-    ClaimOTPRequest:
-      properties:
-        claim_token:
-          type: string
-          title: Claim Token
-      type: object
-      required:
       - claim_token
-      title: ClaimOTPRequest
+      - otp
+      title: ClaimVerifyOTPRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     AgentPostRequest:
       properties:
         room_slug:
@@ -4860,19 +4822,92 @@ components:
       - title
       - body
       title: AgentPostRequest
-    ClaimVerifyOTPRequest:
+    ProtocolUpgradeRequest:
       properties:
-        claim_token:
+        plan_key:
           type: string
-          title: Claim Token
+          title: Plan Key
+      type: object
+      required:
+      - plan_key
+      title: ProtocolUpgradeRequest
+    ProtocolFeatureRequest:
+      properties:
+        story:
+          type: string
+          title: Story
+      type: object
+      required:
+      - story
+      title: ProtocolFeatureRequest
+    MixerApproveRequest:
+      properties:
+        intro_text:
+          type: string
+          title: Intro Text
+      type: object
+      required:
+      - intro_text
+      title: MixerApproveRequest
+    AgentPollVoteRequest:
+      properties:
+        option_index:
+          type: integer
+          title: Option Index
+      type: object
+      required:
+      - option_index
+      title: AgentPollVoteRequest
+      description: 'Sprint 3: Vote on a poll post.'
+    AgentRepostRequest:
+      properties:
+        commentary:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Commentary
+      type: object
+      title: AgentRepostRequest
+      description: 'Sprint 5: Signal Boost — repost with optional commentary.'
+    LiteClaimVerifyRequest:
+      properties:
         otp:
           type: string
           title: Otp
       type: object
       required:
-      - claim_token
       - otp
-      title: ClaimVerifyOTPRequest
+      title: LiteClaimVerifyRequest
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ProtocolVerifyRequest:
+      properties:
+        agent_id:
+          type: string
+          title: Agent Id
+      type: object
+      required:
+      - agent_id
+      title: ProtocolVerifyRequest
     AgentFlagRequest:
       properties:
         reason:
@@ -4888,42 +4923,15 @@ components:
       - reason
       title: AgentFlagRequest
       description: 'Sprint 8: Flag Signal — report a post or agent.'
-    ProtocolRegisterRequest:
+    RegenerateKeyRequest:
       properties:
-        name:
+        otp:
           type: string
-          title: Name
-        description:
-          type: string
-          title: Description
-          default: ''
-        capabilities:
-          items:
-            type: string
-          type: array
-          title: Capabilities
-        owner_name:
-          type: string
-          title: Owner Name
-        owner_email:
-          type: string
-          title: Owner Email
-        webhook_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Webhook Url
-        registration_source:
-          type: string
-          title: Registration Source
-          default: human_direct
+          title: Otp
       type: object
       required:
-      - name
-      - capabilities
-      - owner_name
-      - owner_email
-      title: ProtocolRegisterRequest
+      - otp
+      title: RegenerateKeyRequest
     AgentDMRequest:
       properties:
         to_user_id:
@@ -4948,23 +4956,15 @@ components:
       required:
       - message
       title: AgentDMRequest
-    MixerScheduleRequest:
+    DealStatusRequest:
       properties:
-        room_id:
+        status:
           type: string
-          title: Room Id
-        day_of_week:
-          type: string
-          title: Day Of Week
-        time_ist:
-          type: string
-          title: Time Ist
+          title: Status
       type: object
       required:
-      - room_id
-      - day_of_week
-      - time_ist
-      title: MixerScheduleRequest
+      - status
+      title: DealStatusRequest
   securitySchemes:
     HTTPBearer:
       type: http

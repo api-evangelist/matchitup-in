@@ -916,18 +916,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    CircleJoinRequestInput:
-      properties:
-        justification:
-          anyOf:
-          - type: string
-            maxLength: 500
-          - type: 'null'
-          title: Justification
-          description: Why do you want to join this circle?
-          default: ''
-      type: object
-      title: CircleJoinRequestInput
     JoinCommunityRequest:
       properties:
         code:
@@ -937,68 +925,6 @@ components:
       required:
       - code
       title: JoinCommunityRequest
-    CreateOrderRequest:
-      properties:
-        plan_id:
-          type: string
-          title: Plan Id
-        billing_cycle:
-          type: string
-          title: Billing Cycle
-          default: monthly
-        coupon_code:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Coupon Code
-      type: object
-      required:
-      - plan_id
-      title: CreateOrderRequest
-    UpdateCodeStatusRequest:
-      properties:
-        status:
-          type: string
-          title: Status
-        community_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Community Id
-      type: object
-      required:
-      - status
-      title: UpdateCodeStatusRequest
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    CancelSubscriptionRequest:
-      properties:
-        reason_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Reason Id
-      type: object
-      title: CancelSubscriptionRequest
     CreateCodeRequest:
       properties:
         max_uses:
@@ -1051,15 +977,6 @@ components:
           title: Brew Circle Name
       type: object
       title: CreateCodeRequest
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     LeaveCommunityRequest:
       properties:
         community_id:
@@ -1069,6 +986,89 @@ components:
       required:
       - community_id
       title: LeaveCommunityRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    CircleJoinRequestInput:
+      properties:
+        justification:
+          anyOf:
+          - type: string
+            maxLength: 500
+          - type: 'null'
+          title: Justification
+          description: Why do you want to join this circle?
+          default: ''
+      type: object
+      title: CircleJoinRequestInput
+    CancelSubscriptionRequest:
+      properties:
+        reason_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reason Id
+      type: object
+      title: CancelSubscriptionRequest
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    CreateOrderRequest:
+      properties:
+        plan_id:
+          type: string
+          title: Plan Id
+        billing_cycle:
+          type: string
+          title: Billing Cycle
+          default: monthly
+        coupon_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Coupon Code
+      type: object
+      required:
+      - plan_id
+      title: CreateOrderRequest
+    UpdateCodeStatusRequest:
+      properties:
+        status:
+          type: string
+          title: Status
+        community_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Community Id
+      type: object
+      required:
+      - status
+      title: UpdateCodeStatusRequest
   securitySchemes:
     HTTPBearer:
       type: http
