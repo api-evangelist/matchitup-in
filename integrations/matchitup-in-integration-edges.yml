@@ -28,7 +28,7 @@ edges:
     matched_domain: matchitup.in
     matched_by: own-domain
     detected_by: sweep-ai-agents.py
-    detected: '2026-10-15'
+    detected: '2026-10-19'
   detected_by: sweep-ai-agents.py
   first_seen: '2026-10-15'
 - partner_name: a2aregistry.org
@@ -49,7 +49,7 @@ edges:
     - matchitup.in
     conformance: true
     task_conformance_working: false
-    healthy: false
+    healthy: true
     signal_note: booleans over the provider's hosts; listings are context, never read
   contract_reference:
     register: a2aregistry.org /api/agents
@@ -64,7 +64,7 @@ edges:
     sample_agents:
     - Match It Up NetworkBot
     detected_by: sweep-ai-agents.py
-    detected: '2026-10-15'
+    detected: '2026-10-19'
   detected_by: sweep-ai-agents.py
   first_seen: '2026-10-15'
 generated: '2026-10-15'
