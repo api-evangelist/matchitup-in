@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/matchitup-in/main/json-schema/matchitup-in-flag-content-request-schema.json",
+  "title": "FlagContentRequest",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/matchitup-in-brew-circles-api-openapi.yml#/components/schemas/FlagContentRequest",
+  "properties": {
+    "content_type": {
+      "type": "string",
+      "title": "Content Type"
+    },
+    "content_id": {
+      "type": "string",
+      "title": "Content Id"
+    },
+    "reason": {
+      "type": "string",
+      "title": "Reason"
+    },
+    "description": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Description"
+    }
+  },
+  "type": "object",
+  "required": [
+    "content_type",
+    "content_id",
+    "reason"
+  ]
+}

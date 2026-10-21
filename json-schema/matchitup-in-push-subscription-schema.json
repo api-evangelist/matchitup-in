@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/matchitup-in/main/json-schema/matchitup-in-push-subscription-schema.json",
+  "title": "PushSubscription",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/matchitup-in-phase4-api-openapi.yml#/components/schemas/PushSubscription",
+  "properties": {
+    "endpoint": {
+      "type": "string",
+      "title": "Endpoint"
+    },
+    "keys": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "type": "object",
+      "title": "Keys"
+    }
+  },
+  "type": "object",
+  "required": [
+    "endpoint",
+    "keys"
+  ]
+}

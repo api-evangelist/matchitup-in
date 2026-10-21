@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/matchitup-in/main/json-schema/matchitup-in-create-code-request-schema.json",
+  "title": "CreateCodeRequest",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/matchitup-in-admin-api-openapi.yml#/components/schemas/CreateCodeRequest",
+  "properties": {
+    "max_uses": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Max Uses"
+    },
+    "expires_days": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Expires Days"
+    },
+    "discount_percent": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Discount Percent",
+      "default": 0
+    },
+    "discount_valid_months": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Discount Valid Months",
+      "default": 0
+    },
+    "community_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Community Id"
+    },
+    "grant_tier": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Grant Tier"
+    },
+    "grant_duration_months": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Grant Duration Months",
+      "default": 0
+    },
+    "brew_circle_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Brew Circle Id"
+    },
+    "brew_circle_name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Brew Circle Name"
+    }
+  },
+  "type": "object"
+}

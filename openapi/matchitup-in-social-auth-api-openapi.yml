@@ -284,25 +284,6 @@ paths:
       - HTTPBearer: []
 components:
   schemas:
-    CheckEmailRequest:
-      properties:
-        email:
-          type: string
-          format: email
-          title: Email
-      type: object
-      required:
-      - email
-      title: CheckEmailRequest
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     MergeRequestStart:
       properties:
         other_email:
@@ -345,6 +326,39 @@ components:
           title: Tracking
       type: object
       title: OAuthOnboardingRequest
+    MergeRequestConfirm:
+      properties:
+        other_email:
+          type: string
+          format: email
+          title: Other Email
+        otp:
+          type: string
+          title: Otp
+      type: object
+      required:
+      - other_email
+      - otp
+      title: MergeRequestConfirm
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    CheckEmailRequest:
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email
+      type: object
+      required:
+      - email
+      title: CheckEmailRequest
     CompleteSocialRegistrationRequest:
       properties:
         company:
@@ -418,20 +432,6 @@ components:
       - region
       - whatsapp_number
       title: CompleteSocialRegistrationRequest
-    MergeRequestConfirm:
-      properties:
-        other_email:
-          type: string
-          format: email
-          title: Other Email
-        otp:
-          type: string
-          title: Otp
-      type: object
-      required:
-      - other_email
-      - otp
-      title: MergeRequestConfirm
   securitySchemes:
     HTTPBearer:
       type: http

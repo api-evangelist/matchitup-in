@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/matchitup-in/main/json-schema/matchitup-in-update-brew-circle-request-schema.json",
+  "title": "UpdateBrewCircleRequest",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/matchitup-in-brew-circles-api-openapi.yml#/components/schemas/UpdateBrewCircleRequest",
+  "properties": {
+    "name": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 100
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Name"
+    },
+    "description": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 500
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Description"
+    },
+    "circle_status": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Circle Status"
+    },
+    "is_default": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Is Default"
+    },
+    "size_limit": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Size Limit"
+    }
+  },
+  "type": "object"
+}

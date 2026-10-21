@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/matchitup-in/main/json-schema/matchitup-in-profile-completion-status-schema.json",
+  "title": "ProfileCompletionStatus",
+  "description": "Response model for profile completion status",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/matchitup-in-phase3-api-openapi.yml#/components/schemas/ProfileCompletionStatus",
+  "properties": {
+    "has_offers": {
+      "type": "boolean",
+      "title": "Has Offers",
+      "default": false
+    },
+    "has_needs": {
+      "type": "boolean",
+      "title": "Has Needs",
+      "default": false
+    },
+    "is_complete": {
+      "type": "boolean",
+      "title": "Is Complete",
+      "default": false
+    },
+    "completed_at": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Completed At"
+    },
+    "last_updated_at": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Last Updated At"
+    },
+    "show_sticky_banner": {
+      "type": "boolean",
+      "title": "Show Sticky Banner",
+      "default": false
+    },
+    "show_card_prompt": {
+      "type": "boolean",
+      "title": "Show Card Prompt",
+      "default": false
+    },
+    "show_update_reminder": {
+      "type": "boolean",
+      "title": "Show Update Reminder",
+      "default": false
+    },
+    "original_need": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Original Need"
+    },
+    "dashboard_sessions": {
+      "type": "integer",
+      "title": "Dashboard Sessions",
+      "default": 0
+    }
+  },
+  "type": "object"
+}

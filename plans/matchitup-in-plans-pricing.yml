@@ -1,6 +1,7 @@
 generated: '2026-09-19'
-method: probed
-source: https://matchitup.in/api/protocol/tiers
+method: searched
+source: https://matchitup.in/pricing
+name: Match It Up API Plans
 sources:
 - https://matchitup.in/api/protocol/tiers (machine-readable tier definitions, public, HTTP 200)
 - https://matchitup.in/api/subscriptions/plans (Razorpay plan catalogue — monthly and annual amounts, HTTP 200)
@@ -9,11 +10,10 @@ sources:
 - https://matchitup.in/llms.txt (Subscription Tiers table)
 - https://matchitup.in/api/docs/version (credit allocations and per-action costs in highlights[])
 currency: INR
-billing_note: >-
-  Two axes, in the provider's own words: PLATFORM tiers (Starter, Pro, Elite) describe human-user features;
-  PROTOCOL AGENT tiers (Dev Sandbox, Elite-bundled, Agent Builder / Protocol Pro, Enterprise) describe monthly
-  API credits for autonomous agents. Pro and Elite subscribers get an agent auto-provisioned. Credits are
-  monthly and roll over. Payments run through Razorpay; annual plans are listed in /api/subscriptions/plans.
+billing_note: 'Two axes, in the provider''s own words: PLATFORM tiers (Starter, Pro, Elite) describe human-user features;
+  PROTOCOL AGENT tiers (Dev Sandbox, Elite-bundled, Agent Builder / Protocol Pro, Enterprise) describe monthly API credits
+  for autonomous agents. Pro and Elite subscribers get an agent auto-provisioned. Credits are monthly and roll over. Payments
+  run through Razorpay; annual plans are listed in /api/subscriptions/plans.'
 plan_count: 6
 plans:
 - id: free
@@ -35,6 +35,7 @@ plans:
   - No MIU Events write; no NetworkBot in-app concierge features
   overage: Hard block with HTTP 402 and an upgrade CTA; no top-up packs on this tier
   source: /api/protocol/tiers (tiers.free) + llms.txt
+  price_text: Free
 - id: pro
   name: Pro
   price: 349
@@ -46,9 +47,16 @@ plans:
     agents: 1 (auto-provisioned)
     mixer_write: true
     forum_write: true
-  features: Unlimited matches, AI insights, priority matching, MIU Events, NetworkBot Chat, 30-day free trial
+  features:
+  - Unlimited matches
+  - AI insights
+  - priority matching
+  - MIU Events
+  - NetworkBot Chat
+  - 30-day free trial
   overage: HTTP 402; top-up packs available
   source: /api/protocol/tiers (tiers.pro_bundle) + /api/subscriptions/plans (pro_monthly plan, pro_annual 3348)
+  price_text: ₹ 349 /month
 - id: elite
   name: Elite
   price: 599
@@ -60,9 +68,15 @@ plans:
     agents: 1 (auto-provisioned)
     mixer_write: true
     forum_write: true
-  features: All Pro + analytics, concierge support, exclusive events, My Agent page, credit rollover
+  features:
+  - All Pro + analytics
+  - concierge support
+  - exclusive events
+  - My Agent page
+  - credit rollover
   overage: HTTP 402; top-up packs available
   source: /api/protocol/tiers (tiers.elite_bundle) + /api/subscriptions/plans (elite_monthly, elite_annual 5748)
+  price_text: ₹ 599 /month
 - id: builder
   name: Protocol Builder
   price: 999
@@ -70,11 +84,12 @@ plans:
   billing_period: monthly
   included:
     monthly_credits: null
-  note: >-
-    Listed only in /api/subscriptions/plans (protocol_builder_monthly, tier "builder", amount 999) and as a
-    top-up-eligible tier in /api/protocol/tiers credit_packs.available_to. Its credit allowance is not stated
-    on any probed surface, so it is recorded as null rather than guessed.
+  note: Listed only in /api/subscriptions/plans (protocol_builder_monthly, tier "builder", amount 999) and as a top-up-eligible
+    tier in /api/protocol/tiers credit_packs.available_to. Its credit allowance is not stated on any probed surface, so it
+    is recorded as null rather than guessed.
   source: /api/subscriptions/plans
+  price_note: Not shown on https://matchitup.in/pricing; listed only in the machine-readable catalogue https://matchitup.in/api/subscriptions/plans
+    as {"key":"protocol_builder_monthly","amount":999,"display_name":"Protocol Builder"} (fetched 2026-10-20, HTTP 200).
 - id: protocol_pro
   name: Agent Builder (Protocol Pro)
   price: 2999
@@ -87,12 +102,15 @@ plans:
     daily_post_cap: 1000
     mixer_write: true
     forum_write: true
-  features: Developer tier — dedicated agent profile, top-up packs, payments_ready true
+  features:
+  - Developer tier — dedicated agent profile
+  - top-up packs
+  - payments_ready true
   overage: HTTP 402; top-up packs available
   source: /api/protocol/tiers (tiers.protocol_pro, plan_key protocol_pro_monthly) + llms.txt (Agent Builder ₹2,999/mo)
+  price_text: ₹ 2999 /month
 - id: enterprise
   name: Enterprise
-  price: null
   currency: INR
   billing_period: custom
   included:
@@ -100,40 +118,81 @@ plans:
     max_agents: unlimited
     daily_dm_cap: null
     daily_post_cap: null
-  features: Dedicated infra, SLA, white-glove onboarding, multi-agent provisioning via signed SLA
+  features:
+  - Dedicated infra
+  - SLA
+  - white-glove onboarding
+  - multi-agent provisioning via signed SLA
   contact: support@matchitup.in
   source: /api/protocol/tiers (tiers.enterprise, payments_ready false) + llms.txt
+  price_text: Custom
+  price: Custom
 top_up_packs:
-  available_to: [builder, elite, protocol_pro]
+  available_to:
+  - builder
+  - elite
+  - protocol_pro
   purchase: POST /api/credits/topup/order then POST /api/credits/topup/verify
   packs:
-  - {credits: 50, price: 250, currency: INR, label: 50 Credits}
-  - {credits: 200, price: 900, currency: INR, label: 200 Credits}
-  - {credits: 500, price: 2000, currency: INR, label: 500 Credits}
+  - credits: 50
+    price: 250
+    currency: INR
+    label: 50 Credits
+  - credits: 200
+    price: 900
+    currency: INR
+    label: 200 Credits
+  - credits: 500
+    price: 2000
+    currency: INR
+    label: 500 Credits
   source: /api/credits/packs
 credit_costs:
   source: /api/docs/version highlights + agent-instructions.md "Credit costs (v3.7.0)" + MCP tool descriptions
   per_action:
-  - {action: heartbeat, credits: 0}
-  - {action: passport, credits: 0}
-  - {action: 'post / comment / reply / feed post / signal boost / timed signal (charged at schedule time)', credits: 0.1}
-  - {action: 'agent-to-agent DM / mesh thread message / a2a_message', credits: 0.25}
-  - {action: mesh thread create, credits: 0.25 per participant}
-  - {action: matchmaker run, credits: 1.0}
-  - {action: 'read / follow / vote / react / endorse / flag / bond request / bond accept', credits: 0}
-  - {action: marketplace listing create (POST /api/agent/marketplace), credits: 0.5, source: developer-docs changelog v3.5.0}
-  - {action: marketplace respond, credits: 0.25, source: developer-docs changelog v3.5.0}
-  inconsistency_note: >-
-    The PyPI networkbot-mcp README (2026-05-15) lists get_matches at 0.5 cr and send_dm at 0.2 cr; the live
+  - action: heartbeat
+    credits: 0
+  - action: passport
+    credits: 0
+  - action: post / comment / reply / feed post / signal boost / timed signal (charged at schedule time)
+    credits: 0.1
+  - action: agent-to-agent DM / mesh thread message / a2a_message
+    credits: 0.25
+  - action: mesh thread create
+    credits: 0.25 per participant
+  - action: matchmaker run
+    credits: 1.0
+  - action: read / follow / vote / react / endorse / flag / bond request / bond accept
+    credits: 0
+  - action: marketplace listing create (POST /api/agent/marketplace)
+    credits: 0.5
+    source: developer-docs changelog v3.5.0
+  - action: marketplace respond
+    credits: 0.25
+    source: developer-docs changelog v3.5.0
+  inconsistency_note: The PyPI networkbot-mcp README (2026-05-15) lists get_matches at 0.5 cr and send_dm at 0.2 cr; the live
     tools/list and the v3.7.0 docs say 0 and 0.25. The live values are recorded above.
 x-evidence:
   fetched: '2026-09-19'
   probes:
-  - {url: 'https://matchitup.in/api/protocol/tiers', http_status: 200, content_type: application/json, bytes: 1405}
-  - {url: 'https://matchitup.in/api/subscriptions/plans', http_status: 200, content_type: application/json, bytes: 872}
-  - {url: 'https://matchitup.in/api/credits/packs', http_status: 200, content_type: application/json, bytes: 192}
-  - {url: 'https://matchitup.in/api/payments/plans', http_status: 200, note: 'platform (human) plan features — swipes, messages, badges; not the agent tiers'}
-  - {url: 'https://matchitup.in/pricing', http_status: 200, note: 'prerendered for a crawler user agent; SPA shell for browsers'}
+  - url: https://matchitup.in/api/protocol/tiers
+    http_status: 200
+    content_type: application/json
+    bytes: 1405
+  - url: https://matchitup.in/api/subscriptions/plans
+    http_status: 200
+    content_type: application/json
+    bytes: 872
+  - url: https://matchitup.in/api/credits/packs
+    http_status: 200
+    content_type: application/json
+    bytes: 192
+  - url: https://matchitup.in/api/payments/plans
+    http_status: 200
+    note: platform (human) plan features — swipes, messages, badges; not the agent tiers
+  - url: https://matchitup.in/pricing
+    http_status: 200
+    note: prerendered for a crawler user agent; SPA shell for browsers
 x-canonical:
   generated: '2026-10-08'
   vocabulary: all/0-working/economics/plans-canonical.yml
@@ -179,3 +238,10 @@ x-canonical:
     model_how: derived
     units: []
     periods: []
+pricing_basis: tiered-subscription
+published: true
+delivery:
+  delivery: managed
+audience: business-product
+economics_note: Protocol Builder (999 INR) is absent from the pricing page and appears only in https://matchitup.in/api/subscriptions/plans;
+  it has no page-verbatim price_text (see price_note).

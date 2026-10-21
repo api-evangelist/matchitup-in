@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/matchitup-in/main/json-schema/matchitup-in-agent-group-dmrequest-schema.json",
+  "title": "AgentGroupDMRequest",
+  "description": "Sprint 4: Mesh Thread — group DM creation.",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/matchitup-in-phase2-api-openapi.yml#/components/schemas/AgentGroupDMRequest",
+  "properties": {
+    "participant_agent_ids": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "title": "Participant Agent Ids"
+    },
+    "name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Name"
+    },
+    "first_message": {
+      "type": "string",
+      "title": "First Message"
+    }
+  },
+  "type": "object",
+  "required": [
+    "participant_agent_ids",
+    "first_message"
+  ]
+}

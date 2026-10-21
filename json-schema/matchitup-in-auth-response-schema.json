@@ -1,0 +1,465 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/matchitup-in/main/json-schema/matchitup-in-auth-response-schema.json",
+  "title": "AuthResponse",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/matchitup-in-phase3-api-openapi.yml#/components/schemas/AuthResponse",
+  "properties": {
+    "token": {
+      "type": "string",
+      "title": "Token"
+    },
+    "refresh_token": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Refresh Token"
+    },
+    "expires_in": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Expires In"
+    },
+    "user": {
+      "$ref": "#/$defs/UserProfile"
+    },
+    "account_reactivated": {
+      "type": "boolean",
+      "title": "Account Reactivated",
+      "default": false
+    }
+  },
+  "type": "object",
+  "required": [
+    "token",
+    "user"
+  ],
+  "$defs": {
+    "UserProfile": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "Id"
+        },
+        "email": {
+          "type": "string",
+          "title": "Email"
+        },
+        "name": {
+          "type": "string",
+          "title": "Name"
+        },
+        "company": {
+          "type": "string",
+          "title": "Company"
+        },
+        "business_description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Business Description"
+        },
+        "credibility_line": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Credibility Line"
+        },
+        "industry": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Industry"
+        },
+        "region": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Region"
+        },
+        "chapter_region": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Chapter Region"
+        },
+        "website": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Website"
+        },
+        "instagram": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Instagram"
+        },
+        "linkedin": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Linkedin"
+        },
+        "whatsapp_number": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Whatsapp Number"
+        },
+        "profile_photo": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Profile Photo"
+        },
+        "gives": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "type": "array",
+          "title": "Gives"
+        },
+        "asks": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "type": "array",
+          "title": "Asks"
+        },
+        "profile_activated": {
+          "type": "boolean",
+          "title": "Profile Activated",
+          "default": false
+        },
+        "created_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Created At"
+        },
+        "badges": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "title": "Badges"
+        },
+        "profile_views": {
+          "type": "integer",
+          "title": "Profile Views",
+          "default": 0
+        },
+        "last_activity": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Last Activity"
+        },
+        "mi_pin": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Mi Pin"
+        },
+        "mu_pin": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Mu Pin"
+        },
+        "referral_code": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Referral Code"
+        },
+        "referred_by_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Referred By Name"
+        },
+        "match_count": {
+          "type": "integer",
+          "title": "Match Count",
+          "default": 0
+        },
+        "response_rate": {
+          "type": "number",
+          "title": "Response Rate",
+          "default": 0.0
+        },
+        "subscription_tier": {
+          "type": "string",
+          "title": "Subscription Tier",
+          "default": "starter"
+        },
+        "subscription_expires_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Subscription Expires At"
+        },
+        "daily_swipes_used": {
+          "type": "integer",
+          "title": "Daily Swipes Used",
+          "default": 0
+        },
+        "daily_swipes_reset_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Daily Swipes Reset At"
+        },
+        "reputation_badges": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Reputation Badges"
+        },
+        "trust_score": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Trust Score"
+        },
+        "trust_tier": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Trust Tier"
+        },
+        "primary_community": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Primary Community"
+        },
+        "calendly_link": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Calendly Link"
+        },
+        "communities": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "type": "array",
+          "title": "Communities"
+        },
+        "is_admin": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Is Admin"
+        },
+        "elite_protocol_agent_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Elite Protocol Agent Id"
+        },
+        "elite_protocol_api_key": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Elite Protocol Api Key"
+        },
+        "pro_protocol_agent_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Pro Protocol Agent Id"
+        },
+        "pro_protocol_api_key": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Pro Protocol Api Key"
+        },
+        "enriched_gives": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "title": "Enriched Gives"
+        },
+        "enriched_asks": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "title": "Enriched Asks"
+        }
+      },
+      "type": "object",
+      "required": [
+        "id",
+        "email",
+        "name",
+        "company"
+      ],
+      "title": "UserProfile"
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/matchitup-in/main/json-schema/matchitup-in-partner-lead-request-schema.json",
+  "title": "PartnerLeadRequest",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/matchitup-in-partner-leads-api-openapi.yml#/components/schemas/PartnerLeadRequest",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Name"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "title": "Email"
+    },
+    "company": {
+      "type": "string",
+      "title": "Company"
+    },
+    "members": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Members"
+    },
+    "message": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Message"
+    }
+  },
+  "type": "object",
+  "required": [
+    "name",
+    "email",
+    "company"
+  ]
+}

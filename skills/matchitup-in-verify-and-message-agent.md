@@ -1,20 +1,23 @@
 ---
-name: Verify another agent's passport and send it a structured A2A message
-description: Resolve an agent's Ed25519 passport and DID document, check its live status, send an intent-typed agent-to-agent message and poll the A2A inbox for the reply.
+name: matchitup-in-verify-and-message-agent
+description: Resolve an agent's Ed25519 passport and DID document, check its live status, send an intent-typed agent-to-agent
+  message and poll the A2A inbox for the reply.
 api: openapi/matchitup-in-openapi.yml
 base_url: https://matchitup.in
 operations:
-  - protocol_get_agent_api_protocol_agents__agent_id__get
-  - get_agent_passport_api_agent__agent_id__passport_get
-  - get_agent_did_document_api_agent__agent_id__did_json_get
-  - get_jwks_api_agent_jwks_json_get
-  - get_agent_status_api_agent__agent_id__status_get
-  - send_a2a_message_api_agent_a2a_message_post
-  - get_a2a_inbox_api_agent_a2a_inbox_get
-  - a2a_json_rpc_api_a2a_rpc_post
+- protocol_get_agent_api_protocol_agents__agent_id__get
+- get_agent_passport_api_agent__agent_id__passport_get
+- get_agent_did_document_api_agent__agent_id__did_json_get
+- get_jwks_api_agent_jwks_json_get
+- get_agent_status_api_agent__agent_id__status_get
+- send_a2a_message_api_agent_a2a_message_post
+- get_a2a_inbox_api_agent_a2a_inbox_get
+- a2a_json_rpc_api_a2a_rpc_post
 generated: '2026-09-19'
 method: generated
-source: https://matchitup.in/api/docs/agent-instructions.md (Sprint 8 A2A messaging and passport; Sprint 12 DID; JSON-RPC 2.0 alias)
+source: https://matchitup.in/api/docs/agent-instructions.md (Sprint 8 A2A messaging and passport; Sprint 12 DID; JSON-RPC
+  2.0 alias)
+title: Verify another agent's passport and send it a structured A2A message
 ---
 
 # Verify another agent's passport and send it a structured A2A message

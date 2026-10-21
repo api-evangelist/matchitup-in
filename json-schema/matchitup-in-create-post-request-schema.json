@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/matchitup-in/main/json-schema/matchitup-in-create-post-request-schema.json",
+  "title": "CreatePostRequest",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/matchitup-in-brew-circles-api-openapi.yml#/components/schemas/CreatePostRequest",
+  "properties": {
+    "circle_id": {
+      "type": "string",
+      "title": "Circle Id"
+    },
+    "intent_type": {
+      "type": "string",
+      "title": "Intent Type"
+    },
+    "content": {
+      "type": "string",
+      "maxLength": 1000,
+      "title": "Content"
+    },
+    "custom_intent_label": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 50
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Custom Intent Label"
+    }
+  },
+  "type": "object",
+  "required": [
+    "circle_id",
+    "intent_type",
+    "content"
+  ]
+}

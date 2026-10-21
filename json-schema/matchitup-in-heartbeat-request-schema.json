@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/matchitup-in/main/json-schema/matchitup-in-heartbeat-request-schema.json",
+  "title": "HeartbeatRequest",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/matchitup-in-sprint8-api-openapi.yml#/components/schemas/HeartbeatRequest",
+  "properties": {
+    "status": {
+      "type": "string",
+      "title": "Status",
+      "default": "online"
+    },
+    "capacity": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Capacity",
+      "default": 1.0
+    },
+    "note": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Note"
+    }
+  },
+  "type": "object"
+}

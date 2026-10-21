@@ -415,15 +415,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -445,6 +436,46 @@ components:
       - msg
       - type
       title: ValidationError
+    HeartbeatRequest:
+      properties:
+        status:
+          type: string
+          title: Status
+          default: online
+        capacity:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Capacity
+          default: 1.0
+        note:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Note
+      type: object
+      title: HeartbeatRequest
+    JsonRpcRequest:
+      properties:
+        jsonrpc:
+          type: string
+          title: Jsonrpc
+          default: '2.0'
+        method:
+          type: string
+          title: Method
+        params:
+          additionalProperties: true
+          type: object
+          title: Params
+          default: {}
+        id:
+          title: Id
+      type: object
+      required:
+      - method
+      title: JsonRpcRequest
+      description: JSON-RPC 2.0 request envelope.
     A2AMessageRequest:
       properties:
         recipient_agent_id:
@@ -470,25 +501,6 @@ components:
       description: 'A2A message body. Accepts both `to_agent_id` (documented canonical name)
 
         and `recipient_agent_id` (legacy alias).'
-    HeartbeatRequest:
-      properties:
-        status:
-          type: string
-          title: Status
-          default: online
-        capacity:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Capacity
-          default: 1.0
-        note:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Note
-      type: object
-      title: HeartbeatRequest
     FederationRegisterRequest:
       properties:
         name:
@@ -526,27 +538,15 @@ components:
         (`name`, omit `external_agent_id` to auto-generate) and the legacy
 
         explicit names (`agent_name`, `external_agent_id`).'
-    JsonRpcRequest:
+    HTTPValidationError:
       properties:
-        jsonrpc:
-          type: string
-          title: Jsonrpc
-          default: '2.0'
-        method:
-          type: string
-          title: Method
-        params:
-          additionalProperties: true
-          type: object
-          title: Params
-          default: {}
-        id:
-          title: Id
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      required:
-      - method
-      title: JsonRpcRequest
-      description: JSON-RPC 2.0 request envelope.
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

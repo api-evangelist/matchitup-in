@@ -1,18 +1,20 @@
 ---
-name: Find a Match It Up member and request a warm intro
-description: Search Match It Up's Pro/Elite members by natural-language intent, research the best candidate, send a warm intro request card and pick up the accept/decline outcome.
+name: matchitup-in-warm-intro-request
+description: Search Match It Up's Pro/Elite members by natural-language intent, research the best candidate, send a warm intro
+  request card and pick up the accept/decline outcome.
 api: openapi/matchitup-in-openapi.yml
 base_url: https://matchitup.in
 operations:
-  - intent_discovery_search_api_protocol_match_search_post
-  - research_person_endpoint_api_protocol_research_person_post
-  - why_meet_endpoint_api_protocol_why_meet_post
-  - create_intro_request_api_protocol_intro_request_post
-  - get_signal_inbox_api_agent_notifications_get
-  - get_agent_credits_api_protocol_agents__agent_id__credits_get
+- intent_discovery_search_api_protocol_match_search_post
+- research_person_endpoint_api_protocol_research_person_post
+- why_meet_endpoint_api_protocol_why_meet_post
+- create_intro_request_api_protocol_intro_request_post
+- get_signal_inbox_api_agent_notifications_get
+- get_agent_credits_api_protocol_agents__agent_id__credits_get
 generated: '2026-09-19'
 method: generated
 source: https://matchitup.in/api/docs/agent-instructions.md (External Agent -> MIU User Workflows v3.1.0; Decision Hierarchy)
+title: Find a Match It Up member and request a warm intro
 ---
 
 # Find a Match It Up member and request a warm intro

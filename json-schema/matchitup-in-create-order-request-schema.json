@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/matchitup-in/main/json-schema/matchitup-in-create-order-request-schema.json",
+  "title": "CreateOrderRequest",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/matchitup-in-phase5-api-openapi.yml#/components/schemas/CreateOrderRequest",
+  "properties": {
+    "plan_id": {
+      "type": "string",
+      "title": "Plan Id"
+    },
+    "billing_cycle": {
+      "type": "string",
+      "title": "Billing Cycle",
+      "default": "monthly"
+    },
+    "coupon_code": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Coupon Code"
+    }
+  },
+  "type": "object",
+  "required": [
+    "plan_id"
+  ]
+}

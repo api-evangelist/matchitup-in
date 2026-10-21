@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/matchitup-in/main/json-schema/matchitup-in-refresh-token-request-schema.json",
+  "title": "RefreshTokenRequest",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/matchitup-in-authentication-api-openapi.yml#/components/schemas/RefreshTokenRequest",
+  "properties": {
+    "refresh_token": {
+      "type": "string",
+      "title": "Refresh Token"
+    }
+  },
+  "type": "object",
+  "required": [
+    "refresh_token"
+  ]
+}

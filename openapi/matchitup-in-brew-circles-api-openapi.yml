@@ -916,47 +916,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    EditPostRequest:
-      properties:
-        content:
-          type: string
-          maxLength: 1000
-          title: Content
-      type: object
-      required:
-      - content
-      title: EditPostRequest
-    LinkPreviewRequest:
-      properties:
-        url:
-          type: string
-          title: Url
-      type: object
-      required:
-      - url
-      title: LinkPreviewRequest
-    FlagContentRequest:
-      properties:
-        content_type:
-          type: string
-          title: Content Type
-        content_id:
-          type: string
-          title: Content Id
-        reason:
-          type: string
-          title: Reason
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-      type: object
-      required:
-      - content_type
-      - content_id
-      - reason
-      title: FlagContentRequest
     MarkBrewNotificationsRequest:
       properties:
         notification_ids:
@@ -968,25 +927,23 @@ components:
           title: Notification Ids
       type: object
       title: MarkBrewNotificationsRequest
-    HTTPValidationError:
+    ToggleReactionRequest:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    EditReplyRequest:
-      properties:
-        content:
+        target_type:
           type: string
-          maxLength: 500
-          title: Content
+          title: Target Type
+        target_id:
+          type: string
+          title: Target Id
+        reaction_type:
+          type: string
+          title: Reaction Type
       type: object
       required:
-      - content
-      title: EditReplyRequest
+      - target_type
+      - target_id
+      - reaction_type
+      title: ToggleReactionRequest
     ValidationError:
       properties:
         loc:
@@ -1008,6 +965,25 @@ components:
       - msg
       - type
       title: ValidationError
+    EditPostRequest:
+      properties:
+        content:
+          type: string
+          maxLength: 1000
+          title: Content
+      type: object
+      required:
+      - content
+      title: EditPostRequest
+    LinkPreviewRequest:
+      properties:
+        url:
+          type: string
+          title: Url
+      type: object
+      required:
+      - url
+      title: LinkPreviewRequest
     UpdateBrewCircleRequest:
       properties:
         name:
@@ -1039,6 +1015,46 @@ components:
           title: Size Limit
       type: object
       title: UpdateBrewCircleRequest
+    EditReplyRequest:
+      properties:
+        content:
+          type: string
+          maxLength: 500
+          title: Content
+      type: object
+      required:
+      - content
+      title: EditReplyRequest
+    NotificationSettingsRequest:
+      properties:
+        brew_notifications:
+          type: boolean
+          title: Brew Notifications
+          default: true
+      type: object
+      title: NotificationSettingsRequest
+    FlagContentRequest:
+      properties:
+        content_type:
+          type: string
+          title: Content Type
+        content_id:
+          type: string
+          title: Content Id
+        reason:
+          type: string
+          title: Reason
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+      type: object
+      required:
+      - content_type
+      - content_id
+      - reason
+      title: FlagContentRequest
     CreatePostRequest:
       properties:
         circle_id:
@@ -1063,14 +1079,6 @@ components:
       - intent_type
       - content
       title: CreatePostRequest
-    NotificationSettingsRequest:
-      properties:
-        brew_notifications:
-          type: boolean
-          title: Brew Notifications
-          default: true
-      type: object
-      title: NotificationSettingsRequest
     CreateReplyRequest:
       properties:
         post_id:
@@ -1090,23 +1098,15 @@ components:
       - post_id
       - content
       title: CreateReplyRequest
-    ToggleReactionRequest:
+    HTTPValidationError:
       properties:
-        target_type:
-          type: string
-          title: Target Type
-        target_id:
-          type: string
-          title: Target Id
-        reaction_type:
-          type: string
-          title: Reaction Type
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      required:
-      - target_type
-      - target_id
-      - reaction_type
-      title: ToggleReactionRequest
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

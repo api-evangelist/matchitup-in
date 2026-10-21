@@ -321,32 +321,16 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    RateBody:
+    TransitionBody:
       properties:
-        rating:
-          type: integer
-          maximum: 5.0
-          minimum: 1.0
-          title: Rating
-        review_text:
+        note:
           anyOf:
           - type: string
-            maxLength: 800
+            maxLength: 500
           - type: 'null'
-          title: Review Text
+          title: Note
       type: object
-      required:
-      - rating
-      title: RateBody
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
+      title: TransitionBody
     CreateContractBody:
       properties:
         intent_id:
@@ -402,16 +386,32 @@ components:
       - msg
       - type
       title: ValidationError
-    TransitionBody:
+    RateBody:
       properties:
-        note:
+        rating:
+          type: integer
+          maximum: 5.0
+          minimum: 1.0
+          title: Rating
+        review_text:
           anyOf:
           - type: string
-            maxLength: 500
+            maxLength: 800
           - type: 'null'
-          title: Note
+          title: Review Text
       type: object
-      title: TransitionBody
+      required:
+      - rating
+      title: RateBody
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

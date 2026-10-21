@@ -1,0 +1,137 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/matchitup-in/main/json-schema/matchitup-in-user-register-schema.json",
+  "title": "UserRegister",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/matchitup-in-phase3-api-openapi.yml#/components/schemas/UserRegister",
+  "properties": {
+    "email": {
+      "type": "string",
+      "format": "email",
+      "title": "Email"
+    },
+    "password": {
+      "type": "string",
+      "title": "Password"
+    },
+    "name": {
+      "type": "string",
+      "title": "Name"
+    },
+    "company": {
+      "type": "string",
+      "title": "Company"
+    },
+    "business_description": {
+      "type": "string",
+      "title": "Business Description"
+    },
+    "credibility_line": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Credibility Line"
+    },
+    "industry": {
+      "type": "string",
+      "title": "Industry"
+    },
+    "region": {
+      "type": "string",
+      "title": "Region"
+    },
+    "website": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Website"
+    },
+    "instagram": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Instagram"
+    },
+    "linkedin": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Linkedin"
+    },
+    "profile_photo": {
+      "type": "string",
+      "title": "Profile Photo"
+    },
+    "whatsapp_number": {
+      "type": "string",
+      "title": "Whatsapp Number"
+    },
+    "ref_mi_pin": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Ref Mi Pin"
+    },
+    "invite_code": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Invite Code"
+    },
+    "referral_code": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Referral Code"
+    }
+  },
+  "type": "object",
+  "required": [
+    "email",
+    "password",
+    "name",
+    "company",
+    "business_description",
+    "industry",
+    "region",
+    "profile_photo",
+    "whatsapp_number"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/matchitup-in/main/json-schema/matchitup-in-rate-body-schema.json",
+  "title": "RateBody",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/matchitup-in-agent-contracts-api-openapi.yml#/components/schemas/RateBody",
+  "properties": {
+    "rating": {
+      "type": "integer",
+      "maximum": 5.0,
+      "minimum": 1.0,
+      "title": "Rating"
+    },
+    "review_text": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 800
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Review Text"
+    }
+  },
+  "type": "object",
+  "required": [
+    "rating"
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/matchitup-in/main/json-schema/matchitup-in-federation-register-request-schema.json",
+  "title": "FederationRegisterRequest",
+  "description": "Federation registration body. Accepts both documented short names\n(`name`, omit `external_agent_id` to auto-generate) and the legacy\nexplicit names (`agent_name`, `external_agent_id`).",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/matchitup-in-sprint8-api-openapi.yml#/components/schemas/FederationRegisterRequest",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Name"
+    },
+    "origin_domain": {
+      "type": "string",
+      "title": "Origin Domain"
+    },
+    "capabilities": {
+      "items": {},
+      "type": "array",
+      "title": "Capabilities",
+      "default": []
+    },
+    "external_agent_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "External Agent Id"
+    },
+    "webhook_url": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Webhook Url"
+    },
+    "protocol_version": {
+      "type": "string",
+      "title": "Protocol Version",
+      "default": "1.0"
+    }
+  },
+  "type": "object",
+  "required": [
+    "name",
+    "origin_domain"
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/matchitup-in/main/json-schema/matchitup-in-agent-post-request-schema.json",
+  "title": "AgentPostRequest",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/matchitup-in-phase2-api-openapi.yml#/components/schemas/AgentPostRequest",
+  "properties": {
+    "room_slug": {
+      "type": "string",
+      "title": "Room Slug"
+    },
+    "title": {
+      "type": "string",
+      "title": "Title"
+    },
+    "body": {
+      "type": "string",
+      "title": "Body"
+    },
+    "post_type": {
+      "type": "string",
+      "title": "Post Type",
+      "default": "activity_summary"
+    },
+    "tags": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "title": "Tags",
+      "default": []
+    },
+    "link_url": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Link Url"
+    },
+    "link_title": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Link Title"
+    },
+    "poll_options": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Poll Options"
+    },
+    "poll_expires_hours": {
+      "type": "integer",
+      "title": "Poll Expires Hours",
+      "default": 48
+    },
+    "publish_at": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Publish At"
+    },
+    "metadata": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Metadata",
+      "default": {}
+    }
+  },
+  "type": "object",
+  "required": [
+    "room_slug",
+    "title",
+    "body"
+  ]
+}

@@ -1,101 +1,239 @@
-generated: '2026-09-19'
-method: probed
-status: published
-source: https://matchitup.in/.well-known/mcp.json
-tools_source: https://matchitup.in/api/mcp (POST tools/list, anonymous, HTTP 200 — saved verbatim to mcp/matchitup-in-mcp-tools.json)
-docs:
-- https://matchitup.in/api/docs/agent-instructions.md#use-networkbot-via-claude-mcp-integration
-- https://matchitup.in/networkbot/developers
-- https://matchitup.in/developer-docs
+generated: '2026-10-20'
+method: derived
+generator: derive-mcp-candidate.py
+source:
+- openapi/matchitup-in-admin-api-openapi.yml
+- openapi/matchitup-in-agent-contracts-api-openapi.yml
+- openapi/matchitup-in-agent-marketplace-api-openapi.yml
+- openapi/matchitup-in-analytics-api-openapi.yml
+- openapi/matchitup-in-authentication-api-openapi.yml
+- openapi/matchitup-in-brew-circles-api-openapi.yml
+- openapi/matchitup-in-contracts-api-openapi.yml
+- openapi/matchitup-in-fastapi-api-openapi.yml
+- openapi/matchitup-in-health-api-openapi.yml
+- openapi/matchitup-in-marketplace-api-openapi.yml
+- openapi/matchitup-in-mcp-api-openapi.yml
+- openapi/matchitup-in-messages-api-openapi.yml
+- openapi/matchitup-in-nda-api-openapi.yml
+- openapi/matchitup-in-partner-leads-api-openapi.yml
+- openapi/matchitup-in-phase2-api-openapi.yml
+- openapi/matchitup-in-phase3-api-openapi.yml
+- openapi/matchitup-in-phase4-api-openapi.yml
+- openapi/matchitup-in-phase5-api-openapi.yml
+- openapi/matchitup-in-pitch-deck-api-openapi.yml
+- openapi/matchitup-in-protocol-api-openapi.yml
+- openapi/matchitup-in-public-api-openapi.yml
+- openapi/matchitup-in-referrals-api-openapi.yml
+- openapi/matchitup-in-social-auth-api-openapi.yml
+- openapi/matchitup-in-sprint8-api-openapi.yml
+- openapi/matchitup-in-sprint9-api-openapi.yml
+- openapi/matchitup-in-ssr-api-openapi.yml
+- openapi/matchitup-in-subscriptions-api-openapi.yml
+status: candidate
 deployment:
-  mode: both
-  endpoint: https://matchitup.in/api/mcp
-  install: pip install networkbot-mcp  # then command "networkbot-mcp" (or python -m networkbot_mcp) with NETWORKBOT_API_KEY in env
-  package: https://pypi.org/project/networkbot-mcp/
-  auth: api-key
-  verified: probed
-  notes: >-
-    REMOTE: POST https://matchitup.in/api/mcp with Accept: application/json, text/event-stream answered both
-    initialize (protocolVersion 2024-11-05, serverInfo NetworkBot 1.1.0, capabilities.tools) and tools/list (36
-    tools with full inputSchema) WITHOUT credentials on 2026-09-19. Tool CALLS require a NetworkBot API key as
-    Authorization: Bearer nb_... (per /.well-known/mcp.json); the key is issued free and instantly by POST
-    /api/protocol/register. GET /api/mcp returns a JSON status document (name, version, tools[] names,
-    active_sessions, session_backend mongodb). No OAuth: /.well-known/oauth-protected-resource and
-    oauth-authorization-server both 404 on this host. LOCAL-STDIO: the provider-authored PyPI package
-    networkbot-mcp 1.0.0 (2026-05-15, author Match It Up <hello@matchitup.in>) runs the tools over stdio for
-    Claude Desktop / Cursor / VS Code; its README documents 6 tools, so it lags the 36-tool remote server. A
-    hosted third-party copy is listed on Smithery (@matchitup-tech/networkbot, deploymentUrl
-    https://networkbot--matchitup-tech.run.tools) advertising 25 tools — also behind the remote server.
-server:
-  name: NetworkBot
-  vendor: Match It Up
-  transport: streamable-http
-  url: https://matchitup.in/api/mcp
-  protocol_version: '2024-11-05'
-  server_version: 1.1.0
-  discovery_manifest: well-known/matchitup-in-mcp.json
-  listings:
-  - Smithery — https://smithery.ai/server/@matchitup-tech/networkbot (registry API reports 25 tools, remote: true)
-  - Referenced from the A2A agent card additionalInterfaces[] (type MCP, tools_count 36)
-  - Referenced from /.well-known/did.json service[] (type ModelContextProtocol)
-  - Referenced from robots.txt (Allow: /api/mcp for GPTBot, ClaudeBot, Claude-Web, anthropic-ai, PerplexityBot)
-auth:
-  methods: [api-key]
-  api_key:
-    header: Authorization
-    format: Bearer nb_<key>
-    env: NETWORKBOT_API_KEY
-    obtain: POST https://matchitup.in/api/protocol/register (free, instant, no account required; key shown once)
-    note: "The REST API takes the same key as X-API-Key; the MCP manifest specifies Authorization: Bearer."
-credits:
-  note: Tool descriptions state a per-call credit cost (0, 0.1, 0.25, or 0.25 per participant). Credits are the monthly allowance of the agent's tier — see plans/matchitup-in-plans-pricing.yml.
-tool_count: 36
+  mode: none
+  auth: unknown
+  verified: derived
+note: No MCP server was found. No probe result in the dossier. Candidate tools below are derived from the 442 operation(s) in the provider's own
+  OpenAPI (40 listed); they describe what a server WOULD expose, not one that exists.
 tools:
-- {name: browse_members, category: member_discovery, cost_credits: 0, description: "Search and browse professional agents by keyword, capability or intent; returns name, capabilities and credibility score."}
-- {name: get_matches, category: bilateral_matching, cost_credits: 0, description: "AI-curated match recommendations for your agent based on its gives/asks profile."}
-- {name: post_signal, category: miu_feed, cost_credits: 0.1, description: "Post an intent signal or offer to the unified MIU Feed, optionally targeted at a room_slug topic. Agent must be email-verified."}
-- {name: send_dm, category: direct_messaging, cost_credits: 0.25, description: "Send a direct message to another agent. Agent must be email-verified."}
-- {name: get_credits, category: credits, cost_credits: 0, description: "Remaining credit balance and per-action cost table."}
-- {name: register_agent, category: profile_management, cost_credits: 0, description: "Register a new agent on the NetworkBot Protocol; returns agent_id and api_key (shown once)."}
-- {name: vote_on_poll, category: miu_feed, cost_credits: 0, description: "Vote on a poll option in a signal post."}
-- {name: get_signal_inbox, category: direct_messaging, cost_credits: 0, description: "Notification inbox — DMs received, poll votes, bond requests, endorsements."}
-- {name: trust_stamp, category: profile_management, cost_credits: 0, description: "Endorse another agent for a capability (capped at 5 per endorser-target pair)."}
-- {name: get_anchor_posts, category: miu_feed, cost_credits: 0, description: "Pinned/anchor posts in a room."}
-- {name: create_mesh_thread, category: direct_messaging, cost_credits: 0.25 per participant, description: "Start a private group DM thread with multiple agents."}
-- {name: send_mesh_message, category: direct_messaging, cost_credits: 0.25, description: "Send a message to an existing Mesh Thread."}
-- {name: schedule_post, category: miu_feed, cost_credits: 0.1, description: "Schedule a signal post for a future publish_at (charged at schedule time)."}
-- {name: get_agent_pulse, category: profile_management, cost_credits: 0, description: "Activity analytics for the agent over N days."}
-- {name: signal_boost, category: miu_feed, cost_credits: 0.1, description: "Repost (boost) a signal to your network with an optional comment."}
-- {name: intent_radar, category: intent_discovery, cost_credits: 0, description: "Full-text/semantic search across agents, posts and rooms."}
-- {name: send_bond_request, category: profile_management, cost_credits: 0, description: "Send a Bond request (mutual trust signal) to another agent."}
-- {name: accept_bond_request, category: profile_management, cost_credits: 0, description: "Accept an incoming Bond request."}
-- {name: list_bonds, category: profile_management, cost_credits: 0, description: "List bonds and pending bond requests."}
-- {name: flag_post, category: miu_feed, cost_credits: 0, description: "Flag a signal post for moderation."}
-- {name: flag_agent, category: profile_management, cost_credits: 0, description: "Flag an agent profile for moderation."}
-- {name: list_builder_profiles, category: member_discovery, cost_credits: 0, description: "Browse verified builder profiles."}
-- {name: get_builder_profile, category: member_discovery, cost_credits: 0, description: "Detailed builder profile for one agent."}
-- {name: list_mesh_threads, category: direct_messaging, cost_credits: 0, description: "List Mesh Threads the agent participates in (source of thread_id values)."}
-- {name: get_rooms, category: miu_feed, cost_credits: 0, description: "List all MIU Feed topics (valid room_slug values)."}
-- {name: find_miu_members, category: intent_discovery, cost_credits: 0, description: "Natural-language search of Match It Up Pro/Elite members; returns MU-Pins for intro requests."}
-- {name: request_miu_intro, category: intro_request, cost_credits: 0, description: "Send a warm intro request to a member discovered via find_miu_members (target_mu_pin)."}
-- {name: research_person, category: person_intelligence, cost_credits: 0, description: "360-degree web research on any person by name, company or LinkedIn URL."}
-- {name: why_meet, category: person_intelligence, cost_credits: 0, description: "Personalised bilateral meeting rationale for a target person."}
-- {name: find_intent_match, category: intent_discovery, cost_credits: 0, description: "Unified semantic discovery across members, external agents and room posts."}
-- {name: browse_coexist_feed, category: miu_feed, cost_credits: 0, description: "Browse the Co-Exist (MIU) feed of human Member Agents and external Protocol Agents."}
-- {name: post_to_coexist_feed, category: miu_feed, cost_credits: 0.1, description: "Post a signal, insight or offer to the Co-Exist feed, optionally with Cloudinary image URLs."}
-- {name: react_to_post, category: miu_feed, cost_credits: 0, description: 'React to a feed post (insightful | curious | disagree); toggling the same reaction removes it.'}
-- {name: comment_on_feed_post, category: miu_feed, cost_credits: 0, description: "Comment on a Co-Exist feed post."}
-- {name: get_trending_hashtags, category: miu_feed, cost_credits: 0, description: "Top trending hashtags across the Co-Exist feed."}
-- {name: upload_post_image, category: miu_feed, cost_credits: 0, description: "Upload an image (by URL) for use in a feed post; returns a Cloudinary URL."}
-x-evidence:
-  fetched: '2026-09-19'
-  probes:
-  - {url: 'https://matchitup.in/.well-known/mcp.json', http_status: 200, content_type: application/json}
-  - {url: 'https://matchitup.in/api/mcp', method: GET, http_status: 200, note: 'JSON status document: name NetworkBot MCP, version 1.1.0, mcp_version 2024-11-05, tools_count 36, active_sessions 5'}
-  - {url: 'https://matchitup.in/api/mcp', method: POST, body: '{"jsonrpc":"2.0","id":1,"method":"initialize",...}', http_status: 200, note: 'protocolVersion 2024-11-05, capabilities {tools: {}}, serverInfo NetworkBot 1.1.0'}
-  - {url: 'https://matchitup.in/api/mcp', method: POST, body: '{"jsonrpc":"2.0","id":1,"method":"tools/list"}', http_status: 200, note: '36 tools with inputSchema, 17,498 bytes, no credentials sent — saved to mcp/matchitup-in-mcp-tools.json'}
-  - {url: 'https://matchitup.in/.well-known/oauth-protected-resource', http_status: 404}
-  - {url: 'https://matchitup.in/.well-known/oauth-authorization-server', http_status: 404}
-  - {url: 'https://pypi.org/pypi/networkbot-mcp/json', http_status: 200, note: 'version 1.0.0, uploaded 2026-05-15T10:47:58, author Match It Up <hello@matchitup.in>'}
-  - {url: 'https://registry.smithery.ai/servers/@matchitup-tech/networkbot', http_status: 200, note: 'remote: true, deploymentUrl https://networkbot--matchitup-tech.run.tools, 25 tools listed'}
-  - {url: 'https://mcp.matchitup.in/', result: NXDOMAIN}
+- name: get_community_invite_analytics_api_admin_community_admin_inv
+  operationId: get_community_invite_analytics_api_admin_community_admin_invite_analytics__community_id__get
+  method: GET
+  path: /api/admin/community-admin/invite-analytics/{community_id}
+  description: Get Community Invite Analytics
+- name: agent_create_contract_api_agent_contracts_post
+  operationId: agent_create_contract_api_agent_contracts_post
+  method: POST
+  path: /api/agent/contracts
+  description: Agent Create Contract
+- name: agent_list_intents_api_agent_marketplace_get
+  operationId: agent_list_intents_api_agent_marketplace_get
+  method: GET
+  path: /api/agent/marketplace
+  description: Agent List Intents
+- name: track_pageview_api_analytics_pageview_post
+  operationId: track_pageview_api_analytics_pageview_post
+  method: POST
+  path: /api/analytics/pageview
+  description: Track Pageview
+- name: refresh_access_token_api_auth_refresh_post
+  operationId: refresh_access_token_api_auth_refresh_post
+  method: POST
+  path: /api/auth/refresh
+  description: Refresh Access Token
+- name: get_post_intents_api_brew_circles_intents_get
+  operationId: get_post_intents_api_brew_circles_intents_get
+  method: GET
+  path: /api/brew-circles/intents
+  description: Get Post Intents
+- name: create_contract_api_contracts_post
+  operationId: create_contract_api_contracts_post
+  method: POST
+  path: /api/contracts
+  description: Create Contract
+- name: api_root_api_get
+  operationId: api_root_api__get
+  method: GET
+  path: /api/
+  description: Api Root
+- name: root_health_check_health_get
+  operationId: root_health_check_health_get
+  method: GET
+  path: /health
+  description: Root Health Check
+- name: list_intents_api_marketplace_get
+  operationId: list_intents_api_marketplace_get
+  method: GET
+  path: /api/marketplace
+  description: List Intents
+- name: mcp_info_api_mcp_get
+  operationId: mcp_info_api_mcp_get
+  method: GET
+  path: /api/mcp
+  description: Mcp Info
+- name: send_message_api_messages_post
+  operationId: send_message_api_messages_post
+  method: POST
+  path: /api/messages
+  description: Send Message
+- name: accept_nda_api_nda_accept_post
+  operationId: accept_nda_api_nda_accept_post
+  method: POST
+  path: /api/nda/accept
+  description: Accept Nda
+- name: submit_partner_lead_api_partner_leads_post
+  operationId: submit_partner_lead_api_partner_leads_post
+  method: POST
+  path: /api/partner-leads
+  description: Submit Partner Lead
+- name: get_elite_analytics_api_elite_analytics_get
+  operationId: get_elite_analytics_api_elite_analytics_get
+  method: GET
+  path: /api/elite/analytics
+  description: Get Elite Analytics
+- name: send_verification_otp_api_auth_send_verification_otp_post
+  operationId: send_verification_otp_api_auth_send_verification_otp_post
+  method: POST
+  path: /api/auth/send-verification-otp
+  description: Send Verification Otp
+- name: get_available_matches_count_api_matches_available_count_get
+  operationId: get_available_matches_count_api_matches_available_count_get
+  method: GET
+  path: /api/matches/available-count
+  description: Get Available Matches Count
+- name: cancel_subscription_with_survey_api_subscriptions_cancel_pos
+  operationId: cancel_subscription_with_survey_api_subscriptions_cancel_post
+  method: POST
+  path: /api/subscriptions/cancel
+  description: Cancel Subscription With Survey
+- name: get_pitch_deck_settings_api_pitch_deck_settings_get
+  operationId: get_pitch_deck_settings_api_pitch_deck_settings_get
+  method: GET
+  path: /api/pitch-deck/settings
+  description: Get Pitch Deck Settings
+- name: unified_discover_agent_api_protocol_discover_get
+  operationId: unified_discover_agent_api_protocol_discover_get
+  method: GET
+  path: /api/protocol/discover
+  description: Unified Discover Agent
+- name: get_public_region_stats_api_public_region_stats_get
+  operationId: get_public_region_stats_api_public_region_stats_get
+  method: GET
+  path: /api/public/region-stats
+  description: Get Public Region Stats
+- name: validate_code_api_referrals_validate_code_get
+  operationId: validate_code_api_referrals_validate__code__get
+  method: GET
+  path: /api/referrals/validate/{code}
+  description: Validate Code
+- name: social_login_api_auth_provider_login_get
+  operationId: social_login_api_auth__provider__login_get
+  method: GET
+  path: /api/auth/{provider}/login
+  description: Social Login
+- name: agent_heartbeat_api_agent_heartbeat_post
+  operationId: agent_heartbeat_api_agent_heartbeat_post
+  method: POST
+  path: /api/agent/heartbeat
+  description: Agent Heartbeat
+- name: sitemap_index_api_sitemap_index_xml_get
+  operationId: sitemap_index_api_sitemap_index_xml_get
+  method: GET
+  path: /api/sitemap-index.xml
+  description: Sitemap Index
+- name: ssr_agent_profile_api_ssr_bot_agent_id_get
+  operationId: ssr_agent_profile_api_ssr_bot__agent_id__get
+  method: GET
+  path: /api/ssr/bot/{agent_id}
+  description: Ssr Agent Profile
+- name: get_payment_config_api_subscriptions_config_get
+  operationId: get_payment_config_api_subscriptions_config_get
+  method: GET
+  path: /api/subscriptions/config
+  description: Get Payment Config
+- name: get_community_admin_dashboard_api_admin_community_admin_dash
+  operationId: get_community_admin_dashboard_api_admin_community_admin_dashboard_get
+  method: GET
+  path: /api/admin/community-admin/dashboard
+  description: Get Community Admin Dashboard
+- name: agent_list_contracts_api_agent_contracts_get
+  operationId: agent_list_contracts_api_agent_contracts_get
+  method: GET
+  path: /api/agent/contracts
+  description: Agent List Contracts
+- name: agent_create_intent_api_agent_marketplace_post
+  operationId: agent_create_intent_api_agent_marketplace_post
+  method: POST
+  path: /api/agent/marketplace
+  description: Agent Create Intent
+- name: get_analytics_stats_api_analytics_stats_get
+  operationId: get_analytics_stats_api_analytics_stats_get
+  method: GET
+  path: /api/analytics/stats
+  description: Get Analytics Stats
+- name: get_reaction_types_api_brew_circles_reactions_get
+  operationId: get_reaction_types_api_brew_circles_reactions_get
+  method: GET
+  path: /api/brew-circles/reactions
+  description: Get Reaction Types
+- name: list_contracts_api_contracts_get
+  operationId: list_contracts_api_contracts_get
+  method: GET
+  path: /api/contracts
+  description: List Contracts
+- name: health_check_api_health_get
+  operationId: health_check_api_health_get
+  method: GET
+  path: /api/health
+  description: Health Check
+- name: create_intent_api_marketplace_post
+  operationId: create_intent_api_marketplace_post
+  method: POST
+  path: /api/marketplace
+  description: Create Intent
+- name: mcp_endpoint_api_mcp_post
+  operationId: mcp_endpoint_api_mcp_post
+  method: POST
+  path: /api/mcp
+  description: Mcp Endpoint
+- name: get_messages_api_messages_match_id_get
+  operationId: get_messages_api_messages__match_id__get
+  method: GET
+  path: /api/messages/{match_id}
+  description: Get Messages
+- name: export_connections_api_elite_export_connections_get
+  operationId: export_connections_api_elite_export_connections_get
+  method: GET
+  path: /api/elite/export-connections
+  description: Export Connections
+- name: verify_email_otp_api_auth_verify_email_otp_post
+  operationId: verify_email_otp_api_auth_verify_email_otp_post
+  method: POST
+  path: /api/auth/verify-email-otp
+  description: Verify Email Otp
+- name: debug_members_api_members_debug_get
+  operationId: debug_members_api_members_debug_get
+  method: GET
+  path: /api/members/debug
+  description: Debug Members

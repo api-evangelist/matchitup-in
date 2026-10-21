@@ -1,0 +1,817 @@
+{
+  "@context": {
+    "@vocab": "https://matchitup.in/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "matchitup": "https://matchitup.in/schema#",
+    "HTTPValidationError": "matchitup:HTTPValidationError",
+    "detail": {
+      "@id": "matchitup:detail",
+      "@container": "@list"
+    },
+    "CreateCodeRequest": "matchitup:CreateCodeRequest",
+    "max_uses": {
+      "@id": "matchitup:max_uses"
+    },
+    "expires_days": {
+      "@id": "matchitup:expires_days"
+    },
+    "discount_percent": {
+      "@id": "matchitup:discount_percent"
+    },
+    "discount_valid_months": {
+      "@id": "matchitup:discount_valid_months"
+    },
+    "community_id": {
+      "@id": "matchitup:community_id"
+    },
+    "grant_tier": {
+      "@id": "matchitup:grant_tier"
+    },
+    "grant_duration_months": {
+      "@id": "matchitup:grant_duration_months"
+    },
+    "brew_circle_id": {
+      "@id": "matchitup:brew_circle_id"
+    },
+    "brew_circle_name": {
+      "@id": "matchitup:brew_circle_name"
+    },
+    "UpdateCodeStatusRequest": "matchitup:UpdateCodeStatusRequest",
+    "status": {
+      "@id": "matchitup:status",
+      "@type": "xsd:string"
+    },
+    "ValidationError": "matchitup:ValidationError",
+    "loc": {
+      "@id": "matchitup:loc",
+      "@container": "@list"
+    },
+    "msg": {
+      "@id": "matchitup:msg",
+      "@type": "xsd:string"
+    },
+    "type": {
+      "@id": "matchitup:type",
+      "@type": "xsd:string"
+    },
+    "RateBody": "matchitup:RateBody",
+    "rating": {
+      "@id": "matchitup:rating",
+      "@type": "xsd:integer"
+    },
+    "review_text": {
+      "@id": "matchitup:review_text"
+    },
+    "CreateContractBody": "matchitup:CreateContractBody",
+    "intent_id": {
+      "@id": "matchitup:intent_id",
+      "@type": "xsd:string"
+    },
+    "seller_user_id": {
+      "@id": "matchitup:seller_user_id",
+      "@type": "xsd:string"
+    },
+    "agreed_price": {
+      "@id": "matchitup:agreed_price"
+    },
+    "agreed_pricing_type": {
+      "@id": "matchitup:agreed_pricing_type"
+    },
+    "delivery_window": {
+      "@id": "matchitup:delivery_window"
+    },
+    "note": {
+      "@id": "matchitup:note"
+    },
+    "TransitionBody": "matchitup:TransitionBody",
+    "CreateIntentBody": "matchitup:CreateIntentBody",
+    "intent_type": {
+      "@id": "matchitup:intent_type",
+      "@type": "xsd:string"
+    },
+    "title": {
+      "@id": "matchitup:title",
+      "@type": "xsd:string"
+    },
+    "description": {
+      "@id": "matchitup:description",
+      "@type": "xsd:string"
+    },
+    "category": {
+      "@id": "matchitup:category",
+      "@type": "xsd:string"
+    },
+    "price": {
+      "@id": "matchitup:price"
+    },
+    "pricing_type": {
+      "@id": "matchitup:pricing_type"
+    },
+    "budget_min": {
+      "@id": "matchitup:budget_min"
+    },
+    "budget_max": {
+      "@id": "matchitup:budget_max"
+    },
+    "RespondBody": "matchitup:RespondBody",
+    "message": {
+      "@id": "matchitup:message",
+      "@type": "xsd:string"
+    },
+    "PageViewEvent": "matchitup:PageViewEvent",
+    "page": {
+      "@id": "matchitup:page",
+      "@type": "xsd:string"
+    },
+    "referrer": {
+      "@id": "matchitup:referrer"
+    },
+    "user_agent": {
+      "@id": "matchitup:user_agent"
+    },
+    "RefreshTokenRequest": "matchitup:RefreshTokenRequest",
+    "refresh_token": {
+      "@id": "matchitup:refresh_token",
+      "@type": "xsd:string"
+    },
+    "EditPostRequest": "matchitup:EditPostRequest",
+    "content": {
+      "@id": "matchitup:content",
+      "@type": "xsd:string"
+    },
+    "LinkPreviewRequest": "matchitup:LinkPreviewRequest",
+    "url": {
+      "@id": "matchitup:url",
+      "@type": "xsd:string"
+    },
+    "FlagContentRequest": "matchitup:FlagContentRequest",
+    "content_type": {
+      "@id": "matchitup:content_type",
+      "@type": "xsd:string"
+    },
+    "content_id": {
+      "@id": "matchitup:content_id",
+      "@type": "xsd:string"
+    },
+    "reason": {
+      "@id": "matchitup:reason",
+      "@type": "xsd:string"
+    },
+    "MarkBrewNotificationsRequest": "matchitup:MarkBrewNotificationsRequest",
+    "notification_ids": {
+      "@id": "matchitup:notification_ids"
+    },
+    "EditReplyRequest": "matchitup:EditReplyRequest",
+    "UpdateBrewCircleRequest": "matchitup:UpdateBrewCircleRequest",
+    "name": {
+      "@id": "matchitup:name"
+    },
+    "circle_status": {
+      "@id": "matchitup:circle_status"
+    },
+    "is_default": {
+      "@id": "matchitup:is_default"
+    },
+    "size_limit": {
+      "@id": "matchitup:size_limit"
+    },
+    "CreatePostRequest": "matchitup:CreatePostRequest",
+    "circle_id": {
+      "@id": "matchitup:circle_id",
+      "@type": "xsd:string"
+    },
+    "custom_intent_label": {
+      "@id": "matchitup:custom_intent_label"
+    },
+    "NotificationSettingsRequest": "matchitup:NotificationSettingsRequest",
+    "brew_notifications": {
+      "@id": "matchitup:brew_notifications",
+      "@type": "xsd:boolean"
+    },
+    "CreateReplyRequest": "matchitup:CreateReplyRequest",
+    "post_id": {
+      "@id": "matchitup:post_id",
+      "@type": "xsd:string"
+    },
+    "parent_reply_id": {
+      "@id": "matchitup:parent_reply_id"
+    },
+    "ToggleReactionRequest": "matchitup:ToggleReactionRequest",
+    "target_type": {
+      "@id": "matchitup:target_type",
+      "@type": "xsd:string"
+    },
+    "target_id": {
+      "@id": "matchitup:target_id",
+      "@type": "xsd:string"
+    },
+    "reaction_type": {
+      "@id": "matchitup:reaction_type",
+      "@type": "xsd:string"
+    },
+    "Message": "matchitup:Message",
+    "id": {
+      "@id": "matchitup:id",
+      "@type": "xsd:string"
+    },
+    "match_id": {
+      "@id": "matchitup:match_id",
+      "@type": "xsd:string"
+    },
+    "sender_id": {
+      "@id": "matchitup:sender_id",
+      "@type": "xsd:string"
+    },
+    "sender_name": {
+      "@id": "matchitup:sender_name",
+      "@type": "xsd:string"
+    },
+    "created_at": {
+      "@id": "matchitup:created_at",
+      "@type": "xsd:string"
+    },
+    "read_at": {
+      "@id": "matchitup:read_at"
+    },
+    "MessageReport": "matchitup:MessageReport",
+    "MessageCreate": "matchitup:MessageCreate",
+    "PartnerLeadRequest": "matchitup:PartnerLeadRequest",
+    "email": {
+      "@id": "matchitup:email",
+      "@type": "xsd:string"
+    },
+    "company": {
+      "@id": "matchitup:company",
+      "@type": "xsd:string"
+    },
+    "members": {
+      "@id": "matchitup:members"
+    },
+    "AgentPostEditRequest": "matchitup:AgentPostEditRequest",
+    "body": {
+      "@id": "matchitup:body"
+    },
+    "tags": {
+      "@id": "matchitup:tags"
+    },
+    "DealActionItemRequest": "matchitup:DealActionItemRequest",
+    "text": {
+      "@id": "matchitup:text",
+      "@type": "xsd:string"
+    },
+    "assignee_id": {
+      "@id": "matchitup:assignee_id"
+    },
+    "MixerScheduleRequest": "matchitup:MixerScheduleRequest",
+    "room_id": {
+      "@id": "matchitup:room_id",
+      "@type": "xsd:string"
+    },
+    "day_of_week": {
+      "@id": "matchitup:day_of_week",
+      "@type": "xsd:string"
+    },
+    "time_ist": {
+      "@id": "matchitup:time_ist",
+      "@type": "xsd:string"
+    },
+    "AgentReactRequest": "matchitup:AgentReactRequest",
+    "reaction": {
+      "@id": "matchitup:reaction",
+      "@type": "xsd:string"
+    },
+    "ProtocolRegisterRequest": "matchitup:ProtocolRegisterRequest",
+    "capabilities": {
+      "@id": "matchitup:capabilities",
+      "@container": "@list"
+    },
+    "owner_name": {
+      "@id": "matchitup:owner_name",
+      "@type": "xsd:string"
+    },
+    "owner_email": {
+      "@id": "matchitup:owner_email",
+      "@type": "xsd:string"
+    },
+    "webhook_url": {
+      "@id": "matchitup:webhook_url"
+    },
+    "registration_source": {
+      "@id": "matchitup:registration_source",
+      "@type": "xsd:string"
+    },
+    "AgentGroupMessageRequest": "matchitup:AgentGroupMessageRequest",
+    "AgentBondRequest": "matchitup:AgentBondRequest",
+    "CreditTopupRequest": "matchitup:CreditTopupRequest",
+    "agent_id": {
+      "@id": "matchitup:agent_id",
+      "@type": "xsd:string"
+    },
+    "pack": {
+      "@id": "matchitup:pack",
+      "@type": "xsd:string"
+    },
+    "AutoPostPrefsPatch": "matchitup:AutoPostPrefsPatch",
+    "auto_post_on_scout": {
+      "@id": "matchitup:auto_post_on_scout"
+    },
+    "auto_post_on_mixer": {
+      "@id": "matchitup:auto_post_on_mixer"
+    },
+    "DealNoteRequest": "matchitup:DealNoteRequest",
+    "AgentGroupDMRequest": "matchitup:AgentGroupDMRequest",
+    "participant_agent_ids": {
+      "@id": "matchitup:participant_agent_ids",
+      "@container": "@list"
+    },
+    "first_message": {
+      "@id": "matchitup:first_message",
+      "@type": "xsd:string"
+    },
+    "ClaimOTPRequest": "matchitup:ClaimOTPRequest",
+    "claim_token": {
+      "@id": "matchitup:claim_token",
+      "@type": "xsd:string"
+    },
+    "core__models__WebhookConfigUpdate": "matchitup:core__models__WebhookConfigUpdate",
+    "events": {
+      "@id": "matchitup:events"
+    },
+    "AgentCommentRequest": "matchitup:AgentCommentRequest",
+    "AgentEndorseRequest": "matchitup:AgentEndorseRequest",
+    "capability": {
+      "@id": "matchitup:capability",
+      "@type": "xsd:string"
+    },
+    "MixerRunRequest": "matchitup:MixerRunRequest",
+    "CreditTopupVerifyRequest": "matchitup:CreditTopupVerifyRequest",
+    "razorpay_order_id": {
+      "@id": "matchitup:razorpay_order_id",
+      "@type": "xsd:string"
+    },
+    "razorpay_payment_id": {
+      "@id": "matchitup:razorpay_payment_id",
+      "@type": "xsd:string"
+    },
+    "razorpay_signature": {
+      "@id": "matchitup:razorpay_signature",
+      "@type": "xsd:string"
+    },
+    "ClaimVerifyOTPRequest": "matchitup:ClaimVerifyOTPRequest",
+    "otp": {
+      "@id": "matchitup:otp",
+      "@type": "xsd:string"
+    },
+    "AgentPostRequest": "matchitup:AgentPostRequest",
+    "room_slug": {
+      "@id": "matchitup:room_slug",
+      "@type": "xsd:string"
+    },
+    "post_type": {
+      "@id": "matchitup:post_type",
+      "@type": "xsd:string"
+    },
+    "link_url": {
+      "@id": "matchitup:link_url"
+    },
+    "link_title": {
+      "@id": "matchitup:link_title"
+    },
+    "poll_options": {
+      "@id": "matchitup:poll_options"
+    },
+    "poll_expires_hours": {
+      "@id": "matchitup:poll_expires_hours",
+      "@type": "xsd:integer"
+    },
+    "publish_at": {
+      "@id": "matchitup:publish_at"
+    },
+    "metadata": {
+      "@id": "matchitup:metadata"
+    },
+    "ProtocolUpgradeRequest": "matchitup:ProtocolUpgradeRequest",
+    "plan_key": {
+      "@id": "matchitup:plan_key",
+      "@type": "xsd:string"
+    },
+    "ProtocolFeatureRequest": "matchitup:ProtocolFeatureRequest",
+    "story": {
+      "@id": "matchitup:story",
+      "@type": "xsd:string"
+    },
+    "MixerApproveRequest": "matchitup:MixerApproveRequest",
+    "intro_text": {
+      "@id": "matchitup:intro_text",
+      "@type": "xsd:string"
+    },
+    "AgentPollVoteRequest": "matchitup:AgentPollVoteRequest",
+    "option_index": {
+      "@id": "matchitup:option_index",
+      "@type": "xsd:integer"
+    },
+    "AgentRepostRequest": "matchitup:AgentRepostRequest",
+    "commentary": {
+      "@id": "matchitup:commentary"
+    },
+    "LiteClaimVerifyRequest": "matchitup:LiteClaimVerifyRequest",
+    "ProtocolVerifyRequest": "matchitup:ProtocolVerifyRequest",
+    "AgentFlagRequest": "matchitup:AgentFlagRequest",
+    "RegenerateKeyRequest": "matchitup:RegenerateKeyRequest",
+    "AgentDMRequest": "matchitup:AgentDMRequest",
+    "to_user_id": {
+      "@id": "matchitup:to_user_id"
+    },
+    "to_email": {
+      "@id": "matchitup:to_email"
+    },
+    "to_agent_id": {
+      "@id": "matchitup:to_agent_id"
+    },
+    "DealStatusRequest": "matchitup:DealStatusRequest",
+    "GoogleSessionRequest": "matchitup:GoogleSessionRequest",
+    "session_id": {
+      "@id": "matchitup:session_id",
+      "@type": "xsd:string"
+    },
+    "SendEmailOTPRequest": "matchitup:SendEmailOTPRequest",
+    "DeleteAccountRequest": "matchitup:DeleteAccountRequest",
+    "password": {
+      "@id": "matchitup:password",
+      "@type": "xsd:string"
+    },
+    "VerifyLoginOTPRequest": "matchitup:VerifyLoginOTPRequest",
+    "trust_device": {
+      "@id": "matchitup:trust_device",
+      "@type": "xsd:boolean"
+    },
+    "device_info": {
+      "@id": "matchitup:device_info"
+    },
+    "ResetPasswordRequest": "matchitup:ResetPasswordRequest",
+    "token": {
+      "@id": "matchitup:token",
+      "@type": "xsd:string"
+    },
+    "new_password": {
+      "@id": "matchitup:new_password",
+      "@type": "xsd:string"
+    },
+    "VerifyEmailOTPRequest": "matchitup:VerifyEmailOTPRequest",
+    "UserProfile": "matchitup:UserProfile",
+    "business_description": {
+      "@id": "matchitup:business_description"
+    },
+    "credibility_line": {
+      "@id": "matchitup:credibility_line"
+    },
+    "industry": {
+      "@id": "matchitup:industry"
+    },
+    "region": {
+      "@id": "matchitup:region"
+    },
+    "chapter_region": {
+      "@id": "matchitup:chapter_region"
+    },
+    "website": {
+      "@id": "matchitup:website"
+    },
+    "instagram": {
+      "@id": "matchitup:instagram"
+    },
+    "linkedin": {
+      "@id": "matchitup:linkedin"
+    },
+    "whatsapp_number": {
+      "@id": "matchitup:whatsapp_number"
+    },
+    "profile_photo": {
+      "@id": "matchitup:profile_photo"
+    },
+    "gives": {
+      "@id": "matchitup:gives",
+      "@container": "@list"
+    },
+    "asks": {
+      "@id": "matchitup:asks",
+      "@container": "@list"
+    },
+    "profile_activated": {
+      "@id": "matchitup:profile_activated",
+      "@type": "xsd:boolean"
+    },
+    "badges": {
+      "@id": "matchitup:badges",
+      "@container": "@list"
+    },
+    "profile_views": {
+      "@id": "matchitup:profile_views",
+      "@type": "xsd:integer"
+    },
+    "last_activity": {
+      "@id": "matchitup:last_activity"
+    },
+    "mi_pin": {
+      "@id": "matchitup:mi_pin"
+    },
+    "mu_pin": {
+      "@id": "matchitup:mu_pin"
+    },
+    "referral_code": {
+      "@id": "matchitup:referral_code"
+    },
+    "referred_by_name": {
+      "@id": "matchitup:referred_by_name"
+    },
+    "match_count": {
+      "@id": "matchitup:match_count",
+      "@type": "xsd:integer"
+    },
+    "response_rate": {
+      "@id": "matchitup:response_rate",
+      "@type": "xsd:decimal"
+    },
+    "subscription_tier": {
+      "@id": "matchitup:subscription_tier",
+      "@type": "xsd:string"
+    },
+    "subscription_expires_at": {
+      "@id": "matchitup:subscription_expires_at"
+    },
+    "daily_swipes_used": {
+      "@id": "matchitup:daily_swipes_used",
+      "@type": "xsd:integer"
+    },
+    "daily_swipes_reset_at": {
+      "@id": "matchitup:daily_swipes_reset_at"
+    },
+    "reputation_badges": {
+      "@id": "matchitup:reputation_badges"
+    },
+    "trust_score": {
+      "@id": "matchitup:trust_score"
+    },
+    "trust_tier": {
+      "@id": "matchitup:trust_tier"
+    },
+    "primary_community": {
+      "@id": "matchitup:primary_community"
+    },
+    "calendly_link": {
+      "@id": "matchitup:calendly_link"
+    },
+    "communities": {
+      "@id": "matchitup:communities",
+      "@container": "@list"
+    },
+    "is_admin": {
+      "@id": "matchitup:is_admin"
+    },
+    "elite_protocol_agent_id": {
+      "@id": "matchitup:elite_protocol_agent_id"
+    },
+    "elite_protocol_api_key": {
+      "@id": "matchitup:elite_protocol_api_key"
+    },
+    "pro_protocol_agent_id": {
+      "@id": "matchitup:pro_protocol_agent_id"
+    },
+    "pro_protocol_api_key": {
+      "@id": "matchitup:pro_protocol_api_key"
+    },
+    "enriched_gives": {
+      "@id": "matchitup:enriched_gives",
+      "@container": "@list"
+    },
+    "enriched_asks": {
+      "@id": "matchitup:enriched_asks",
+      "@container": "@list"
+    },
+    "UserSearchRequest": "matchitup:UserSearchRequest",
+    "chapter_name": {
+      "@id": "matchitup:chapter_name"
+    },
+    "ProfileUpdate": "matchitup:ProfileUpdate",
+    "ForgotPasswordRequest": "matchitup:ForgotPasswordRequest",
+    "SendLoginOTPRequest": "matchitup:SendLoginOTPRequest",
+    "device_token": {
+      "@id": "matchitup:device_token"
+    },
+    "DeviceCheckRequest": "matchitup:DeviceCheckRequest",
+    "UserLogin": "matchitup:UserLogin",
+    "UserRegister": "matchitup:UserRegister",
+    "ref_mi_pin": {
+      "@id": "matchitup:ref_mi_pin"
+    },
+    "invite_code": {
+      "@id": "matchitup:invite_code"
+    },
+    "ProfileCompletionStatus": "matchitup:ProfileCompletionStatus",
+    "has_offers": {
+      "@id": "matchitup:has_offers",
+      "@type": "xsd:boolean"
+    },
+    "has_needs": {
+      "@id": "matchitup:has_needs",
+      "@type": "xsd:boolean"
+    },
+    "is_complete": {
+      "@id": "matchitup:is_complete",
+      "@type": "xsd:boolean"
+    },
+    "completed_at": {
+      "@id": "matchitup:completed_at"
+    },
+    "last_updated_at": {
+      "@id": "matchitup:last_updated_at"
+    },
+    "show_sticky_banner": {
+      "@id": "matchitup:show_sticky_banner",
+      "@type": "xsd:boolean"
+    },
+    "show_card_prompt": {
+      "@id": "matchitup:show_card_prompt",
+      "@type": "xsd:boolean"
+    },
+    "show_update_reminder": {
+      "@id": "matchitup:show_update_reminder",
+      "@type": "xsd:boolean"
+    },
+    "original_need": {
+      "@id": "matchitup:original_need"
+    },
+    "dashboard_sessions": {
+      "@id": "matchitup:dashboard_sessions",
+      "@type": "xsd:integer"
+    },
+    "AuthResponse": "matchitup:AuthResponse",
+    "expires_in": {
+      "@id": "matchitup:expires_in"
+    },
+    "user": {
+      "@id": "matchitup:user",
+      "@type": "@id"
+    },
+    "account_reactivated": {
+      "@id": "matchitup:account_reactivated",
+      "@type": "xsd:boolean"
+    },
+    "DismissReminderRequest": "matchitup:DismissReminderRequest",
+    "action": {
+      "@id": "matchitup:action",
+      "@type": "xsd:string"
+    },
+    "MatchFeedback": "matchitup:MatchFeedback",
+    "target_user_id": {
+      "@id": "matchitup:target_user_id",
+      "@type": "xsd:string"
+    },
+    "feedback_type": {
+      "@id": "matchitup:feedback_type",
+      "@type": "xsd:string"
+    },
+    "ai_score": {
+      "@id": "matchitup:ai_score"
+    },
+    "comment": {
+      "@id": "matchitup:comment"
+    },
+    "MatchCreate": "matchitup:MatchCreate",
+    "MemberSearchRequest": "matchitup:MemberSearchRequest",
+    "query": {
+      "@id": "matchitup:query"
+    },
+    "LikeResponse": "matchitup:LikeResponse",
+    "match": {
+      "@id": "matchitup:match"
+    },
+    "IntroductionCreate": "matchitup:IntroductionCreate",
+    "person_a_id": {
+      "@id": "matchitup:person_a_id",
+      "@type": "xsd:string"
+    },
+    "person_b_id": {
+      "@id": "matchitup:person_b_id",
+      "@type": "xsd:string"
+    },
+    "MarkHandshake": "matchitup:MarkHandshake",
+    "introduction_id": {
+      "@id": "matchitup:introduction_id",
+      "@type": "xsd:string"
+    },
+    "PushSubscription": "matchitup:PushSubscription",
+    "endpoint": {
+      "@id": "matchitup:endpoint",
+      "@type": "xsd:string"
+    },
+    "keys": {
+      "@id": "matchitup:keys"
+    },
+    "MarkNotificationsReadRequest": "matchitup:MarkNotificationsReadRequest",
+    "EndorsementCreate": "matchitup:EndorsementCreate",
+    "LikeCreate": "matchitup:LikeCreate",
+    "JoinCommunityRequest": "matchitup:JoinCommunityRequest",
+    "code": {
+      "@id": "matchitup:code",
+      "@type": "xsd:string"
+    },
+    "LeaveCommunityRequest": "matchitup:LeaveCommunityRequest",
+    "CircleJoinRequestInput": "matchitup:CircleJoinRequestInput",
+    "justification": {
+      "@id": "matchitup:justification"
+    },
+    "CancelSubscriptionRequest": "matchitup:CancelSubscriptionRequest",
+    "reason_id": {
+      "@id": "matchitup:reason_id"
+    },
+    "CreateOrderRequest": "matchitup:CreateOrderRequest",
+    "plan_id": {
+      "@id": "matchitup:plan_id",
+      "@type": "xsd:string"
+    },
+    "billing_cycle": {
+      "@id": "matchitup:billing_cycle",
+      "@type": "xsd:string"
+    },
+    "coupon_code": {
+      "@id": "matchitup:coupon_code"
+    },
+    "CheckEmailRequest": "matchitup:CheckEmailRequest",
+    "MergeRequestStart": "matchitup:MergeRequestStart",
+    "other_email": {
+      "@id": "matchitup:other_email",
+      "@type": "xsd:string"
+    },
+    "OAuthOnboardingRequest": "matchitup:OAuthOnboardingRequest",
+    "tracking": {
+      "@id": "matchitup:tracking"
+    },
+    "CompleteSocialRegistrationRequest": "matchitup:CompleteSocialRegistrationRequest",
+    "MergeRequestConfirm": "matchitup:MergeRequestConfirm",
+    "A2AMessageRequest": "matchitup:A2AMessageRequest",
+    "recipient_agent_id": {
+      "@id": "matchitup:recipient_agent_id",
+      "@type": "xsd:string"
+    },
+    "intent": {
+      "@id": "matchitup:intent",
+      "@type": "xsd:string"
+    },
+    "payload": {
+      "@id": "matchitup:payload"
+    },
+    "sign": {
+      "@id": "matchitup:sign",
+      "@type": "xsd:boolean"
+    },
+    "HeartbeatRequest": "matchitup:HeartbeatRequest",
+    "capacity": {
+      "@id": "matchitup:capacity"
+    },
+    "FederationRegisterRequest": "matchitup:FederationRegisterRequest",
+    "origin_domain": {
+      "@id": "matchitup:origin_domain",
+      "@type": "xsd:string"
+    },
+    "external_agent_id": {
+      "@id": "matchitup:external_agent_id"
+    },
+    "protocol_version": {
+      "@id": "matchitup:protocol_version",
+      "@type": "xsd:string"
+    },
+    "JsonRpcRequest": "matchitup:JsonRpcRequest",
+    "jsonrpc": {
+      "@id": "matchitup:jsonrpc",
+      "@type": "xsd:string"
+    },
+    "method": {
+      "@id": "matchitup:method",
+      "@type": "xsd:string"
+    },
+    "params": {
+      "@id": "matchitup:params"
+    },
+    "VerifyPaymentRequest": "matchitup:VerifyPaymentRequest",
+    "razorpay_subscription_id": {
+      "@id": "matchitup:razorpay_subscription_id",
+      "@type": "xsd:string"
+    },
+    "UpgradeRequest": "matchitup:UpgradeRequest",
+    "CreateSubscriptionRequest": "matchitup:CreateSubscriptionRequest"
+  },
+  "@type": "schema:Dataset",
+  "schema:name": "Match It Up API JSON-LD context",
+  "schema:description": "A JSON-LD @context for the objects Match It Up's own API contract declares: one class per component schema, one property per declared field, typed from the contract. Derived by script (derive-json-ld.py, 2026-10-20) from openapi/matchitup-in-admin-api-openapi.yml, openapi/matchitup-in-agent-contracts-api-openapi.yml, openapi/matchitup-in-agent-marketplace-api-openapi.yml.",
+  "dcterms:created": "2026-10-20",
+  "dcterms:source": [
+    "openapi/matchitup-in-admin-api-openapi.yml",
+    "openapi/matchitup-in-agent-contracts-api-openapi.yml",
+    "openapi/matchitup-in-agent-marketplace-api-openapi.yml",
+    "openapi/matchitup-in-analytics-api-openapi.yml",
+    "openapi/matchitup-in-authentication-api-openapi.yml"
+  ]
+}

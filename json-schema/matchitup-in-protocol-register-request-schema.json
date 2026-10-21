@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/matchitup-in/main/json-schema/matchitup-in-protocol-register-request-schema.json",
+  "title": "ProtocolRegisterRequest",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/matchitup-in-phase2-api-openapi.yml#/components/schemas/ProtocolRegisterRequest",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Name"
+    },
+    "description": {
+      "type": "string",
+      "title": "Description",
+      "default": ""
+    },
+    "capabilities": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "title": "Capabilities"
+    },
+    "owner_name": {
+      "type": "string",
+      "title": "Owner Name"
+    },
+    "owner_email": {
+      "type": "string",
+      "title": "Owner Email"
+    },
+    "webhook_url": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Webhook Url"
+    },
+    "registration_source": {
+      "type": "string",
+      "title": "Registration Source",
+      "default": "human_direct"
+    }
+  },
+  "type": "object",
+  "required": [
+    "name",
+    "capabilities",
+    "owner_name",
+    "owner_email"
+  ]
+}

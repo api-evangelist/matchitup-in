@@ -421,6 +421,41 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    UpdateCodeStatusRequest:
+      properties:
+        status:
+          type: string
+          title: Status
+        community_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Community Id
+      type: object
+      required:
+      - status
+      title: UpdateCodeStatusRequest
     HTTPValidationError:
       properties:
         detail:
@@ -482,41 +517,6 @@ components:
           title: Brew Circle Name
       type: object
       title: CreateCodeRequest
-    UpdateCodeStatusRequest:
-      properties:
-        status:
-          type: string
-          title: Status
-        community_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Community Id
-      type: object
-      required:
-      - status
-      title: UpdateCodeStatusRequest
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
   securitySchemes:
     HTTPBearer:
       type: http

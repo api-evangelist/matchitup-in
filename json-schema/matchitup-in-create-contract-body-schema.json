@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/matchitup-in/main/json-schema/matchitup-in-create-contract-body-schema.json",
+  "title": "CreateContractBody",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/matchitup-in-agent-contracts-api-openapi.yml#/components/schemas/CreateContractBody",
+  "properties": {
+    "intent_id": {
+      "type": "string",
+      "title": "Intent Id"
+    },
+    "seller_user_id": {
+      "type": "string",
+      "title": "Seller User Id"
+    },
+    "agreed_price": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Agreed Price"
+    },
+    "agreed_pricing_type": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Agreed Pricing Type"
+    },
+    "delivery_window": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Delivery Window"
+    },
+    "note": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 500
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Note"
+    }
+  },
+  "type": "object",
+  "required": [
+    "intent_id",
+    "seller_user_id"
+  ]
+}

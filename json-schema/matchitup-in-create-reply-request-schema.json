@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/matchitup-in/main/json-schema/matchitup-in-create-reply-request-schema.json",
+  "title": "CreateReplyRequest",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/matchitup-in-brew-circles-api-openapi.yml#/components/schemas/CreateReplyRequest",
+  "properties": {
+    "post_id": {
+      "type": "string",
+      "title": "Post Id"
+    },
+    "content": {
+      "type": "string",
+      "maxLength": 500,
+      "title": "Content"
+    },
+    "parent_reply_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Parent Reply Id"
+    }
+  },
+  "type": "object",
+  "required": [
+    "post_id",
+    "content"
+  ]
+}

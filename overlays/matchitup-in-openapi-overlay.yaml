@@ -10,7 +10,7 @@ info:
     contract omits: a real title and contact, the X-API-Key security scheme the docs and agent card describe,
     external documentation links, and observations about the gap between the public-filtered spec and the
     v3.7.0 docs. Apply with an OpenAPI Overlay 1.0.0 processor; the original file is never mutated.
-extends: matchitup-in-openapi.yml
+extends: ../openapi/_original/matchitup-in-openapi.yml
 actions:
 - target: $.info
   description: Replace the FastAPI default title/description with the provider's own product name and public docs framing.

@@ -916,15 +916,71 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    JoinCommunityRequest:
+    ValidationError:
       properties:
-        code:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
           type: string
-          title: Code
+          title: Message
+        type:
+          type: string
+          title: Error Type
       type: object
       required:
-      - code
-      title: JoinCommunityRequest
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    UpdateCodeStatusRequest:
+      properties:
+        status:
+          type: string
+          title: Status
+        community_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Community Id
+      type: object
+      required:
+      - status
+      title: UpdateCodeStatusRequest
+    CreateOrderRequest:
+      properties:
+        plan_id:
+          type: string
+          title: Plan Id
+        billing_cycle:
+          type: string
+          title: Billing Cycle
+          default: monthly
+        coupon_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Coupon Code
+      type: object
+      required:
+      - plan_id
+      title: CreateOrderRequest
+    CircleJoinRequestInput:
+      properties:
+        justification:
+          anyOf:
+          - type: string
+            maxLength: 500
+          - type: 'null'
+          title: Justification
+          description: Why do you want to join this circle?
+          default: ''
+      type: object
+      title: CircleJoinRequestInput
     CreateCodeRequest:
       properties:
         max_uses:
@@ -995,18 +1051,6 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    CircleJoinRequestInput:
-      properties:
-        justification:
-          anyOf:
-          - type: string
-            maxLength: 500
-          - type: 'null'
-          title: Justification
-          description: Why do you want to join this circle?
-          default: ''
-      type: object
-      title: CircleJoinRequestInput
     CancelSubscriptionRequest:
       properties:
         reason_id:
@@ -1016,59 +1060,15 @@ components:
           title: Reason Id
       type: object
       title: CancelSubscriptionRequest
-    ValidationError:
+    JoinCommunityRequest:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
+        code:
           type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
+          title: Code
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    CreateOrderRequest:
-      properties:
-        plan_id:
-          type: string
-          title: Plan Id
-        billing_cycle:
-          type: string
-          title: Billing Cycle
-          default: monthly
-        coupon_code:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Coupon Code
-      type: object
-      required:
-      - plan_id
-      title: CreateOrderRequest
-    UpdateCodeStatusRequest:
-      properties:
-        status:
-          type: string
-          title: Status
-        community_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Community Id
-      type: object
-      required:
-      - status
-      title: UpdateCodeStatusRequest
+      - code
+      title: JoinCommunityRequest
   securitySchemes:
     HTTPBearer:
       type: http

@@ -169,23 +169,15 @@ paths:
       - HTTPBearer: []
 components:
   schemas:
-    VerifyPaymentRequest:
+    CreateSubscriptionRequest:
       properties:
-        razorpay_payment_id:
+        plan_key:
           type: string
-          title: Razorpay Payment Id
-        razorpay_subscription_id:
-          type: string
-          title: Razorpay Subscription Id
-        razorpay_signature:
-          type: string
-          title: Razorpay Signature
+          title: Plan Key
       type: object
       required:
-      - razorpay_payment_id
-      - razorpay_subscription_id
-      - razorpay_signature
-      title: VerifyPaymentRequest
+      - plan_key
+      title: CreateSubscriptionRequest
     UpgradeRequest:
       properties:
         plan_key:
@@ -195,15 +187,6 @@ components:
       required:
       - plan_key
       title: UpgradeRequest
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -225,15 +208,32 @@ components:
       - msg
       - type
       title: ValidationError
-    CreateSubscriptionRequest:
+    VerifyPaymentRequest:
       properties:
-        plan_key:
+        razorpay_payment_id:
           type: string
-          title: Plan Key
+          title: Razorpay Payment Id
+        razorpay_subscription_id:
+          type: string
+          title: Razorpay Subscription Id
+        razorpay_signature:
+          type: string
+          title: Razorpay Signature
       type: object
       required:
-      - plan_key
-      title: CreateSubscriptionRequest
+      - razorpay_payment_id
+      - razorpay_subscription_id
+      - razorpay_signature
+      title: VerifyPaymentRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

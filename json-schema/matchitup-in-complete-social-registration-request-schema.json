@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/matchitup-in/main/json-schema/matchitup-in-complete-social-registration-request-schema.json",
+  "title": "CompleteSocialRegistrationRequest",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/matchitup-in-social-auth-api-openapi.yml#/components/schemas/CompleteSocialRegistrationRequest",
+  "properties": {
+    "company": {
+      "type": "string",
+      "title": "Company"
+    },
+    "business_description": {
+      "type": "string",
+      "title": "Business Description"
+    },
+    "industry": {
+      "type": "string",
+      "title": "Industry"
+    },
+    "region": {
+      "type": "string",
+      "title": "Region"
+    },
+    "whatsapp_number": {
+      "type": "string",
+      "title": "Whatsapp Number"
+    },
+    "website": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Website",
+      "default": ""
+    },
+    "instagram": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Instagram",
+      "default": ""
+    },
+    "linkedin": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Linkedin",
+      "default": ""
+    },
+    "credibility_line": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Credibility Line",
+      "default": ""
+    },
+    "profile_photo": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Profile Photo",
+      "default": ""
+    },
+    "ref_mi_pin": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Ref Mi Pin",
+      "default": ""
+    },
+    "invite_code": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Invite Code",
+      "default": ""
+    },
+    "referral_code": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Referral Code",
+      "default": ""
+    }
+  },
+  "type": "object",
+  "required": [
+    "company",
+    "business_description",
+    "industry",
+    "region",
+    "whatsapp_number"
+  ]
+}

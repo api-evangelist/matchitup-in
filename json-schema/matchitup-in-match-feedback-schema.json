@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/matchitup-in/main/json-schema/matchitup-in-match-feedback-schema.json",
+  "title": "MatchFeedback",
+  "description": "Model for collecting user feedback on AI matches",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/matchitup-in-phase4-api-openapi.yml#/components/schemas/MatchFeedback",
+  "properties": {
+    "target_user_id": {
+      "type": "string",
+      "title": "Target User Id"
+    },
+    "feedback_type": {
+      "type": "string",
+      "title": "Feedback Type"
+    },
+    "ai_score": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Ai Score"
+    },
+    "comment": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Comment"
+    }
+  },
+  "type": "object",
+  "required": [
+    "target_user_id",
+    "feedback_type"
+  ]
+}

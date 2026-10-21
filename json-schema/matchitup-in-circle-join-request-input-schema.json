@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/matchitup-in/main/json-schema/matchitup-in-circle-join-request-input-schema.json",
+  "title": "CircleJoinRequestInput",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/matchitup-in-phase5-api-openapi.yml#/components/schemas/CircleJoinRequestInput",
+  "properties": {
+    "justification": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 500
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Justification",
+      "description": "Why do you want to join this circle?",
+      "default": ""
+    }
+  },
+  "type": "object"
+}
