@@ -18,6 +18,9 @@ artifacts:
   authentication/matchitup-in-authentication.yml:
     method: searched
     evidence: declared in the artifact
+  capabilities/matchitup-in-capability-edges.yml:
+    method: unknown
+    evidence: no authorship recorded
   changelog/matchitup-in-changelog.yml:
     method: unknown
     evidence: no authorship recorded
@@ -36,7 +39,175 @@ artifacts:
   front-door-ai/2026-09-17.yml:
     method: unknown
     evidence: no authorship recorded
-  kin/checks-2026-09-24T161608.yml:
+  hosts/matchitup-in-hosts.yml:
+    method: derived
+    evidence: declared in the artifact
+  integrations/_index.yml:
+    method: generated
+    evidence: carries an API Evangelist house phrase
+  integrations/matchitup-in-integration-edges.yml:
+    method: searched
+    evidence: declared in the artifact
+  json-ld/matchitup-in-context.jsonld:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-a2-amessage-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-agent-dmrequest-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-agent-group-dmrequest-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-agent-post-edit-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-agent-post-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-auth-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-cancel-subscription-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-check-email-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-circle-join-request-input-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-complete-social-registration-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-create-code-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-create-contract-body-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-create-intent-body-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-create-order-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-create-post-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-create-reply-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-create-subscription-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-credit-topup-verify-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-federation-register-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-flag-content-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-heartbeat-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-introduction-create-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-json-rpc-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-leave-community-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-like-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-mark-brew-notifications-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-match-feedback-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-member-search-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-merge-request-confirm-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-merge-request-start-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-message-create-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-message-report-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-message-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-oauth-onboarding-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-page-view-event-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-partner-lead-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-profile-completion-status-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-profile-update-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-protocol-register-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-push-subscription-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-rate-body-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-refresh-token-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-respond-body-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-toggle-reaction-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-transition-body-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-update-brew-circle-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-update-code-status-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-upgrade-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-user-profile-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-user-register-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-user-search-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/matchitup-in-verify-payment-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  kin/checks-2026-10-11T110117.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-19T193153.yml:
@@ -69,9 +240,27 @@ artifacts:
   kin/score-2026-09-24T161608.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T210408.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T232841.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T000835.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T024842.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-11T110117.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
   lifecycle/matchitup-in-lifecycle.yml:
     method: searched
     evidence: declared in the artifact
+  llms/matchitup-in-llms-provenance.yml:
+    method: searched
+    evidence: 'derive-llms-provenance.py: harvested'
   llms/matchitup-in-llms.txt:
     method: searched
     evidence: 'derive-llms-provenance.py: harvested'
@@ -79,32 +268,112 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   mcp/matchitup-in-mcp.yml:
-    method: unknown
-    evidence: no authorship recorded
-  mcp/matchitup-in-tool-crosswalk.yml:
     method: derived
     evidence: declared in the artifact
   openapi/_original/matchitup-in-openapi.json:
     method: harvested
-    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
-      to the provider's source is unverified
-  openapi/matchitup-in-openapi.yml:
+    evidence: byte-identical to https://matchitup.in/openapi.json (sha256 61e72efd3298, fetched 2026-10-04)
+  openapi/_original/matchitup-in-openapi.yml:
+    method: harvested
+    evidence: the same operations as https://matchitup.in/openapi.json (sha256 61e72efd3298, fetched 2026-10-04)
+  openapi/matchitup-in-admin-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/matchitup-in-agent-contracts-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/matchitup-in-agent-marketplace-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/matchitup-in-analytics-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/matchitup-in-authentication-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/matchitup-in-brew-circles-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/matchitup-in-contracts-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/matchitup-in-fastapi-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/matchitup-in-health-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/matchitup-in-marketplace-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/matchitup-in-mcp-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/matchitup-in-messages-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/matchitup-in-nda-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/matchitup-in-partner-leads-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/matchitup-in-phase2-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/matchitup-in-phase3-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/matchitup-in-phase4-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/matchitup-in-phase5-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/matchitup-in-pitch-deck-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/matchitup-in-protocol-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/matchitup-in-public-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/matchitup-in-referrals-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/matchitup-in-social-auth-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/matchitup-in-sprint8-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/matchitup-in-sprint9-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/matchitup-in-ssr-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/matchitup-in-subscriptions-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   overlays/matchitup-in-openapi-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   packages/matchitup-in-packages.yml:
     method: searched
     evidence: declared in the artifact
   plans/matchitup-in-plans-pricing.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: searched
+    evidence: declared in the artifact
   rate-limits/matchitup-in-rate-limits.yml:
     method: searched
     evidence: declared in the artifact
   regulatory/matchitup-in-regulatory-posture.yml:
     method: searched
+    evidence: declared in the artifact
+  rules/matchitup-in-rules.yml:
+    method: generated
     evidence: declared in the artifact
   sandbox/matchitup-in-sandbox.yml:
     method: searched
@@ -126,6 +395,12 @@ artifacts:
     evidence: declared in the artifact
   skills/matchitup-in-warm-intro-request.md:
     method: generated
+    evidence: declared in the artifact
+  vendors/matchitup-in-vendors.yml:
+    method: unknown
+    evidence: no authorship recorded
+  vocabulary/matchitup-in-vocabulary.yml:
+    method: derived
     evidence: declared in the artifact
   well-known/matchitup-in-agent-card.json:
     method: unknown
